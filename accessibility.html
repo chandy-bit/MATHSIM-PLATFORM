@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MathSim | Accessibility Settings</title>
+    
+    <meta name="description" content="Customize MathSim for your learning needs with accessibility settings including high contrast, large text, and more.">
+    
+   <meta name="theme-color" content="#4CAF50">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="MathSim">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%234CAF50' rx='20'/%3E%3Ctext x='50' y='70' font-size='60' text-anchor='middle' fill='white' font-family='Arial'%3E📐%3C/text%3E%3C/svg%3E">
+    <link rel="manifest" href="manifest.json">
+    
+    <link rel="stylesheet" href="css/style.css">
+    
+    <link rel="icon" type="image/png" href="assets/images/icons/favicon.png">
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <a href="index.html" class="logo">
+                    <span class="logo-icon"></span>
+                    <span class="logo-text">MathSim</span>
+                </a>
+
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="nav-link">Subjects </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="algebra.html">Algebra</a></li>
+                            <li><a href="geometry.html">Geometry</a></li>
+                            <li><a href="precalculus.html">Pre-Calculus</a></li>
+                            <li><a href="calculus.html">Calculus</a></li>
+                            <li><a href="probability.html">Probability</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="simulation.html" class="nav-link">Simulations</a></li>
+                    <li><a href="game.html" class="nav-link">Games</a></li>
+                    <li><a href="tutorial.html" class="nav-link">Tutorials</a></li>
+                    <li><a href="progress.html" class="nav-link">Progress</a></li>
+                    <li><a href="accessibility.html" class="nav-link active">Accessibility</a></li>
+                    
+                </ul>
+
+                <div class="nav-controls">
+                    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+                        🌓
+                    </button>
+
+                    <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu">
+                        <span class="hamburger"></span>
+                    </button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main id="main-content" class="container" style="padding: 2rem 0;">
+        <div class="page-header">
+            <h1> Accessibility Settings</h1>
+            <p class="page-description">Customize MathSim to work best for your needs. All settings save automatically.</p>
+        </div>
+
+        <div class="quick-controls-bar">
+            <button class="quick-control-btn" id="resetAllBtn" aria-label="Reset all settings">
+                <span class="btn-icon"></span>
+                <span class="btn-text">Reset All</span>
+            </button>
+            <button class="quick-control-btn" id="saveSettingsBtn" aria-label="Save settings">
+                <span class="btn-icon"></span>
+                <span class="btn-text">Save Settings</span>
+            </button>
+            <div class="status-badge" id="saveStatus">All settings saved</div>
+        </div>
+
+        <div class="accessibility-grid">
+            
+            <section class="accessibility-card" aria-labelledby="visual-heading">
+                <div class="card-header">
+                    <span class="card-icon"></span>
+                    <h2 id="visual-heading">Visual Settings</h2>
+                </div>
+                
+                <div class="card-content">
+                    <div class="setting-group">
+                        <div class="setting-row">
+                            <div class="setting-info">
+                                <label for="highContrast" class="setting-label">High Contrast Mode</label>
+                                <p class="setting-description">Increases contrast for better visibility</p>
+                            </div>
+                            <div class="setting-control">
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="highContrast" aria-describedby="highContrastDesc">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="setting-preview high-contrast-preview" id="highContrastDesc">
+                            <span class="preview-text">Preview: </span>
+                            <span class="preview-badge" style="background: var(--bg-primary); color: var(--text-primary);">A</span>
+                            <span class="preview-badge" style="background: var(--primary); color: white;">B</span>
+                            <span class="preview-badge" style="background: var(--text-primary); color: var(--bg-primary);">C</span>
+                        </div>
+                    </div>
+
+                    <div class="setting-group">
+                        <div class="setting-row">
+                            <div class="setting-info">
+                                <label for="largeText" class="setting-label">Large Text Mode</label>
+                                <p class="setting-description">Increase font size throughout the site</p>
+                            </div>
+                            <div class="setting-control">
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="largeText" aria-describedby="largeTextDesc">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="setting-preview large-text-preview" id="largeTextDesc">
+                            <span class="preview-text">Sample text at different sizes:</span>
+                            <div class="preview-scale">
+                                <span style="font-size: 12px;">Small</span>
+                                <span style="font-size: 16px;">Normal</span>
+                                <span style="font-size: 20px;">Large</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="setting-group">
+                        <div class="setting-row">
+                            <div class="setting-info">
+                                <label for="reducedMotion" class="setting-label">Reduced Motion</label>
+                                <p class="setting-description">Minimize animations and moving elements</p>
+                            </div>
+                            <div class="setting-control">
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="reducedMotion" aria-describedby="motionDesc">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="setting-preview motion-preview" id="motionDesc">
+                            <div class="motion-demo"></div>
+                            
+                        </div>
+                    </div>
+
+                    <div class="setting-group">
+                        <div class="setting-row">
+                            <div class="setting-info">
+                                <label for="fontSize" class="setting-label">Custom Font Size</label>
+                                <p class="setting-description">Fine-tune text size</p>
+                            </div>
+                            <div class="setting-control">
+                                <span id="fontSizeValue" class="range-value">16px</span>
+                            </div>
+                        </div>
+                        <input type="range" id="fontSize" min="12" max="24" value="16" step="1" aria-label="Adjust font size">
+                        <div class="range-labels">
+                            <span>Smaller</span>
+                            <span>Larger</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="accessibility-card" aria-labelledby="learning-heading">
+                <div class="card-header">
+                    <span class="card-icon"></span>
+                    <h2 id="learning-heading">Learning Support</h2>
+                </div>
+                
+                <div class="card-content">
+                    <div class="setting-group">
+                        <div class="setting-row">
+                            <div class="setting-info">
+                                <label for="dyslexicFont" class="setting-label">Dyslexic-Friendly Font</label>
+                                <p class="setting-description">Use OpenDyslexic font for easier reading</p>
+                            </div>
+                            <div class="setting-control">
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="dyslexicFont">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="setting-preview dyslexic-preview" id="dyslexicPreview">
+                            <p class="preview-text">The quick brown fox jumps over the lazy dog.</p>
+                        </div>
+                    </div>
+
+                    <div class="setting-group">
+                        <label for="lineSpacing" class="setting-label">Line Spacing</label>
+                        <input type="range" id="lineSpacing" min="1.2" max="2.5" value="1.6" step="0.1">
+                        <div class="range-value" id="lineSpacingValue">1.6</div>
+                    </div>
+
+                    <div class="setting-group">
+                        <div class="setting-row">
+                            <div class="setting-info">
+                                <label for="readingGuide" class="setting-label">Reading Guide</label>
+                                <p class="setting-description">Show a guide line while reading</p>
+                            </div>
+                            <div class="setting-control">
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="readingGuide">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="accessibility-card" aria-labelledby="keyboard-heading">
+                <div class="card-header">
+                    <span class="card-icon"></span>
+                    <h2 id="keyboard-heading">Keyboard & Navigation</h2>
+                </div>
+                
+                <div class="card-content">
+                    <div class="setting-group">
+                        <div class="setting-row">
+                            <div class="setting-info">
+                                <label for="focusIndicator" class="setting-label">Enhanced Focus Indicator</label>
+                                <p class="setting-description">Make focus rings more visible</p>
+                            </div>
+                            <div class="setting-control">
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="focusIndicator" checked>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="setting-group">
+                        <details class="keyboard-shortcuts">
+                            <summary>Keyboard Shortcuts</summary>
+                            <div class="shortcuts-grid">
+                                <div class="shortcut-row">
+                                    <kbd>Tab</kbd>
+                                    <span>Navigate through elements</span>
+                                </div>
+                                <div class="shortcut-row">
+                                    <kbd>Shift + Tab</kbd>
+                                    <span>Navigate backwards</span>
+                                </div>
+                                <div class="shortcut-row">
+                                    <kbd>Enter / Space</kbd>
+                                    <span>Activate button</span>
+                                </div>
+                                <div class="shortcut-row">
+                                    <kbd>Esc</kbd>
+                                    <span>Close menus</span>
+                                </div>
+                                <div class="shortcut-row">
+                                    <kbd>?</kbd>
+                                    <span>Show keyboard shortcuts</span>
+                                </div>
+                            </div>
+                        </details>
+                    </div>
+                </div>
+            </section>
+
+            <section class="accessibility-card" aria-labelledby="language-heading">
+                <div class="card-header">
+                    <span class="card-icon"></span>
+                    <h2 id="language-heading">Language & Regional</h2>
+                </div>
+                
+                <div class="card-content">
+                    <div class="setting-group">
+                        <label for="languageSelect" class="setting-label">Display Language</label>
+                        <select id="languageSelect" class="language-select-main" aria-label="Choose language">
+                            <option value="en">🇬🇧 English</option>
+                            <option value="es">🇪🇸 Español</option>
+                            <option value="fr">🇫🇷 Français</option>
+                            <option value="de">🇩🇪 Deutsch</option>
+                            <option value="ar">العربية</option>
+                            <option value="zh"> 中文</option>
+                            <option value="hi"> हिन्दी</option>
+                            <option value="pt"> 🇵🇹 Português</option>
+                        </select>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <section class="quick-test-area" aria-labelledby="test-heading">
+            <h2 id="test-heading">Quick Test Area</h2>
+            <p>Test your settings here:</p>
+            
+            <div class="test-controls">
+                <button class="btn btn-primary">Test Button</button>
+                <button class="btn btn-secondary">Another Button</button>
+                <input type="text" placeholder="Test input field" aria-label="Test input">
+                
+                <div class="test-checkbox">
+                    <label>
+                        <input type="checkbox"> Test checkbox
+                    </label>
+                </div>
+                
+                <select aria-label="Test dropdown">
+                    <option>Option 1</option>
+                    <option>Option 2</option>
+                    <option>Option 3</option>
+                </select>
+            </div>
+        </section>
+
+        <section class="accessibility-statement" aria-labelledby="statement-heading">
+            <h2 id="statement-heading">Accessibility Statement</h2>
+            <div class="statement-content">
+                <p>MathSim is committed to providing an inclusive learning experience for all users. We follow WCAG 2.1 AA guidelines.</p>
+                
+                <h3>What We Support:</h3>
+                <ul>
+                    <li> Full keyboard navigation</li>
+                    <li> Screen reader compatibility</li>
+                    <li> High contrast mode</li>
+                    <li> Text resizing</li>
+                    <li> Reduced motion</li>
+                </ul>
+            </div>
+            <div id="installContainer" style="display: none; text-align: center; margin: 1rem 0;">
+                <button class="btn btn-primary" onclick="installPWA()" style="font-size: 1.1rem; padding: 1rem 2rem;">
+                    Install MathSim App
+                </button>
+            </div>
+
+            
+        </section>
+    </main>
+
+    <div id="installContainer" style="display: none; text-align: center; margin: 1rem 0;">
+        <button class="btn btn-primary" onclick="installPWA()" style="font-size: 1.1rem; padding: 1rem 2rem;">
+             Install MathSim App
+        </button>
+    </div>
+
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h4>MathSim</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="simulation.html">Simulations</a></li>
+                        <li><a href="game.html">Games</a></li>
+                        <li><a href="tutorial.html">Tutorials</a></li>
+                        <li><a href="progress.html">Progress</a></li>
+                        <li><a href="accessibility.html">Accessibility</a></li>
+                        
+                    </ul>
+                </div>
+
+                
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="#">Tutorials</a></li>
+                        <li><a href="#">Help Center</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Quick Settings</h4>
+                    <div class="footer-controls">
+                        <button class="text-size-btn" id="footerTextSize" aria-label="Increase text size">A+</button>
+                        <button id="decrease-font" class="text-size-btn" aria-label="Decrease text size">A-</button>
+                        <button id="reset-font" class="text-size-btn" aria-label="Reset text size">Reset</button>
+                        <button class="contrast-btn" id="footerContrast" aria-label="Toggle high contrast">◐</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2026 MathSim. All rights reserved.</p>
+                <p class="pwa-badge"> Install as app for offline use</p>
+            </div>
+        </div>
+    </footer>
+
+    <div id="onlineStatus" class="online-badge" style="position: fixed; bottom: 10px; left: 10px; padding: 8px 12px; border-radius: 4px; color: white; font-size: 14px; font-weight: bold; background: #4CAF50; z-index: 9999; box-shadow: 0 2px 10px rgba(0,0,0,0.2);">
+        Online
+    </div>
+
+    <script src="js/theme.js"></script>
+    <script src="js/language.js"></script>
+    <script src="js/accessibility.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/pwa.js"></script>
+</html>

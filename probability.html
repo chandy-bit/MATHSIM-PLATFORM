@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MathSim | Probability</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <a href="index.html" class="logo">
+                    <span class="logo-icon"></span>
+                    <span class="logo-text">MathSim</span>
+                </a>
+
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="nav-link active">Subjects ▼</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="algebra.html">Algebra</a></li>
+                            <li><a href="geometry.html">Geometry</a></li>
+                            <li><a href="precalculus.html">Pre-Calculus</a></li>
+                            <li><a href="calculus.html">Calculus</a></li>
+                            <li><a href="probability.html">Probability</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="simulation.html" class="nav-link">Simulations</a></li>
+                    <li><a href="game.html" class="nav-link">Games</a></li>
+                    <li><a href="tutorial.html" class="nav-link">Tutorials</a></li>
+                    <li><a href="progress.html" class="nav-link">Progress</a></li>
+                    <li><a href="accessibility.html" class="nav-link">Accessibility</a></li>
+                </ul>
+
+                <div class="nav-controls">
+                    <div class="language-selector">
+                        <select id="languageSelect">
+                            <option value="en">EN</option>
+                            <option value="es">ES</option>
+                        </select>
+                    </div>
+                    <button class="theme-toggle" id="themeToggle">🌓</button>
+                    <button class="mobile-menu-btn" id="mobileMenuBtn">
+                        <span class="hamburger"></span>
+                    </button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main id="main-content" class="container" style="padding: 2rem 0;">
+        <div class="subject-header">
+            <h1> Probability</h1>
+            <p>Understand chance, randomness, and statistical thinking</p>
+        </div>
+
+        <div class="subject-grid">
+            <!-- Basic Probability -->
+            <div class="subject-card">
+                <div class="subject-icon"></div>
+                <h3>Basic Probability</h3>
+                <p>Simple events, sample space, probability rules</p>
+                <div class="topic-list">
+                    <span class="topic-tag">Events</span>
+                    <span class="topic-tag">Sample Space</span>
+                    <span class="topic-tag">Rules</span>
+                </div>
+                <a href="#" class="btn btn-primary">Explore</a>
+            </div>
+
+            <!-- Coin Flips & Dice -->
+            <div class="subject-card interactive">
+                <div class="subject-icon"></div>
+                <h3>Coin Flips & Dice</h3>
+                <p>Simulate coin tosses, dice rolls, and combinations</p>
+                <div class="simulation-preview">
+                    <button class="btn-small" onclick="flipCoin()">Flip Coin</button>
+                    <button class="btn-small" onclick="rollDice()">Roll Dice</button>
+                </div>
+                <a href="#" class="btn btn-primary">Try Simulator</a>
+            </div>
+
+            <!-- Conditional Probability -->
+            <div class="subject-card">
+                <div class="subject-icon"></div>
+                <h3>Conditional Probability</h3>
+                <p>P(A|B), Bayes' theorem, dependent events</p>
+                <div class="topic-list">
+                    <span class="topic-tag">Conditional</span>
+                    <span class="topic-tag">Bayes</span>
+                    <span class="topic-tag">Dependent</span>
+                </div>
+                <a href="#" class="btn btn-primary">Explore</a>
+            </div>
+
+            <!-- Combinations & Permutations -->
+            <div class="subject-card">
+                <div class="subject-icon"></div>
+                <h3>Combinations & Permutations</h3>
+                <p>nCr, nPr, factorial, counting principles</p>
+                <div class="topic-list">
+                    <span class="topic-tag">nCr</span>
+                    <span class="topic-tag">nPr</span>
+                    <span class="topic-tag">Factorial</span>
+                </div>
+                <a href="#" class="btn btn-primary">Explore</a>
+            </div>
+
+            <!-- Probability Distributions -->
+            <div class="subject-card">
+                <div class="subject-icon"></div>
+                <h3>Distributions</h3>
+                <p>Binomial, normal, Poisson, expected value</p>
+                <div class="topic-list">
+                    <span class="topic-tag">Binomial</span>
+                    <span class="topic-tag">Normal</span>
+                    <span class="topic-tag">Expected Value</span>
+                </div>
+                <a href="#" class="btn btn-primary">Explore</a>
+            </div>
+
+            <!-- Statistics -->
+            <div class="subject-card">
+                <div class="subject-icon"></div>
+                <h3>Statistics</h3>
+                <p>Mean, median, mode, standard deviation</p>
+                <div class="topic-list">
+                    <span class="topic-tag">Mean</span>
+                    <span class="topic-tag">Median</span>
+                    <span class="topic-tag">Std Dev</span>
+                </div>
+                <a href="#" class="btn btn-primary">Explore</a>
+            </div>
+        </div>
+
+        <!-- Probability Simulator -->
+        <div class="simulator-section">
+            <h2> Probability Simulator</h2>
+            <div class="simulator-container">
+                <div class="simulator-controls">
+                    <button class="btn btn-primary" onclick="runSimulation(10)">Run 10 Trials</button>
+                    <button class="btn btn-primary" onclick="runSimulation(100)">Run 100 Trials</button>
+                    <button class="btn btn-primary" onclick="runSimulation(1000)">Run 1000 Trials</button>
+                </div>
+                <div id="simulationResults" class="results-area">
+                    <div class="result-item">Heads: 0</div>
+                    <div class="result-item">Tails: 0</div>
+                    <div class="result-item">Ratio: 0.00</div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>© 2026 MathSim. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <div id="installContainer" style="display: none; text-align: center; margin: 1rem 0;">
+        <button class="btn btn-primary" onclick="installPWA()" style="font-size: 1.1rem; padding: 1rem 2rem;">
+            Install MathSim App
+        </button>
+    </div>
+
+    <script src="js/theme.js"></script>
+    <script src="js/language.js"></script>
+    <script src="js/probability.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

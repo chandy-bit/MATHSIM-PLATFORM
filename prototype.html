@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MathSim Prototype Design</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+    <div class="prototype-container">
+        <!-- Header -->
+        <div class="prototype-header">
+            <h1>📐 MathSim Prototype</h1>
+            <p>Interactive Math Learning Platform - Complete Design System</p>
+        </div>
+
+        <!-- Device Mockup -->
+        <div class="device-mockup">
+            <div class="device-screen">
+                <!-- Navigation Bar -->
+                <nav class="navbar">
+                    <div class="logo">
+                        <span></span>
+                        <span>MathSim</span>
+                    </div>
+                    <div class="nav-links">
+                        <a href="#" class="active">Home</a>
+                        <a href="#">Simulations</a>
+                        <a href="#">Games</a>
+                        <a href="#">Tutorials</a>
+                        <a href="#">Accessibility</a>
+                    </div>
+                    <div class="nav-controls">
+                        <select style="padding: 0.5rem; border-radius: 5px;">
+                            <option>EN</option>
+                            <option>ES</option>
+                        </select>
+                        <button class="theme-toggle">🌓</button>
+                    </div>
+                </nav>
+
+                <!-- Page Content -->
+                <div class="page-content">
+                    <!-- Hero Section -->
+                    <section class="hero-section">
+                        <div class="hero-text">
+                            <h2>Learn Math Interactively</h2>
+                            <p>Explore graphs, play games, and master math concepts with our accessible learning platform</p>
+                            <div class="hero-buttons">
+                                <button class="btn btn-white">Start Exploring</button>
+                                <button class="btn btn-outline-white">Watch Tutorial</button>
+                            </div>
+                        </div>
+                        <div class="hero-visual">
+                            <div class="math-shapes">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Features Grid -->
+                    <h2 class="section-title">Core Features</h2>
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <div class="feature-icon"></div>
+                            <h3>Interactive Simulations</h3>
+                            <p>Adjust parameters and see graphs update in real-time</p>
+                            <a href="#" class="feature-link">Try it →</a>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon"></div>
+                            <h3>Math Games</h3>
+                            <p>Learn slope through engaging challenges</p>
+                            <a href="#" class="feature-link">Play now →</a>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon"></div>
+                            <h3>Accessibility First</h3>
+                            <p>High contrast, screen reader, and dyslexic font support</p>
+                            <a href="#" class="feature-link">Learn more →</a>
+                        </div>
+                    </div>
+
+                    <!-- Simulation Preview -->
+                    <section class="simulation-preview">
+                        <div class="simulation-header">
+                            <h2> Quadratic Explorer</h2>
+                            <span class="badge">Live Demo</span>
+                        </div>
+                        <div class="simulation-controls">
+                            <div class="control-group">
+                                <label>a: <span>1.0</span></label>
+                                <input type="range" min="-5" max="5" value="1" step="0.1">
+                            </div>
+                            <div class="control-group">
+                                <label>b: <span>0.0</span></label>
+                                <input type="range" min="-10" max="10" value="0" step="1">
+                            </div>
+                            <div class="control-group">
+                                <label>c: <span>0.0</span></label>
+                                <input type="range" min="-10" max="10" value="0" step="1">
+                            </div>
+                        </div>
+                        <div class="graph-area">
+                            <div class="graph-placeholder">
+                                <div class="axes">
+                                    <div class="x-axis"></div>
+                                    <div class="y-axis"></div>
+                                </div>
+                                <div class="parabola"></div>
+                            </div>
+                        </div>
+                        <div class="equation-display">
+                            <span>f(x) = 1x² + 0x + 0</span>
+                        </div>
+                        <div style="display: flex; gap: 1rem; justify-content: center; margin-top: 1rem;">
+                            <button class="btn" style="background: #2196F3; color: white;">↺ Reset</button>
+                            <button class="btn" style="background: #4CAF50; color: white;">U-Shape</button>
+                            <button class="btn" style="background: #FF9800; color: white;">∩-Shape</button>
+                        </div>
+                    </section>
+
+                    <!-- Game Preview -->
+                    <section class="game-preview">
+                        <h2 style="margin-bottom: 2rem;"> Slope Challenge</h2>
+                        <div class="game-stats">
+                            <div class="stat">
+                                <span class="stat-label">Score</span>
+                                <span class="stat-value">150</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-label">Level</span>
+                                <span class="stat-value">3</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-label">Lives</span>
+                                <span class="stat-value"></span>
+                            </div>
+                        </div>
+                        <div class="game-area">
+                            <div class="game-graph">
+                                <div class="axes">
+                                    <div class="x-axis"></div>
+                                    <div class="y-axis"></div>
+                                </div>
+                                <div class="slope-line"></div>
+                            </div>
+                            <div class="question-box">
+                                <div class="slope-question">?</div>
+                            </div>
+                            <div class="answer-choices">
+                                <button class="answer-btn">-2</button>
+                                <button class="answer-btn">-1</button>
+                                <button class="answer-btn">0</button>
+                                <button class="answer-btn">1</button>
+                                <button class="answer-btn">2</button>
+                                <button class="answer-btn">undefined</button>
+                            </div>
+                            <div style="display: flex; gap: 1rem;">
+                                <button class="btn" style="background: #4CAF50; color: white;">New Game</button>
+                                <button class="btn" style="background: #FFC107; color: #333;">Hint</button>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Tutorials Preview -->
+                    <section class="tutorials-preview">
+                        <h2 style="margin-bottom: 2rem;"> Tutorials</h2>
+                        <div class="tutorial-tabs">
+                            <button class="tab-btn active">All</button>
+                            <button class="tab-btn">Basics</button>
+                            <button class="tab-btn">Quadratics</button>
+                            <button class="tab-btn">Slope</button>
+                        </div>
+                        <div class="tutorial-grid">
+                            <div class="tutorial-card">
+                                <div class="tutorial-thumbnail"></div>
+                                <div class="tutorial-info">
+                                    <h4>Understanding Slope</h4>
+                                    <div class="tutorial-meta">
+                                        <span>6:55</span>
+                                        <span>Beginner</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tutorial-card">
+                                <div class="tutorial-thumbnail"></div>
+                                <div class="tutorial-info">
+                                    <h4>Quadratic Functions</h4>
+                                    <div class="tutorial-meta">
+                                        <span>8:15</span>
+                                        <span>Intermediate</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tutorial-card">
+                                <div class="tutorial-thumbnail"></div>
+                                <div class="tutorial-info">
+                                    <h4>Game Tips</h4>
+                                    <div class="tutorial-meta">
+                                        <span>Guide</span>
+                                        <span>All Levels</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="accessibility-preview">
+                        <h2 style="margin-bottom: 2rem;"> Accessibility Settings</h2>
+                        <div class="settings-grid">
+                            <div class="setting-item">
+                                <span>High Contrast Mode</span>
+                                <div class="toggle-switch"></div>
+                            </div>
+                            <div class="setting-item">
+                                <span>Large Text</span>
+                                <div class="toggle-switch active"></div>
+                            </div>
+                            <div class="setting-item">
+                                <span>Reduced Motion</span>
+                                <div class="toggle-switch"></div>
+                            </div>
+                            <div class="setting-item">
+                                <span>Dyslexic Font</span>
+                                <div class="toggle-switch"></div>
+                            </div>
+                        </div>
+                        <div style="margin-top: 2rem; display: flex; gap: 1rem; justify-content: center;">
+                            <select style="padding: 0.5rem; border-radius: 5px; width: 200px;">
+                                <option>English</option>
+                                <option>Español</option>
+                                <option>Français</option>
+                            </select>
+                        </div>
+                    </section>
+
+                    <!-- Footer -->
+                    <footer class="footer">
+                        <div class="footer-grid">
+                            <div class="footer-section">
+                                <h4>MathSim</h4>
+                                <ul>
+                                    <li><a href="#">Home</a></li>
+                                    <li><a href="#">Simulations</a></li>
+                                    <li><a href="#">Games</a></li>
+                                    <li><a href="#">Tutorials</a></li>
+                                </ul>
+                            </div>
+                            <div class="footer-section">
+                                <h4>Resources</h4>
+                                <ul>
+                                    <li><a href="#">Help Center</a></li>
+                                    <li><a href="#">User Guide</a></li>
+                                    <li><a href="#">FAQs</a></li>
+                                </ul>
+                            </div>
+                            <div class="footer-section">
+                                <h4>Accessibility</h4>
+                                <ul>
+                                    <li><a href="#">Settings</a></li>
+                                    <li><a href="#">Statement</a></li>
+                                    <li><a href="#">Contact</a></li>
+                                </ul>
+                            </div>
+                            <div class="footer-section">
+                                <h4>Legal</h4>
+                                <ul>
+                                    <li><a href="#">Privacy</a></li>
+                                    <li><a href="#">Terms</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="footer-bottom">
+                            <p>© 2026 MathSim. All rights reserved.</p>
+                            <p style="margin-top: 0.5rem; opacity: 0.7;"> Install as app for offline use</p>
+                        </div>
+                    </footer>
+                </div>
+            </div>
+        </div>
+
+        <!-- Wireframes Section -->
+        <div class="wireframe-section">
+            <h2 class="section-title"> Wireframes</h2>
+            <div class="wireframe-grid">
+                <!-- Homepage Wireframe -->
+                <div class="wireframe-card">
+                    <h3>Homepage</h3>
+                    <div class="wireframe-box">
+                        <div class="box" style="background: #4CAF20; color: white;">Hero Section</div>
+                        <div class="flex-row">
+                            <div class="box">Feature 1</div>
+                            <div class="box">Feature 2</div>
+                            <div class="box">Feature 3</div>
+                        </div>
+                        <div class="box">Preview Section</div>
+                        <div class="box">Footer</div>
+                    </div>
+                </div>
+
+                <!-- Simulation Page Wireframe -->
+                <div class="wireframe-card">
+                    <h3>Simulation Page</h3>
+                    <div class="wireframe-box">
+                        <div class="box">Header</div>
+                        <div class="flex-row">
+                            <div class="box">Slider a</div>
+                            <div class="box">Slider b</div>
+                            <div class="box">Slider c</div>
+                        </div>
+                        <div class="box" style="height: 200px;">Graph Area</div>
+                        <div class="box">Equation Display</div>
+                    </div>
+                </div>
+
+                <!-- Game Page Wireframe -->
+                <div class="wireframe-card">
+                    <h3>Game Page</h3>
+                    <div class="wireframe-box">
+                        <div class="flex-row">
+                            <div class="box">Score</div>
+                            <div class="box">Level</div>
+                            <div class="box">Lives</div>
+                        </div>
+                        <div class="box" style="height: 200px;">Game Graph</div>
+                        <div class="flex-row" style="flex-wrap: wrap;">
+                            <div class="box" style="flex: 1 0 30%;">Answer 1</div>
+                            <div class="box" style="flex: 1 0 30%;">Answer 2</div>
+                            <div class="box" style="flex: 1 0 30%;">Answer 3</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Accessibility Page Wireframe -->
+                <div class="wireframe-card">
+                    <h3>Accessibility Page</h3>
+                    <div class="wireframe-box">
+                        <div class="box">Visual Settings</div>
+                        <div class="box">Audio Settings</div>
+                        <div class="box">Language</div>
+                        <div class="flex-row">
+                            <div class="box">Save</div>
+                            <div class="box">Reset</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Architecture Diagram -->
+        <div class="architecture-diagram">
+            <h2 class="section-title"> System Architecture</h2>
+            
+            <div class="layer">
+                <div class="layer-title"> Client Layer</div>
+                <div class="components">
+                    <span class="component">HTML5</span>
+                    <span class="component">CSS3</span>
+                    <span class="component">JavaScript</span>
+                    <span class="component">PWA</span>
+                </div>
+            </div>
+
+            <div class="layer">
+                <div class="layer-title"> Application Layer</div>
+                <div class="components">
+                    <span class="component">theme.js</span>
+                    <span class="component">language.js</span>
+                    <span class="component">accessibility.js</span>
+                    <span class="component">main.js</span>
+                    <span class="component">plotter.js</span>
+                    <span class="component">game.js</span>
+                </div>
+            </div>
+
+            <div class="layer">
+                <div class="layer-title"> Data Layer</div>
+                <div class="components">
+                    <span class="component">localStorage</span>
+                    <span class="component">Cache API</span>
+                    <span class="component">IndexedDB</span>
+                </div>
+            </div>
+
+            <div class="layer">
+                <div class="layer-title"> Service Layer</div>
+                <div class="components">
+                    <span class="component">Service Worker</span>
+                    <span class="component">Manifest.json</span>
+                    <span class="component">YouTube API</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Evaluation Section -->
+        <div style="background: white; border-radius: 15px; padding: 2rem; margin: 2rem 0;">
+            <h2 class="section-title"> Evaluation Checklist</h2>
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem;">
+                <div style="padding: 1rem; background: #f8f9fa; border-radius: 8px;">
+                    <h3 style="color: #4CAF50;"> Completed</h3>
+                    <ul style="margin-top: 1rem; list-style: none;">
+                        <li>✓ Theme system (light/dark mode)</li>
+                        <li>✓ Simulation page with graph</li>
+                        <li>✓ Game page with slope challenge</li>
+                        <li>✓ Accessibility settings</li>
+                        <li>✓ Tutorials with Khan Academy</li>
+                        <li>✓ PWA offline support</li>
+                    </ul>
+                </div>
+                <div style="padding: 1rem; background: #f8f9fa; border-radius: 8px;">
+                    <h3 style="color: #2196F3;"> In Progress</h3>
+                    <ul style="margin-top: 1rem; list-style: none;">
+                        <li> Multi-language support</li>
+                        <li> Learning analytics</li>
+                        <li> User testing</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+</html>

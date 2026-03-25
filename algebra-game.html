@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MathSim | Algebra Game</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .equation-box {
+            font-size: 2.5rem;
+            text-align: center;
+            padding: 2rem;
+            background: var(--gradient-primary);
+            color: white;
+            border-radius: var(--radius-lg);
+            margin: 2rem 0;
+        }
+        
+        .variable-input {
+            width: 80px;
+            padding: 0.5rem;
+            font-size: 1.5rem;
+            text-align: center;
+            border: 3px solid var(--primary);
+            border-radius: var(--radius-md);
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <a href="index.html" class="logo">
+                    <span class="logo-icon"></span>
+                    <span class="logo-text">MathSim</span>
+                </a>
+                <ul class="nav-menu">
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="nav-link active">Subjects ▼</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="algebra.html" class="active">Algebra</a></li>
+                            <li><a href="geometry.html">Geometry</a></li>
+                            <li><a href="precalculus.html">Pre-Calculus</a></li>
+                            <li><a href="calculus.html">Calculus</a></li>
+                            <li><a href="probability.html">Probability</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="simulation.html" class="nav-link">Simulations</a></li>
+                    <li><a href="game.html" class="nav-link">Games</a></li>
+                    <li><a href="tutorials.html" class="nav-link">Tutorials</a></li>
+                    <li><a href="progress.html" class="nav-link">Progress</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container" style="padding: 2rem;">
+        <h1>Algebra Challenge</h1>
+        <p>Solve for x in each equation</p>
+
+        <div class="game-stats">
+            <div class="stat">Score: <span id="score">0</span></div>
+            <div class="stat">Level: <span id="level">1</span></div>
+            <div class="stat">Streak: <span id="streak">0</span></div>
+        </div>
+
+        <div class="equation-box" id="equation">2x + 3 = 7</div>
+
+        <div class="answer-area" style="text-align: center;">
+            <label>x = </label>
+            <input type="number" id="userAnswer" class="variable-input" step="0.1">
+            <button class="btn btn-primary" onclick="checkAnswer()">Check</button>
+        </div>
+
+        <div id="feedback" class="feedback" style="margin-top: 2rem;"></div>
+    </main>
+
+    <script src="js/theme.js"></script>
+    <script src="js/analytics.js"></script>
+    <script>
+        let score = 0;
+        let level = 1;
+        let streak = 0;
+        let currentEquation = {};
+        
+        const equations = [
+            { text: '2x + 3 = 7', answer: 2 },
+            { text: '3x - 5 = 10', answer: 5 },
+            { text: '4x + 2 = 18', answer: 4 },
+            { text: '5x - 8 = 12', answer: 4 },
+            { text: '2x + 7 = 15', answer: 4 },
+            { text: '6x - 3 = 15', answer: 3 },
+            { text: '3x + 9 = 24', answer: 5 },
+            { text: '4x - 7 = 13', answer: 5 },
+            { text: '2x + 5 = 19', answer: 7 }
+        ];
+        
+        function newEquation() {
+            const randomIndex = Math.floor(Math.random() * equations.length);
+            currentEquation = equations[randomIndex];
+            document.getElementById('equation').textContent = currentEquation.text;
+            document.getElementById('userAnswer').value = '';
+            document.getElementById('userAnswer').focus();
+        }
+        
+        function checkAnswer() {
+            const userAnswer = parseFloat(document.getElementById('userAnswer').value);
+            const feedback = document.getElementById('feedback');
+            
+            if (Math.abs(userAnswer - currentEquation.answer) < 0.01) {
+                score += 10 * level;
+                streak++;
+                feedback.innerHTML = ' Correct! Great job!';
+                feedback.className = 'feedback correct';
+                
+                if (streak >= 3) {
+                    level++;
+                    streak = 0;
+                }
+                
+                if (typeof analytics !== 'undefined') {
+                    analytics.answer(true);
+                }
+            } else {
+                streak = 0;
+                feedback.innerHTML = ` Try again. The answer was ${currentEquation.answer}`;
+                feedback.className = 'feedback incorrect';
+                
+                if (typeof analytics !== 'undefined') {
+                    analytics.answer(false);
+                }
+            }
+            
+            document.getElementById('score').textContent = score;
+            document.getElementById('level').textContent = level;
+            document.getElementById('streak').textContent = streak;
+            
+            setTimeout(newEquation, 1500);
+        }
+        
+        newEquation();
+    </script>
+</body>
+</html>

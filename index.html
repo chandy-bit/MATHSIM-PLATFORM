@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MathSim | Interactive Math Learning</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#4CAF50">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="MathSim">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%234CAF50' rx='20'/%3E%3Ctext x='50' y='70' font-size='60' text-anchor='middle' fill='white' font-family='Arial'%3E📐%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <header class="header">
+        <nav class="navbar" aria-label="Main navigation">
+            <div class="nav-container">
+                <a href="index.html" class="logo" aria-label="MathSim home">
+                    <span class="logo-icon"></span>
+                    <span class="logo-text">MathSim</span>
+                </a>
+
+                <ul class="nav-menu" id="nav-menu">
+                    <li><a href="index.html" class="nav-link active" data-i18n="home">Home</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="nav-link" data-i18n="subjects">Subjects </a>
+                        <ul class="dropdown-menu" aria-label="Subjects submenu">
+                            <li><a href="algebra.html" data-i18n="algebra">Algebra</a></li>
+                            <li><a href="geometry.html" data-i18n="geometry">Geometry</a></li>
+                            <li><a href="precalculus.html" data-i18n="precalculus">Pre-Calculus</a></li>
+                            <li><a href="calculus.html" data-i18n="calculus">Calculus</a></li>
+                            <li><a href="probability.html" data-i18n="probability">Probability</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="simulation.html" class="nav-link" data-i18n="simulations">Simulations</a></li>
+                    <li><a href="game.html" class="nav-link" data-i18n="games">Games</a></li>
+                    <li><a href="tutorial.html" class="nav-link">Tutorials</a></li> 
+                    <li><a href="progress.html" class="nav-link">Progress</a></li>
+                    <li><a href="accessibility.html" class="nav-link" data-i18n="accessibility">Accessibility</a></li>
+                </ul>
+
+                <div class="nav-controls">
+                    <div class="language-selector">
+                        <label for="lang-select" class="sr-only">Choose language</label>
+                        <select id="lang-select" aria-label="Language">
+                            <option value="en">English</option>
+                            <option value="es">Español</option>
+                            <option value="fr">Français</option>
+                            <option value="de">Deutsch</option>
+                            <option value="ar">العربية</option>
+                            <option value="zh">中文</option>
+                            <option value="hi">हिन्दी</option>
+                            <option value="pt">Português</option>
+                        </select>
+                    </div>
+                    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+                        🌓
+                    </button>
+                    <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu">
+                        <span class="hamburger"></span>
+                    </button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main id="main-content">
+        <section class="hero" aria-labelledby="hero-heading">
+            <div class="container">
+                <div class="hero-content">
+                    <h1 id="hero-heading" data-i18n="welcome">Learn Math Through Play</h1>
+                    <p class="hero-subtitle" data-i18n="tagline">Interactive simulations and games that make math fun and accessible for everyone</p>
+                    
+                    <div class="hero-buttons">
+                        <a href="simulation.html" class="btn btn-primary" data-i18n="explore_simulations">
+                            Explore Simulations
+                        </a>
+                        <a href="game.html" class="btn btn-secondary" data-i18n="play_games">
+                            Play Games
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="hero-image">
+                    <div class="math-visual">
+                        <span class="math-symbol">∫</span>
+                        <span class="math-symbol">∑</span>
+                        <span class="math-symbol">√</span>
+                        <span class="math-symbol">π</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="dashboard-stats">
+            <div class="container">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h3 id="welcomeMessage">Welcome back, <span id="userName">Math Learner</span></h3>
+                        <div class="circular-progress" id="dailyProgress">
+                            <span id="dailyPercent">0%</span>
+                        </div>
+                        <p>Today's Goal</p>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <h3>Quick Resume</h3>
+                        <p>Last activity: <span id="lastTopic">Algebra</span></p>
+                        <a href="#" id="resumeLink" class="btn btn-small">Continue →</a>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <h3>Daily Streak</h3>
+                        <p style="font-size: 2rem; font-weight: bold;"><span id="streakCount">0</span> days</p>
+                        <p>in a row</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="quick-access">
+            <div class="container">
+                <h2 class="section-title">Quick Access</h2>
+                <div class="quick-grid">
+                    <a href="simulation.html" class="quick-card">
+                        <span class="quick-icon"></span>
+                        <h3>Graph Explorer</h3>
+                        <p>Visualize functions</p>
+                    </a>
+                    <a href="game.html" class="quick-card">
+                        <span class="quick-icon"></span>
+                        <h3>Slope Challenge</h3>
+                        <p>Play math games</p>
+                    </a>
+                    <a href="tutorials.html" class="quick-card">
+                        <span class="quick-icon"></span>
+                        <h3>Recommended</h3>
+                        <p>For your level</p>
+                    </a>
+                    <a href="progress.html" class="quick-card">
+                        <span class="quick-icon"></span>
+                        <h3>Your Progress</h3>
+                        <p>Track growth</p>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="features" aria-labelledby="features-heading">
+            <div class="container">
+                <h2 id="features-heading" class="section-title" data-i18n="how_it_works">How MathSim Works</h2>
+                
+                <div class="features-grid">
+                    <article class="feature-card">
+                        <div class="feature-icon"></div>
+                        <h3 data-i18n="feature_simulations_title">Interactive Simulations</h3>
+                        <p data-i18n="feature_simulations_desc">Adjust parameters and see math come alive with real-time graphs and visualizations</p>
+                        <a href="simulation.html" class="feature-link" data-i18n="learn_more">Learn more →</a>
+                    </article>
+
+                    <article class="feature-card">
+                        <div class="feature-icon"></div>
+                        <h3 data-i18n="feature_games_title">Fun Math Games</h3>
+                        <p data-i18n="feature_games_desc">Practice math skills through engaging games with adaptive difficulty levels</p>
+                        <a href="game.html" class="feature-link" data-i18n="learn_more">Learn more →</a>
+                    </article>
+
+                    <article class="feature-card">
+                        <div class="feature-icon"></div>
+                        <h3 data-i18n="feature_accessibility_title">Accessible for All</h3>
+                        <p data-i18n="feature_accessibility_desc">Multiple languages, screen reader support, and customizable display options</p>
+                        <a href="accessibility.html" class="feature-link" data-i18n="learn_more">Learn more →</a>
+                    </article>
+
+                    <article class="feature-card">
+                        <div class="feature-icon"></div>
+                        <h3 data-i18n="feature_offline_title">Learn Anywhere</h3>
+                        <p data-i18n="feature_offline_desc">Works offline! Download and learn even without internet connection</p>
+                        <a href="#" class="feature-link" onclick="showOfflineInfo(event)" data-i18n="learn_more">Learn more →</a>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="preview" aria-labelledby="preview-heading">
+            <div class="container">
+                <h2 id="preview-heading" class="section-title" data-i18n="try_it_now">Try It Now</h2>
+                
+                <div class="preview-grid">
+                    <div class="preview-card">
+                        <h3 data-i18n="graph_plotter">Function Plotter</h3>
+                        <div class="preview-demo">
+                            <div class="demo-graph" id="demo-graph">
+                                <svg viewBox="0 0 200 100" class="preview-svg">
+                                    <line x1="20" y1="80" x2="180" y2="80" stroke="#666" stroke-width="1"/>
+                                    <line x1="20" y1="20" x2="20" y2="80" stroke="#666" stroke-width="1"/>
+                                    <path d="M20,60 Q50,30 80,50 T140,30 T180,50" stroke="#4CAF50" fill="none" stroke-width="2"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <a href="simulation.html" class="btn btn-small" data-i18n="open_simulator">Open Simulator</a>
+                    </div>
+
+                    <div class="preview-card">
+                        <h3 data-i18n="quick_game">Quick Math Game</h3>
+                        <div class="preview-demo game-preview" id="demo-game">
+                            <div class="mini-game">
+                                <span class="mini-equation">5 + 3 = ?</span>
+                                <div class="mini-answers">
+                                    <button class="mini-btn">7</button>
+                                    <button class="mini-btn">8</button>
+                                    <button class="mini-btn">9</button>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="game.html" class="btn btn-small" data-i18n="play_now">Play Now</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="accessibility-notice" aria-labelledby="a11y-heading">
+            <div class="container">
+                <div class="notice-content">
+                    <span class="notice-icon"></span>
+                    <div>
+                        <h3 id="a11y-heading" data-i18n="accessibility_ready">Accessibility Ready</h3>
+                        <p data-i18n="accessibility_text">This site supports screen readers, keyboard navigation, and multiple languages. Visit our accessibility page to customize your experience.</p>
+                    </div>
+                    <a href="accessibility.html" class="btn btn-outline" data-i18n="customize">Customize Settings</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="offlineInfoModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeOfflineModal()">&times;</span>
+            <h2> Learn Anywhere - Offline Mode</h2>
+            <div class="modal-body">
+                <p>MathSim works completely offline! Here's how:</p>
+                
+                <div class="offline-feature">
+                    <span class="feature-icon-small"></span>
+                    <div>
+                        <h3>Install the App</h3>
+                        <p>Click "Install MathSim App" button when prompted, or look for the install icon in your browser address bar.</p>
+                    </div>
+                </div>
+                
+                <div class="offline-feature">
+                    <span class="feature-icon-small"></span>
+                    <div>
+                        <h3>Automatic Caching</h3>
+                        <p>Once you visit a page, it's saved for offline use. All simulations, games, and tutorials work without internet!</p>
+                    </div>
+                </div>
+                
+                <div class="offline-feature">
+                    <span class="feature-icon-small"></span>
+                    <div>
+                        <h3>Progress Syncs</h3>
+                        <p>Your learning progress saves locally and syncs automatically when you're back online.</p>
+                    </div>
+                </div>
+                
+                <div class="offline-feature">
+                    <span class="feature-icon-small">🔌</span>
+                    <div>
+                        <h3>No Internet Required</h3>
+                        <p>After initial load, you can use MathSim on planes, during commutes, or anywhere without WiFi!</p>
+                    </div>
+                </div>
+                
+                <div class="install-steps">
+                    <h3>How to Install:</h3>
+                    <ol>
+                        <li><strong>Desktop:</strong> Look for the install icon (📲) in the address bar or click "Install MathSim App" button</li>
+                        <li><strong>Mobile (iOS):</strong> Tap Share → "Add to Home Screen"</li>
+                        <li><strong>Mobile (Android):</strong> Tap Menu → "Install App" or "Add to Home Screen"</li>
+                    </ol>
+                </div>
+                
+                <button class="btn btn-primary" onclick="closeOfflineModal()">Got it!</button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer" role="contentinfo">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h4 data-i18n="about">About MathSim</h4>
+                    <p data-i18n="about_text">Making math accessible and fun through interactive simulations and games.</p>
+                </div>
+
+                <div class="footer-section">
+                    <h4 data-i18n="quick_links">Quick Links</h4>
+                    <ul>
+                        <li><a href="simulation.html" data-i18n="simulations">Simulations</a></li>
+                        <li><a href="game.html" data-i18n="games">Games</a></li>
+                        <li><a href="tutorials.html" data-i18n="tutorials">Tutorials</a></li>
+                        <li><a href="progress.html" data-i18n="progress">Progress</a></li>     
+                        <li><a href="accessibility.html" data-i18n="accessibility">Accessibility</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Subjects</h4>
+                    <ul>
+                        <li><a href="algebra.html">Algebra</a></li>
+                        <li><a href="geometry.html">Geometry</a></li>
+                        <li><a href="precalculus.html">Pre-Calculus</a></li>
+                        <li><a href="calculus.html">Calculus</a></li>
+                        <li><a href="probability.html">Probability</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4 data-i18n="accessibility_features">Accessibility</h4>
+                    <ul>
+                        <li><button id="increase-font" class="text-size-btn" aria-label="Increase text size">A+</button></li>
+                        <li><button id="decrease-font" class="text-size-btn" aria-label="Decrease text size">A-</button></li>
+                        <li><button id="reset-font" class="text-size-btn" aria-label="Reset text size">Reset</button></li>
+                        <li><button id="toggle-contrast" class="contrast-btn" aria-label="Toggle high contrast">High Contrast</button></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>© 2026 MathSim. <span data-i18n="rights">All rights reserved.</span></p>
+                <p class="pwa-badge" data-i18n="works_offline">Works offline</p>
+                <p class="footer-links">
+                    <a href="privacy.html">Privacy</a> | 
+                    <a href="terms.html">Terms</a> | 
+                    <a href="accessibility.html">Accessibility</a>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <div id="installContainer" style="display: none; text-align: center; margin: 1rem 0;">
+        <button class="btn btn-primary" onclick="installPWA()" style="font-size: 1.1rem; padding: 1rem 2rem;">
+            Install MathSim App
+        </button>
+    </div>
+    
+    <div id="onlineStatus" class="online-badge">Online</div>
+
+    <script src="js/theme.js"></script>
+    <script src="js/language.js"></script>
+    <script src="js/accessibility.js"></script>
+    <script src="js/analytics.js"></script>
+    <script src="js/dashboard.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/pwa.js"></script>
+    
+    <script>
+        function showOfflineInfo(event) {
+            event.preventDefault();
+            const modal = document.getElementById('offlineInfoModal');
+            if (modal) {
+                modal.style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+                
+                if (typeof analytics !== 'undefined') {
+                    analytics.tutorialWatched('offline-info', 'Offline Mode Info');
+                }
+            }
+        }
+        
+        function closeOfflineModal() {
+            const modal = document.getElementById('offlineInfoModal');
+            if (modal) {
+                modal.style.display = 'none';
+                document.body.style.overflow = '';
+            }
+        }
+        
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeOfflineModal();
+            }
+        });
+        
+        document.addEventListener('click', function(e) {
+            const modal = document.getElementById('offlineInfoModal');
+            if (modal && modal.style.display === 'flex') {
+                if (e.target === modal) {
+                    closeOfflineModal();
+                }
+            }
+        });
+    </script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get user name from localStorage or prompt
+            let userName = localStorage.getItem('mathsim-user') || 'Math Learner';
+            const userNameSpan = document.getElementById('userName');
+            if (userNameSpan) userNameSpan.textContent = userName;
+            
+            // Update daily progress from analytics
+            if (typeof analytics !== 'undefined') {
+                const dailyPercent = Math.min(100, Math.floor((analytics.dailyData?.timeSpent || 0) / 30 * 100));
+                const dailyPercentSpan = document.getElementById('dailyPercent');
+                if (dailyPercentSpan) dailyPercentSpan.textContent = dailyPercent + '%';
+                
+                // Update circular progress
+                const circle = document.getElementById('dailyProgress');
+                if (circle) {
+                    circle.style.background = `conic-gradient(var(--primary) ${dailyPercent * 3.6}deg, var(--border-light) 0deg)`;
+                }
+                
+                // Update streak
+                const streakCount = analytics.getStreak?.() || 0;
+                const streakSpan = document.getElementById('streakCount');
+                if (streakSpan) streakSpan.textContent = streakCount;
+                
+                // Update last topic
+                const lastTopic = localStorage.getItem('lastTopic') || 'Algebra';
+                const lastTopicSpan = document.getElementById('lastTopic');
+                const resumeLink = document.getElementById('resumeLink');
+                if (lastTopicSpan) lastTopicSpan.textContent = lastTopic;
+                if (resumeLink) resumeLink.href = lastTopic.toLowerCase() + '.html';
+            }
+            
+            // Dynamic greeting based on time of day
+            const hour = new Date().getHours();
+            let greeting = 'Welcome back';
+            if (hour < 12) greeting = 'Good morning';
+            else if (hour < 18) greeting = 'Good afternoon';
+            else greeting = 'Good evening';
+            
+            const welcomeEl = document.getElementById('welcomeMessage');
+            if (welcomeEl) {
+                const userNameText = localStorage.getItem('mathsim-user') || 'Math Learner';
+                welcomeEl.innerHTML = `${greeting}, ${userNameText}`;
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MathSim | You're Offline</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .offline-container {
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+        
+        .offline-card {
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            padding: 3rem;
+            box-shadow: var(--shadow-lg);
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+        }
+        
+        .offline-icon {
+            font-size: 5rem;
+            margin-bottom: 1rem;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        .offline-title {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .offline-message {
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+        
+        .offline-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+        
+        .offline-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .offline-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .offline-btn.secondary {
+            background: var(--secondary);
+        }
+        
+        .cached-pages {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border-light);
+        }
+        
+        .cached-pages h3 {
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+        
+        .cached-links {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .cached-link {
+            padding: 0.5rem 1rem;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            text-decoration: none;
+            border-radius: var(--radius-full);
+            transition: all 0.3s ease;
+        }
+        
+        .cached-link:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        /* High contrast mode */
+        .high-contrast .offline-card {
+            background: black;
+            border: 2px solid yellow;
+        }
+        
+        .high-contrast .offline-title {
+            color: yellow;
+        }
+        
+        .high-contrast .offline-btn {
+            background: yellow;
+            color: black;
+            border: 2px solid yellow;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <a href="index.html" class="logo">
+                    <span class="logo-icon"></span>
+                    <span class="logo-text">MathSim</span>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div class="offline-container">
+            <div class="offline-card">
+                <div class="offline-icon"></div>
+                <h1 class="offline-title">No Internet Connection</h1>
+                <p class="offline-message">
+                    Don't worry! You can still access cached simulations and games. 
+                    Connect to the internet to unlock all features.
+                </p>
+                
+                <div class="offline-actions">
+                    <button class="offline-btn" onclick="window.location.reload()">
+                         Try Again
+                    </button>
+                    <a href="index.html" class="offline-btn secondary">
+                         Go Home
+                    </a>
+                </div>
+                
+                <div class="cached-pages">
+                    <h3>Available Offline:</h3>
+                    <div class="cached-links">
+                        <a href="index.html" class="cached-link">Home</a>
+                        <a href="simulation.html" class="cached-link">Simulations</a>
+                        <a href="game.html" class="cached-link">Games</a>
+                        <a href="accessibility.html" class="cached-link">Settings</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2026 MathSim. All rights reserved.</p>
+                <p class="pwa-badge" style="margin-top: 0.5rem;"> You're in offline mode</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

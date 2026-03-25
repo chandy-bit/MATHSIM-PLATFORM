@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MathSim | Learning Progress</title>
+    <meta name="theme-color" content="#4CAF50">
+    <link rel="manifest" href="manifest.json">
+    
+    <link rel="stylesheet" href="css/style.css">
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <a href="index.html" class="logo">
+                    <span class="logo-icon"></span>
+                    <span class="logo-text">MathSim</span>
+                </a>
+
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="nav-link">Subjects </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="algebra.html">Algebra</a></li>
+                            <li><a href="geometry.html">Geometry</a></li>
+                            <li><a href="precalculus.html">Pre-Calculus</a></li>
+                            <li><a href="calculus.html">Calculus</a></li>
+                            <li><a href="probability.html">Probability</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="simulation.html" class="nav-link">Simulations</a></li>
+                    <li><a href="game.html" class="nav-link">Games</a></li>
+                    <li><a href="tutorial.html" class="nav-link">Tutorials</a></li>
+                    <li><a href="progress.html" class="nav-link active">Progress</a></li>
+                    <li><a href="accessibility.html" class="nav-link">Accessibility</a></li>
+                </ul>
+
+                <div class="nav-controls">
+                    <div class="language-selector">
+                        <select id="languageSelect" aria-label="Select language">
+                            <option value="en">EN</option>
+                            <option value="es">ES</option>
+                        </select>
+                    </div>
+
+                    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+                        🌓
+                    </button>
+
+                    <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu">
+                        <span class="hamburger"></span>
+                    </button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main id="main-content" class="container" style="padding: 2rem 0;">
+        <div class="progress-header">
+            <h1> Your Learning Progress</h1>
+            <p class="page-description">Track your journey through MathSim - watch your skills grow!</p>
+        </div>
+
+        <div class="stats-banner">
+            <div class="stat-item">
+                <span class="stat-icon"></span>
+                <div class="stat-info">
+                    <span class="stat-label">Current Streak</span>
+                    <span class="stat-value" id="streakCount">0 days</span>
+                </div>
+            </div>
+            <div class="stat-item">
+                <span class="stat-icon"></span>
+                <div class="stat-info">
+                    <span class="stat-label">Achievements</span>
+                    <span class="stat-value" id="achievementCount">0</span>
+                </div>
+            </div>
+            <div class="stat-item">
+                <span class="stat-icon"></span>
+                <div class="stat-info">
+                    <span class="stat-label">Last Active</span>
+                    <span class="stat-value" id="lastActive">Today</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="progress-grid">
+            <div class="progress-card">
+                <div class="card-icon"></div>
+                <h3>Tutorials Watched</h3>
+                <p class="stat-number" id="tutorialCount">0</p>
+                <div class="stat-trend" id="tutorialTrend"></div>
+            </div>
+
+            <div class="progress-card">
+                <div class="card-icon"></div>
+                <h3>Games Played</h3>
+                <p class="stat-number" id="gamesPlayed">0</p>
+                <div class="stat-trend" id="gamesTrend"></div>
+            </div>
+
+            <div class="progress-card">
+                <div class="card-icon"></div>
+                <h3>Accuracy</h3>
+                <p class="stat-number" id="accuracy">0%</p>
+                <div class="stat-badge" id="accuracyBadge">Good</div>
+            </div>
+
+            <div class="progress-card">
+                <div class="card-icon"></div>
+                <h3>Best Score</h3>
+                <p class="stat-number" id="bestScore">0</p>
+                <div class="stat-badge" id="scoreBadge">-</div>
+            </div>
+
+            <div class="progress-card">
+                <div class="card-icon">⏱</div>
+                <h3>Study Time</h3>
+                <p class="stat-number" id="studyTime">0 min</p>
+                <div class="stat-progress" id="timeProgress"></div>
+            </div>
+
+            <div class="progress-card">
+                <div class="card-icon"></div>
+                <h3>Correct Answers</h3>
+                <p class="stat-number" id="correctAnswers">0</p>
+                <div class="stat-progress" id="answersProgress"></div>
+            </div>
+        </div>
+
+        <div class="charts-grid">
+            <div class="chart-card">
+                <h3>Accuracy Over Time</h3>
+                <canvas id="accuracyChart" width="400" height="200"></canvas>
+            </div>
+            
+            <div class="chart-card">
+                <h3>Recent Scores</h3>
+                <canvas id="scoresChart" width="400" height="200"></canvas>
+            </div>
+        </div>
+
+        <div class="daily-progress">
+            <h2>Today's Progress</h2>
+            <div class="daily-grid">
+                <div class="daily-item">
+                    <span class="daily-label">Tutorials Today</span>
+                    <span class="daily-value" id="dailyTutorials">0</span>
+                </div>
+                <div class="daily-item">
+                    <span class="daily-label">Games Today</span>
+                    <span class="daily-value" id="dailyGames">0</span>
+                </div>
+                <div class="daily-item">
+                    <span class="daily-label">Accuracy Today</span>
+                    <span class="daily-value" id="dailyAccuracy">0%</span>
+                </div>
+                <div class="daily-item">
+                    <span class="daily-label">Time Today</span>
+                    <span class="daily-value" id="dailyTime">0 min</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="achievements-section">
+            <h2> Achievements</h2>
+            <div class="achievements-grid" id="achievementsList">
+            </div>
+        </div>
+
+        <div class="timeline-section">
+            <h2> Recent Activity</h2>
+            <div class="timeline" id="timeline">
+            </div>
+        </div>
+
+        <div class="progress-actions">
+            <button onclick="resetProgress()" class="btn btn-danger">
+                Reset All Progress
+            </button>
+            <button onclick="exportProgress()" class="btn btn-secondary">
+                Export Data
+            </button>
+        </div>
+    </main>
+
+    <div id="installContainer" style="display: none; text-align: center; margin: 1rem 0;">
+        <button class="btn btn-primary" onclick="installPWA()" style="font-size: 1.1rem; padding: 1rem 2rem;">
+             Install MathSim App
+        </button>
+    </div>
+
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h4>MathSim</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="simulation.html">Simulations</a></li>
+                        <li><a href="game.html">Games</a></li>
+                        <li><a href="tutorial.html">Tutorials</a></li>
+                        <li><a href="progress.html">Progress</a></li>
+                        <li><a href="accessibility.html">Accessibility</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">User Guide</a></li>
+                        <li><a href="#">FAQs</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Accessibility</h4>
+                    <ul>
+                        <li><a href="accessibility.html">Settings</a></li>
+                        <li><a href="#">Statement</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Quick Settings</h4>
+                    <div class="footer-controls">
+                        <button class="text-size-btn" id="footerTextSize" aria-label="Increase text size">A+</button>
+                        <button class="contrast-btn" id="footerContrast" aria-label="Toggle high contrast">◐</button>
+                        <button class="theme-footer-btn" id="footerTheme" aria-label="Toggle theme">🌓</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>© 2026 MathSim. All rights reserved.</p>
+                <p class="pwa-badge">Install as app for offline use</p>
+            </div>
+        </div>
+    </footer>
+
+    <div id="installContainer" style="display: none; text-align: center; margin: 1rem 0;">
+        <button class="btn btn-primary" onclick="installPWA()" style="font-size: 1.1rem; padding: 1rem 2rem;">
+            Install MathSim App
+        </button>
+    </div>
+
+    <div id="onlineStatus" class="online-badge">Online</div>
+
+    <script src="js/theme.js"></script>  
+    <script src="js/language.js"></script>
+    <script src="js/accessibility.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/analytics.js"></script>
+    <script src="js/progress.js"></script>
+    <script src="js/pwa.js"></script>
+</body>
+</html>

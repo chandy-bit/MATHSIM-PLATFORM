@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MathSim | Geometry</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .geometry-canvas {
+            width: 100%;
+            height: 300px;
+            background: var(--bg-card);
+            border-radius: var(--radius-md);
+            margin: 1rem 0;
+        }
+    </style>
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <a href="index.html" class="logo">
+                    <span class="logo-icon"></span>
+                    <span class="logo-text">MathSim</span>
+                </a>
+
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="nav-link active">Subjects </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="algebra.html">Algebra</a></li>
+                            <li><a href="geometry.html">Geometry</a></li>
+                            <li><a href="precalculus.html">Pre-Calculus</a></li>
+                            <li><a href="calculus.html">Calculus</a></li>
+                            <li><a href="probability.html">Probability</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="simulation.html" class="nav-link">Simulations</a></li>
+                    <li><a href="game.html" class="nav-link">Games</a></li>
+                    <li><a href="tutorial.html" class="nav-link">Tutorials</a></li>
+                    <li><a href="progress.html" class="nav-link">Progress</a></li>
+                    <li><a href="accessibility.html" class="nav-link">Accessibility</a></li>
+                </ul>
+
+                <div class="nav-controls">
+                    <div class="language-selector">
+                        <select id="languageSelect">
+                            <option value="en">EN</option>
+                            <option value="es">ES</option>
+                        </select>
+                    </div>
+                    <button class="theme-toggle" id="themeToggle">🌓</button>
+                    <button class="mobile-menu-btn" id="mobileMenuBtn">
+                        <span class="hamburger"></span>
+                    </button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main id="main-content" class="container" style="padding: 2rem 0;">
+        <div class="subject-header">
+            <h1> Geometry</h1>
+            <p>Explore shapes, angles, and spatial relationships</p>
+        </div>
+
+        <div class="subject-grid">
+            <!-- Triangles -->
+            <div class="subject-card">
+                <div class="subject-icon"></div>
+                <h3>Triangles</h3>
+                <p>Pythagorean theorem, area, special triangles</p>
+                <div class="topic-list">
+                    <span class="topic-tag">Pythagoras</span>
+                    <span class="topic-tag">30-60-90</span>
+                    <span class="topic-tag">45-45-90</span>
+                </div>
+                <button class="btn btn-primary" onclick="openGeometry('triangle')">Explore</button>
+            </div>
+
+            <!-- Circles -->
+            <div class="subject-card">
+                <div class="subject-icon"></div>
+                <h3>Circles</h3>
+                <p>Circumference, area, radius, diameter, π</p>
+                <div class="topic-list">
+                    <span class="topic-tag">π</span>
+                    <span class="topic-tag">Area</span>
+                    <span class="topic-tag">Circumference</span>
+                </div>
+                <button class="btn btn-primary" onclick="openGeometry('circle')">Explore</button>
+            </div>
+
+            <!-- Angles -->
+            <div class="subject-card">
+                <div class="subject-icon"></div>
+                <h3>Angles</h3>
+                <p>Complementary, supplementary, vertical, parallel lines</p>
+                <div class="topic-list">
+                    <span class="topic-tag">Complementary</span>
+                    <span class="topic-tag">Supplementary</span>
+                    <span class="topic-tag">Parallel</span>
+                </div>
+                <button class="btn btn-primary" onclick="openGeometry('angles')">Explore</button>
+            </div>
+
+            <!-- Area & Perimeter -->
+            <div class="subject-card">
+                <div class="subject-icon"></div>
+                <h3>Area & Perimeter</h3>
+                <p>Rectangles, triangles, circles, composite shapes</p>
+                <div class="topic-list">
+                    <span class="topic-tag">Area</span>
+                    <span class="topic-tag">Perimeter</span>
+                    <span class="topic-tag">Composite</span>
+                </div>
+                <button class="btn btn-primary" onclick="openGeometry('area')">Explore</button>
+            </div>
+
+            <!-- Volume -->
+            <div class="subject-card">
+                <div class="subject-icon"></div>
+                <h3>Volume</h3>
+                <p>Cubes, spheres, cylinders, cones, pyramids</p>
+                <div class="topic-list">
+                    <span class="topic-tag">Cube</span>
+                    <span class="topic-tag">Sphere</span>
+                    <span class="topic-tag">Cylinder</span>
+                </div>
+                <button class="btn btn-primary" onclick="openGeometry('volume')">Explore</button>
+            </div>
+
+            <!-- Transformations -->
+            <div class="subject-card">
+                <div class="subject-icon"></div>
+                <h3>Transformations</h3>
+                <p>Rotation, reflection, translation, dilation</p>
+                <div class="topic-list">
+                    <span class="topic-tag">Rotate</span>
+                    <span class="topic-tag">Reflect</span>
+                    <span class="topic-tag">Translate</span>
+                </div>
+                <button class="btn btn-primary" onclick="openGeometry('transform')">Explore</button>
+            </div>
+        </div>
+
+        <!-- Interactive Geometry Tool -->
+        <div class="interactive-tool" id="geometryTool" style="display: none;">
+            <h2 id="toolTitle">Interactive Geometry</h2>
+            <canvas id="geometryCanvas" class="geometry-canvas" width="600" height="300"></canvas>
+            <div class="tool-controls" id="toolControls"></div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>© 2026 MathSim. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <div id="installContainer" style="display: none; text-align: center; margin: 1rem 0;">
+        <button class="btn btn-primary" onclick="installPWA()" style="font-size: 1.1rem; padding: 1rem 2rem;">
+            Install MathSim App
+        </button>
+    </div>
+
+    <script src="js/theme.js"></script>
+    <script src="js/language.js"></script>
+    <script src="js/geometry.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

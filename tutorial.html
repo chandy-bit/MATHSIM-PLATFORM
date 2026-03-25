@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MathSim | Tutorial </title>
+    <meta name="theme-color" content="#4CAF50">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <a href="index.html" class="logo">
+                    <span class="logo-icon"></span>
+                    <span class="logo-text">MathSim</span>
+                </a>
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="nav-link active">Subjects </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="algebra.html">Algebra</a></li>
+                            <li><a href="geometry.html">Geometry</a></li>
+                            <li><a href="precalculus.html">Pre-Calculus</a></li>
+                            <li><a href="calculus.html">Calculus</a></li>
+                            <li><a href="probability.html">Probability</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="simulation.html" class="nav-link">simulations</a></li>
+                    <li><a href="game.html" class="nav-link">Games</a></li>
+                    <li><a href="tutorial.html" class="nav-link active">Tutorials</a></li>
+                    <li><a href="progress.html" class="nav-link">Progress</a></li>
+                    <li><a href="accessibility.html" class="nav-link">Accessibility</a></li>
+                </ul>
+                <div class="nav-controls">
+                    <div class="language-selector">
+                        <select id="languageSelect" aria-label="Select Language">
+                            <option value="en">English</option>
+                            <option value="es">Español</option>
+                            <option value="fr">Français</option>
+                            <option value="de">Deutsch</option>
+                            <option value="ar">العربية</option>
+                            <option value="zh"> 中文</option>
+                            <option value="hi"> हिन्दी</option>
+                            <option value="pt"> 🇵🇹 Português</option>
+                        </select>
+                    </div>
+                    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">🌓</button>
+                    <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu">
+                        <span class="hamburger"></span>
+                    </button>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main id="main-content" class="container" style="padding: 2rem 0;">
+        <div class="offline-notice">
+             You're offline. Cached tutorials are still available.
+        </div>
+
+        <div class="tutorial-header">
+            <h1> Tutorials & Examples</h1>
+            <p class="page-description">Learn math concepts with step-by-step video tutorials and interactive examples</p>
+        </div>
+
+        <div class="tutorial-tabs">
+             <button class="tab-btn active" onclick="filterTutorials('all')">All</button>
+            <button class="tab-btn" onclick="filterTutorials('algebra')">Algebra</button>
+            <button class="tab-btn" onclick="filterTutorials('geometry')">Geometry</button>
+            <button class="tab-btn" onclick="filterTutorials('precalculus')">Pre-Calculus</button>
+            <button class="tab-btn" onclick="filterTutorials('calculus')">Calculus</button>
+            <button class="tab-btn" onclick="filterTutorials('probability')">Probability</button>
+        </div>
+
+        <div class="tutorial-grid" id="tutorialGrid">
+            <div class="tutorial-card" data-category="basics">
+                 <div class="video-placeholder" onclick="openVideo('algebra-linear')">
+                    <div class="play-button"></div>
+                </div>
+                <div class="tutorial-content">
+                    <h3>Linear Equations</h3>
+                    <div class="tutorial-meta">
+                        <span> 6:55</span>
+                        <span> Beginner</span>
+                    </div>
+                    <p class="tutorial-description">Learn what slope means and how to calculate it from a graph.</p>
+                    <button class="btn btn-small" onclick="openVideo('algebra-linear')">Watch Tutorial</button>
+                </div>
+            </div>
+
+            <div class="tutorial-card" data-category="quadratics">
+                <div class="video-placeholder" onclick="openVideo('algebra-quadratic')">
+                    <div class="play-button"></div>
+                </div>
+                <div class="tutorial-content">
+                    <h3>Quadratic Functions</h3>
+                    <div class="tutorial-meta">
+                        <span> 8:15</span>
+                        <span> Intermediate</span>
+                    </div>
+                    <p class="tutorial-description">Explore parabolas, vertex, and how a, b, c affect the graph.</p>
+                    <button class="btn btn-small" onclick="openVideo('algebra-quadratic')">Watch Tutorial</button>
+                </div>
+            </div>
+
+            <div class="tutorial-card" data-category="games">
+                <div class="video-placeholder" onclick="openGameTips('game-strategy')">
+                    <div class="play-button"></div>
+                </div>
+                <div class="tutorial-content">
+                    <h3>Slope Game Tips</h3>
+                    <div class="tutorial-meta">
+                        <span> Guide</span>
+                        <span> All Levels</span>
+                    </div>
+                    <p class="tutorial-description">Master the Slope Challenge game with these pro strategies.</p>
+                    <button class="btn btn-small" onclick="openGameTips('game-strategy')">Read Guide</button>
+                </div>
+            </div>
+
+            <div class="tutorial-card" data-category="basics">
+                <div class="video-placeholder" onclick="openVideo('intercepts')">
+                    <div class="play-button"></div>
+                </div>
+                <div class="tutorial-content">
+                    <h3>X & Y Intercepts</h3>
+                    <div class="tutorial-meta">
+                        <span> 6:45</span>
+                        <span> Beginner</span>
+                    </div>
+                    <p class="tutorial-description">Learn how to find where lines cross the axes.</p>
+                    <button class="btn btn-small" onclick="openVideo('intercepts')">Watch Tutorial</button>
+                </div>
+            </div>
+
+            <div class="tutorial-card" data-category="quadratics">
+                <div class="video-placeholder" onclick="openVideo('vertex')">
+                    <div class="play-button"></div>
+                </div>
+                <div class="tutorial-content">
+                    <h3>Vertex Form</h3>
+                    <div class="tutorial-meta">
+                        <span> 7:30</span>
+                        <span> Advanced</span>
+                    </div>
+                    <p class="tutorial-description">Convert quadratics to vertex form and find the vertex easily.</p>
+                    <button class="btn btn-small" onclick="openVideo('vertex')">Watch Tutorial</button>
+                </div>
+            </div>
+
+            <div class="tutorial-card" data-category="slope">
+                <div class="video-placeholder" onclick="openVideo('parallel')">
+                    <div class="play-button"></div>
+                </div>
+                <div class="tutorial-content">
+                    <h3>Parallel & Perpendicular</h3>
+                    <div class="tutorial-meta">
+                        <span> 5:50</span>
+                        <span> Intermediate</span>
+                    </div>
+                    <p class="tutorial-description">Understand slopes of parallel and perpendicular lines.</p>
+                    <button class="btn btn-small" onclick="openVideo('parallel')">Watch Tutorial</button>
+                </div>
+            </div>
+        </div>
+
+        <section class="example-section">
+            <h2> Interactive Examples</h2>
+            <div class="example-grid">
+                <div class="example-card" onclick="openExample('slope-calculator')">
+                    <div class="example-icon"></div>
+                    <h4>Slope Calculator</h4>
+                    <p>Calculate slope between any two points</p>
+                    <span class="example-link">Try it →</span>
+                </div>
+
+                <div class="example-card" onclick="openExample('quadratic-explorer')">
+                    <div class="example-icon"></div>
+                    <h4>Quadratic Explorer</h4>
+                    <p>See how a, b, c change the parabola</p>
+                    <span class="example-link">Try it →</span>
+                </div>
+
+                <div class="example-card" onclick="openExample('line-builder')">
+                    <div class="example-icon"></div>
+                    <h4>Line Builder</h4>
+                    <p>Build lines from slope and intercept</p>
+                    <span class="example-link">Try it →</span>
+                </div>
+
+                <div class="example-card" onclick="openExample('equation-solver')">
+                    <div class="example-icon"></div>
+                    <h4>Equation Solver</h4>
+                    <p>Solve linear equations step-by-step</p>
+                    <span class="example-link">Try it →</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="cheat-sheet">
+            <h3> Math Cheat Sheet</h3>
+            <div class="cheat-grid">
+                <div class="cheat-item">
+                    <span class="cheat-term">Slope formula:</span> m = (y₂ - y₁)/(x₂ - x₁)
+                </div>
+                <div class="cheat-item">
+                    <span class="cheat-term">Slope-intercept:</span> y = mx + b
+                </div>
+                <div class="cheat-item">
+                    <span class="cheat-term">Quadratic:</span> y = ax² + bx + c
+                </div>
+                <div class="cheat-item">
+                    <span class="cheat-term">Vertex x:</span> -b/(2a)
+                </div>
+                <div class="cheat-item">
+                    <span class="cheat-term">Discriminant:</span> b² - 4ac
+                </div>
+                <div class="cheat-item">
+                    <span class="cheat-term">Parallel lines:</span> same slope
+                </div>
+                <div class="cheat-item">
+                    <span class="cheat-term">Perpendicular:</span> m₁ × m₂ = -1
+                </div>
+                <div class="cheat-item">
+                    <span class="cheat-term">Distance formula:</span> √[(x₂-x₁)² + (y₂-y₁)²]
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div class="popup-modal" id="videoModal">
+        <div class="popup-content">
+            <div class="popup-header">
+                <h3 id="modalTitle">Tutorial Video</h3>
+                <button class="close-btn" onclick="closeModal()">✕</button>
+            </div>
+            <div class="popup-body">
+                <div class="video-container" id="videoContainer">
+                </div>
+                <div class="interactive-demo" id="videoNotes">
+                    <h4> Key Points:</h4>
+                    <ul id="keyPointsList">
+                        <li>Watch the video to learn this concept</li>
+                        <li>Try the interactive examples after</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="popup-modal" id="exampleModal">
+        <div class="popup-content">
+            <div class="popup-header">
+                <h3 id="exampleModalTitle">Interactive Example</h3>
+                <button class="close-btn" onclick="closeExampleModal()">✕</button>
+            </div>
+            <div class="popup-body" id="exampleContent">
+            </div>
+        </div>
+    </div>
+
+    <div id="onlineStatus" class="online-badge">Online</div>
+
+    <script src="js/theme.js"></script>
+    <script src="js/language.js"></script>
+    <script src="js/accessibility.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/tutorials.js"></script>
+    <script src="js/pwa.js"></script>
+</body>
+</html>

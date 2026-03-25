@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MathSim | Calculus</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <a href="index.html" class="logo">
+                    <span class="logo-icon"></span>
+                    <span class="logo-text">MathSim</span>
+                </a>
+
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="nav-link active">Subjects</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="algebra.html">Algebra</a></li>
+                            <li><a href="geometry.html">Geometry</a></li>
+                            <li><a href="precalculus.html">Pre-Calculus</a></li>
+                            <li><a href="calculus.html">Calculus</a></li>
+                            <li><a href="probability.html">Probability</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="simulation.html" class="nav-link">Simulations</a></li>
+                    <li><a href="game.html" class="nav-link">Games</a></li>
+                    <li><a href="tutorial.html" class="nav-link">Tutorials</a></li>
+                    <li><a href="progress.html" class="nav-link">Progress</a></li>
+                    <li><a href="accessibility.html" class="nav-link">Accessibility</a></li>
+                </ul>
+
+                <div class="nav-controls">
+                    <div class="language-selector">
+                        <select id="languageSelect">
+                            <option value="en">EN</option>
+                            <option value="es">ES</option>
+                        </select>
+                    </div>
+                    <button class="theme-toggle" id="themeToggle">🌓</button>
+                    <button class="mobile-menu-btn" id="mobileMenuBtn">
+                        <span class="hamburger"></span>
+                    </button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main id="main-content" class="container" style="padding: 2rem 0;">
+        <div class="subject-header">
+            <h1> Calculus</h1>
+            <p>Master derivatives, integrals, and the mathematics of change</p>
+        </div>
+
+        <div class="subject-grid">
+            <!-- Limits Review -->
+            <div class="subject-card">
+                <div class="subject-icon"></div>
+                <h3>Limits Review</h3>
+                <p>Essential limits for calculus, continuity</p>
+                <div class="topic-list">
+                    <span class="topic-tag">Limits</span>
+                    <span class="topic-tag">Continuity</span>
+                    <span class="topic-tag">Asymptotes</span>
+                </div>
+                <a href="#" class="btn btn-primary">Review</a>
+            </div>
+
+            <!-- Derivatives -->
+            <div class="subject-card featured">
+                <div class="subject-icon"></div>
+                <h3>Derivatives</h3>
+                <p>Rate of change, slope, power rule, chain rule</p>
+                <div class="topic-list">
+                    <span class="topic-tag">Power Rule</span>
+                    <span class="topic-tag">Product Rule</span>
+                    <span class="topic-tag">Chain Rule</span>
+                </div>
+                <a href="simulation.html?type=derivatives" class="btn btn-primary">Explore</a>
+            </div>
+
+            <!-- Integrals -->
+            <div class="subject-card featured">
+                <div class="subject-icon"></div>
+                <h3>Integrals</h3>
+                <p>Area under curve, antiderivatives, definite integrals</p>
+                <div class="topic-list">
+                    <span class="topic-tag">Antiderivative</span>
+                    <span class="topic-tag">Definite</span>
+                    <span class="topic-tag">Area</span>
+                </div>
+                <a href="simulation.html?type=integrals" class="btn btn-primary">Explore</a>
+            </div>
+
+            <!-- Applications -->
+            <div class="subject-card">
+                <div class="subject-icon"></div>
+                <h3>Applications</h3>
+                <p>Optimization, related rates, motion problems</p>
+                <div class="topic-list">
+                    <span class="topic-tag">Optimization</span>
+                    <span class="topic-tag">Related Rates</span>
+                    <span class="topic-tag">Motion</span>
+                </div>
+                <a href="#" class="btn btn-primary">Explore</a>
+            </div>
+
+            <!-- Differential Equations -->
+            <div class="subject-card">
+                <div class="subject-icon"></div>
+                <h3>Differential Equations</h3>
+                <p>Separable, linear, slope fields</p>
+                <div class="topic-list">
+                    <span class="topic-tag">Separable</span>
+                    <span class="topic-tag">Linear</span>
+                    <span class="topic-tag">Slope Fields</span>
+                </div>
+                <a href="#" class="btn btn-primary">Explore</a>
+            </div>
+
+            <!-- Series -->
+            <div class="subject-card">
+                <div class="subject-icon"></div>
+                <h3>Series</h3>
+                <p>Taylor series, Maclaurin series, convergence</p>
+                <div class="topic-list">
+                    <span class="topic-tag">Taylor</span>
+                    <span class="topic-tag">Maclaurin</span>
+                    <span class="topic-tag">Convergence</span>
+                </div>
+                <a href="#" class="btn btn-primary">Explore</a>
+            </div>
+        </div>
+
+        <!-- Derivative Calculator Tool -->
+        <div class="advanced-tool">
+            <h2> Derivative Calculator</h2>
+            <div class="tool-container">
+                <input type="text" id="functionInput" placeholder="Enter function (e.g., x^2 + 3x)" class="function-input">
+                <button class="btn btn-primary" onclick="calculateDerivative()">Calculate Derivative</button>
+                <div id="derivativeResult" class="result-box"></div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>© 2026 MathSim. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <div id="installContainer" style="display: none; text-align: center; margin: 1rem 0;">
+        <button class="btn btn-primary" onclick="installPWA()" style="font-size: 1.1rem; padding: 1rem 2rem;">
+            Install MathSim App
+        </button>
+    </div>
+
+    <script src="js/theme.js"></script>
+    <script src="js/language.js"></script>
+    <script src="js/calculus.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

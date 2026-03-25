@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MathSim | Interactive Function Plotter</title>
+    <meta name="theme-color" content="#4CAF50">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <a href="index.html" class="logo">
+                    <span class="logo-icon"></span>
+                    <span class="logo-text">MathSim</span>
+                </a>
+
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="nav-link">Subjects </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="algebra.html">Algebra</a></li>
+                            <li><a href="geometry.html">Geometry</a></li>
+                            <li><a href="precalculus.html">Pre-Calculus</a></li>
+                            <li><a href="calculus.html">Calculus</a></li>
+                            <li><a href="probability.html">Probability</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="simulation.html" class="nav-link active">Simulations</a></li>
+                    <li><a href="game.html" class="nav-link">Games</a></li>
+                    <li><a href="tutorial.html" class="nav-link">Tutorials</a></li>
+                    <li><a href="progress.html" class="nav-link">Progress</a></li>
+                    <li><a href="accessibility.html" class="nav-link">Accessibility</a></li>
+                </ul>
+
+                <div class="nav-controls">
+                    <div class="language-selector">
+                        <select id="languageSelect" aria-label="Select language">
+                            <option value="en">English</option>
+                            <option value="es">Español</option>
+                            <option value="fr">Français</option>
+                            <option value="de">Deutsch</option>
+                            <option value="ar">العربية</option>
+                            <option value="zh">中文</option>
+                        </select>
+                    </div>
+                    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">🌓</button>
+                    <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu">
+                        <span class="hamburger"></span>
+                    </button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main id="main-content" class="container" style="padding: 2rem 0;">
+        <div class="simulation-header">
+            <h1 id="simulationTitle">Interactive Function Plotter</h1>
+            <p id="simulationDescription">Explore how changing values affects a quadratic graph</p>
+        </div>
+
+        <div class="simulation-tabs">
+            <button class="tab-btn active" onclick="loadSimulation('quadratic')">Quadratic</button>
+            <button class="tab-btn" onclick="loadSimulation('linear')">Linear</button>
+            <button class="tab-btn" onclick="loadSimulation('cubic')">Cubic</button>
+            <button class="tab-btn" onclick="loadSimulation('trig')">Trigonometric</button>
+            <button class="tab-btn" onclick="loadSimulation('exponential')">Exponential</button>
+            <button class="tab-btn" onclick="loadSimulation('calculus')">Derivatives</button>
+        </div>
+
+        <section class="controls" id="paramControls">
+            <div class="control-group">
+                <label for="a">a: <span id="a-value">1</span></label>
+                <input type="range" id="a" min="-5" max="5" value="1" step="0.1" aria-label="Coefficient a">
+            </div>
+            <div class="control-group">
+                <label for="b">b: <span id="b-value">0</span></label>
+                <input type="range" id="b" min="-10" max="10" value="0" step="1" aria-label="Coefficient b">
+            </div>
+            <div class="control-group">
+                <label for="c">c: <span id="c-value">0</span></label>
+                <input type="range" id="c" min="-10" max="10" value="0" step="1" aria-label="Coefficient c">
+            </div>
+        </section>
+
+        <section class="graph-section">
+            <canvas id="graph" width="600" height="400" style="border: 1px solid #ccc; background: white;" 
+                    aria-label="Interactive function graph"></canvas>
+            <div class="sr-only" id="graph-description" role="status" aria-live="polite"></div>
+        </section>
+
+        <div class="equation-display" aria-live="polite" role="math">
+            <span class="equation-label">f(x) =</span>
+            <span id="equation" class="equation">1x² + 0x + 0</span>
+        </div>
+
+        <div class="preset-buttons" id="presetButtons">
+            <button class="btn" id="reset">Reset</button>
+            <button class="btn" id="preset1">U-Shape</button>
+            <button class="btn" id="preset2">∩-Shape</button>
+            <button class="btn" id="preset3">Wide</button>
+        </div>
+
+        <div class="shortcuts-hint">
+            <small>Tip: Press Ctrl+S to save, Ctrl+L to load</small>
+        </div>
+    </main>
+
+    <div id="installContainer" style="display: none; text-align: center; margin: 1rem 0;">
+        <button class="btn btn-primary" onclick="installPWA()" style="font-size: 1.1rem; padding: 1rem 2rem;">
+             Install MathSim App
+        </button>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h4>MathSim</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="simulation.html">Simulations</a></li>
+                        <li><a href="game.html">Games</a></li>
+                        <li><a href="tutorials.html">Tutorials</a></li>
+                        <li><a href="progress.html">Progress</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Accessibility</h4>
+                    <ul>
+                        <li><button id="increase-font" class="text-size-btn" aria-label="Increase text size">A+</button></li>
+                        <li><button id="decrease-font" class="text-size-btn" aria-label="Decrease text size">A-</button></li>
+                        <li><button id="reset-font" class="text-size-btn" aria-label="Reset text size">Reset</button></li>
+                        <li><button id="toggle-contrast" class="contrast-btn" aria-label="Toggle high contrast">High Contrast</button></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="#">Tutorials</a></li>
+                        
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>© 2026 MathSim. All rights reserved.</p>
+                <p class="pwa-badge">Install as app for offline use</p>
+                <p class="footer-links">
+                    <a href="privacy.html">Privacy</a> | 
+                    <a href="terms.html">Terms</a> | 
+                    <a href="accessibility.html">Accessibility</a>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <div id="installContainer" style="display: none; text-align: center; margin: 1rem 0;">
+        <button class="btn btn-primary" onclick="installPWA()" style="font-size: 1.1rem; padding: 1rem 2rem;">
+            Install MathSim App
+        </button>
+    </div>
+
+    <div id="onlineStatus" class="online-badge" style="position: fixed; bottom: 10px; left: 10px; padding: 8px 12px; border-radius: 4px; color: white; font-size: 14px; font-weight: bold; background: #4CAF50; z-index: 9999; box-shadow: 0 2px 10px rgba(0,0,0,0.2);">
+        Online
+    </div>
+
+    <script src="js/theme.js"></script>
+    <script src="js/language.js"></script>
+    <script src="js/accessibility.js"></script>
+    <script src="js/analytics.js"></script>
+    <script src="js/simulation-core.js"></script>
+    <script src="js/simulation-types.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/pwa.js"></script>
+    <script src="js/plotter.js"></script>
+</body>
+</html>

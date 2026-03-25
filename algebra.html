@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MathSim | Algebra</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <a href="index.html" class="logo">
+                    <span class="logo-icon"></span>
+                    <span class="logo-text">MathSim</span>
+                </a>
+
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="nav-link active">Subjects </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="algebra.html">Algebra</a></li>
+                            <li><a href="geometry.html">Geometry</a></li>
+                            <li><a href="precalculus.html">Pre-Calculus</a></li>
+                            <li><a href="calculus.html">Calculus</a></li>
+                            <li><a href="probability.html">Probability</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="simulation.html" class="nav-link">Simulations</a></li>
+                    <li><a href="game.html" class="nav-link">Games</a></li>
+                    <li><a href="tutorial.html" class="nav-link">Tutorials</a></li>
+                    <li><a href="progress.html" class="nav-link">Progress</a></li>
+                    <li><a href="accessibility.html" class="nav-link">Accessibility</a></li>
+                </ul>
+
+                <div class="nav-controls">
+                    <div class="language-selector">
+                        <select id="languageSelect">
+                            <option value="en">EN</option>
+                            <option value="es">ES</option>
+                        </select>
+                    </div>
+                    <button class="theme-toggle" id="themeToggle">🌓</button>
+                    <button class="mobile-menu-btn" id="mobileMenuBtn">
+                        <span class="hamburger"></span>
+                    </button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main id="main-content" class="container" style="padding: 2rem 0;">
+        <div class="subject-header">
+            <h1> Algebra</h1>
+            <p>Master equations, functions, and algebraic thinking</p>
+        </div>
+
+        <div class="subject-grid">
+            <div class="subject-card">
+                <div class="subject-icon"></div>
+                <h3>Linear Equations</h3>
+                <p>y = mx + b, slope, intercepts, graphing lines</p>
+                <div class="topic-list">
+                    <span class="topic-tag">Slope</span>
+                    <span class="topic-tag">Intercepts</span>
+                    <span class="topic-tag">Graphing</span>
+                </div>
+                <a href="simulation.html?type=linear" class="btn btn-primary">Explore</a>
+            </div>
+
+            <!-- Quadratic Equations -->
+            <div class="subject-card">
+                <div class="subject-icon"></div>
+                <h3>Quadratic Equations</h3>
+                <p>ax² + bx + c, vertex, factoring, quadratic formula</p>
+                <div class="topic-list">
+                    <span class="topic-tag">Parabolas</span>
+                    <span class="topic-tag">Vertex</span>
+                    <span class="topic-tag">Factoring</span>
+                </div>
+                <a href="simulation.html?type=quadratic" class="btn btn-primary">Explore</a>
+            </div>
+
+            <div class="subject-card">
+                <div class="subject-icon"></div>
+                <h3>Systems of Equations</h3>
+                <p>Solving multiple equations, substitution, elimination</p>
+                <div class="topic-list">
+                    <span class="topic-tag">Substitution</span>
+                    <span class="topic-tag">Elimination</span>
+                    <span class="topic-tag">Graphing</span>
+                </div>
+                <a href="#" class="btn btn-primary">Explore</a>
+            </div>
+
+            <div class="subject-card">
+                <div class="subject-icon"></div>
+                <h3>Polynomials</h3>
+                <p>Degree, roots, factoring, long division</p>
+                <div class="topic-list">
+                    <span class="topic-tag">Degree</span>
+                    <span class="topic-tag">Roots</span>
+                    <span class="topic-tag">Factoring</span>
+                </div>
+                <a href="#" class="btn btn-primary">Explore</a>
+            </div>
+
+            <!-- Inequalities -->
+            <div class="subject-card">
+                <div class="subject-icon"></div>
+                <h3>Inequalities</h3>
+                <p>Greater than, less than, compound inequalities</p>
+                <div class="topic-list">
+                    <span class="topic-tag">Linear</span>
+                    <span class="topic-tag">Quadratic</span>
+                    <span class="topic-tag">Compound</span>
+                </div>
+                <a href="#" class="btn btn-primary">Explore</a>
+            </div>
+
+            <!-- Exponents & Logarithms -->
+            <div class="subject-card">
+                <div class="subject-icon"></div>
+                <h3>Exponents & Logarithms</h3>
+                <p>Exponential growth, log rules, natural log</p>
+                <div class="topic-list">
+                    <span class="topic-tag">Exponents</span>
+                    <span class="topic-tag">Logarithms</span>
+                    <span class="topic-tag">e</span>
+                </div>
+                <a href="#" class="btn btn-primary">Explore</a>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>© 2026 MathSim. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <div id="installContainer" style="display: none; text-align: center; margin: 1rem 0;">
+        <button class="btn btn-primary" onclick="installPWA()" style="font-size: 1.1rem; padding: 1rem 2rem;">
+            Install MathSim App
+        </button>
+    </div>
+
+    <script src="js/theme.js"></script>
+    <script src="js/language.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

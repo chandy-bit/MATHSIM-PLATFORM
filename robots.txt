@@ -1,0 +1,5 @@
+# robots.txt for MathSim
+User-agent: *
+Allow: /
+
+Sitemap: https://YOURUSERNAME.github.io/mathsim/sitemap.xml

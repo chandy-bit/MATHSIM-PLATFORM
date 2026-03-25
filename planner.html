@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MathSim | Study Planner</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header class="header">
+    </header>
+
+    <main class="container" style="padding: 2rem;">
+        <h1> Study Planner</h1>
+        <p>Plan your math learning journey</p>
+
+        <div class="planner-grid">
+            <section class="planner-section">
+                <h2> Learning Goals</h2>
+                <div class="goals-list" id="goalsList">
+                </div>
+                <button class="btn btn-primary" onclick="addGoal()">+ Add Goal</button>
+            </section>
+
+            <section class="planner-section">
+                <h2> This Week</h2>
+                <div class="schedule-grid" id="schedule">
+                </div>
+            </section>
+
+            <section class="planner-section">
+                <h2> Study Reminders</h2>
+                <div class="reminders-list" id="reminders">
+                </div>
+                <button class="btn btn-primary">Set Reminder</button>
+            </section>
+        </div>
+    </main>
+
+    <script src="js/theme.js"></script>
+    <script src="js/planner.js"></script>
+</body>
+</html>
