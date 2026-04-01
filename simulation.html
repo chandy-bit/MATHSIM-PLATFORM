@@ -9,6 +9,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <link rel="manifest" href="manifest.json">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/upgrade.css">
 </head>
 <body>
     <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -38,6 +39,8 @@
                     <li><a href="tutorial.html" class="nav-link">Tutorials</a></li>
                     <li><a href="progress.html" class="nav-link">Progress</a></li>
                     <li><a href="accessibility.html" class="nav-link">Accessibility</a></li>
+                    <li><a href="consent.html" class="nav-link" data-i18n="consent">Consent</a></li>
+
                 </ul>
 
                 <div class="nav-controls">
@@ -108,6 +111,25 @@
             <button class="btn" id="preset3">Wide</button>
         </div>
 
+        <div class="simulation-actions">
+            <button onclick="exportGraph('png')" class="btn btn-secondary"> Export as PNG</button>
+            <button onclick="shareSimulation()" class="btn btn-secondary"> Share Simulation</button>
+            <button onclick="copyGraphLink()" class="btn btn-secondary"> Copy Link</button>
+        </div>
+
+        <!-- Explanation Panel -->
+        <div class="explanation-panel" id="explanationPanel">
+            <h3> What's Happening?</h3>
+            <p id="explanationText">Adjust the sliders to see how each coefficient affects the graph.</p>
+            <div class="explanation-details">
+                <ul>
+                    <li><strong>a (coefficient)</strong> - Controls the width and direction (upward/downward)</li>
+                    <li><strong>b (coefficient)</strong> - Controls the horizontal position of the vertex</li>
+                    <li><strong>c (constant)</strong> - Controls the y-intercept (where the graph crosses the y-axis)</li>
+                </ul>
+            </div>
+        </div>
+
         <div class="shortcuts-hint">
             <small>Tip: Press Ctrl+S to save, Ctrl+L to load</small>
         </div>
@@ -126,7 +148,6 @@
                     <h4>MathSim</h4>
                     <ul>
                         <li><a href="index.html">Home</a></li>
-                        <li><a href="simulation.html">Simulations</a></li>
                         <li><a href="game.html">Games</a></li>
                         <li><a href="tutorials.html">Tutorials</a></li>
                         <li><a href="progress.html">Progress</a></li>
@@ -146,7 +167,9 @@
                 <div class="footer-section">
                     <h4>Resources</h4>
                     <ul>
-                        <li><a href="#">Tutorials</a></li>
+                        <li><a href="docs.html">Documentation</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
                         
                     </ul>
                 </div>
@@ -183,5 +206,6 @@
     <script src="js/main.js"></script>
     <script src="js/pwa.js"></script>
     <script src="js/plotter.js"></script>
+    <script src="js/upgrade.js"></script>
 </body>
 </html>

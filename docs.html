@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MathSim | Documentation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/upgrade.css">
+    <style>
+        .docs-sidebar {
+            position: sticky;
+            top: 100px;
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+        }
+        .docs-sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+        .docs-sidebar li {
+            margin-bottom: 0.75rem;
+        }
+        .docs-sidebar a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .docs-sidebar a:hover,
+        .docs-sidebar a.active {
+            color: var(--primary);
+        }
+        .docs-content {
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+        }
+        .docs-content h2 {
+            color: var(--primary);
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+        .docs-content h2:first-child {
+            margin-top: 0;
+        }
+        .docs-content pre {
+            background: var(--bg-secondary);
+            padding: 1rem;
+            border-radius: var(--radius-md);
+            overflow-x: auto;
+        }
+        .docs-grid {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 2rem;
+        }
+        @media (max-width: 768px) {
+            .docs-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <a href="index.html" class="logo"> MathSim</a>
+                <ul class="nav-menu">
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li><a href="simulation.html" class="nav-link">Simulations</a></li>
+                    <li><a href="game.html" class="nav-link">Games</a></li>
+                    <li><a href="tutorial.html" class="nav-link">Tutorials</a></li>
+                    <li><a href="docs.html" class="nav-link active">Docs</a></li>
+                    <li><a href="about.html" class="nav-link">About</a></li>
+                    <li><a href="contact.html" class="nav-link">Contact</a></li>
+                </ul>
+                <div class="nav-controls">
+                    <button class="theme-toggle" id="themeToggle"></button>
+                    <button class="mobile-menu-btn" id="mobileMenuBtn">
+                        <span class="hamburger"></span>
+                    </button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main id="main-content" class="container" style="padding: 2rem 0;">
+        <div class="docs-grid">
+            <aside class="docs-sidebar">
+                <h3>Documentation</h3>
+                <ul>
+                    <li><a href="#introduction" class="active">Introduction</a></li>
+                    <li><a href="#getting-started">Getting Started</a></li>
+                    <li><a href="#simulations">Using Simulations</a></li>
+                    <li><a href="#games">Playing Games</a></li>
+                    <li><a href="#progress">Tracking Progress</a></li>
+                    <li><a href="#accessibility">Accessibility Features</a></li>
+                    <li><a href="#faq">FAQ</a></li>
+                    <li><a href="#api">API Reference</a></li>
+                </ul>
+            </aside>
+
+            <div class="docs-content">
+                <h1 id="introduction"> MathSim Documentation</h1>
+                <p>Welcome to the MathSim documentation. This guide will help you understand how to use the platform effectively, explore simulations, and maximize your learning experience.</p>
+
+                <h2 id="getting-started"> Getting Started</h2>
+                <p>MathSim is designed to be intuitive and easy to use. Follow these steps to begin your learning journey:</p>
+                <ol>
+                    <li><strong>Choose a subject</strong> - Browse through Algebra, Geometry, Calculus, Probability, or Pre-Calculus</li>
+                    <li><strong>Select a simulation</strong> - Pick the topic you want to explore</li>
+                    <li><strong>Adjust variables</strong> - Use sliders to change parameters and observe real-time changes</li>
+                    <li><strong>Analyze results</strong> - Watch how the graph responds to your inputs</li>
+                    <li><strong>Practice with games</strong> - Reinforce your learning through interactive challenges</li>
+                </ol>
+
+                <h2 id="simulations"> Using Simulations</h2>
+                <p>Our interactive simulations allow you to explore mathematical concepts visually. Here's how to use them:</p>
+                <h3>Quadratic Function Simulator</h3>
+                <p>The quadratic simulator lets you explore the function f(x) = ax² + bx + c:</p>
+                <ul>
+                    <li><strong>a coefficient</strong> - Controls the width and direction (upward/downward) of the parabola</li>
+                    <li><strong>b coefficient</strong> - Controls the horizontal position of the vertex</li>
+                    <li><strong>c coefficient</strong> - Controls the y-intercept (where the graph crosses the y-axis)</li>
+                </ul>
+                <div class="tip-box">
+                    <strong> Pro Tip:</strong> Try the preset buttons (U-Shape, ∩-Shape, Wide) to see common configurations.
+                </div>
+
+                <h3>Linear Function Simulator</h3>
+                <p>The linear simulator explores y = mx + b:</p>
+                <ul>
+                    <li><strong>m (slope)</strong> - Controls steepness and direction</li>
+                    <li><strong>b (intercept)</strong> - Controls where the line crosses the y-axis</li>
+                </ul>
+
+                <h2 id="games"> Playing Games</h2>
+                <p>Our Slope Challenge game helps you master slope identification through play:</p>
+                <ol>
+                    <li>Look at the line displayed on the graph</li>
+                    <li>Choose the correct slope from the options</li>
+                    <li>Get points for correct answers</li>
+                    <li>Level up after consecutive correct answers</li>
+                    <li>Use hints if you're stuck</li>
+                </ol>
+
+                <h2 id="progress"> Tracking Progress</h2>
+                <p>The progress dashboard gives you insights into your learning journey:</p>
+                <ul>
+                    <li><strong>Tutorials Watched</strong> - Track your video learning</li>
+                    <li><strong>Games Played</strong> - See how often you practice</li>
+                    <li><strong>Accuracy</strong> - Monitor your performance over time</li>
+                    <li><strong>Best Score</strong> - Beat your personal records</li>
+                    <li><strong>Study Time</strong> - Track your dedicated learning time</li>
+                </ul>
+
+                <h2 id="accessibility"> Accessibility Features</h2>
+                <p>MathSim is designed to be accessible to all learners:</p>
+                <ul>
+                    <li><strong>High Contrast Mode</strong> - Improves visibility for users with visual impairments</li>
+                    <li><strong>Large Text Mode</strong> - Increases font size throughout the platform</li>
+                    <li><strong>Reduced Motion</strong> - Disables animations for users sensitive to motion</li>
+                    <li><strong>Dyslexic Font</strong> - Uses OpenDyslexic font for easier reading</li>
+                    <li><strong>Screen Reader Support</strong> - Full ARIA labels and semantic HTML</li>
+                    <li><strong>Keyboard Navigation</strong> - Complete functionality without a mouse</li>
+                </ul>
+
+                <h2 id="faq"> Frequently Asked Questions</h2>
+                <h3>Is MathSim free?</h3>
+                <p>Yes! MathSim is completely free and open source. No subscription, no hidden fees.</p>
+                
+                <h3>Do I need to create an account?</h3>
+                <p>No account required! Your progress is saved locally on your device. You can use MathSim immediately.</p>
+                
+                <h3>Does MathSim work offline?</h3>
+                <p>Yes! MathSim is a Progressive Web App (PWA). Once you visit the site, it works offline. You can even install it as an app on your phone or computer.</p>
+                
+                <h3>What browsers are supported?</h3>
+                <p>MathSim works on all modern browsers: Chrome, Firefox, Safari, and Edge. For the best experience, we recommend using the latest version of Chrome or Firefox.</p>
+                
+                <h3>How do I save my progress?</h3>
+                <p>Your progress is automatically saved to your browser's local storage. You can also export your data from the Progress page for backup.</p>
+
+                <h2 id="api"> API Reference</h2>
+                <p>MathSim provides a simple JavaScript API for advanced users:</p>
+                <pre><code>// Change simulation parameters
+MathSim.setSimulation('quadratic', { a: 2, b: -3, c: 1 });
+
+// Track analytics event
+analytics.trackEvent('custom', 'button_click', 'simulation');
+
+// Get current user progress
+const progress = analytics.getUserProgress();
+
+// Export simulation graph as image
+MathSim.exportGraph('png');</code></pre>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer-modern">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>© 2026 MathSim. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/theme.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

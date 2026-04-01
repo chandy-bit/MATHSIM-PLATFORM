@@ -5,13 +5,99 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MathSim | Geometry</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#4CAF50">
     <style>
         .geometry-canvas {
             width: 100%;
-            height: 300px;
+            height: 350px;
             background: var(--bg-card);
             border-radius: var(--radius-md);
             margin: 1rem 0;
+            border: 2px solid var(--border-light);
+        }
+        
+        .tool-controls {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 1rem 0;
+        }
+        
+        .tool-controls input {
+            padding: 0.5rem;
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-sm);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            width: 80px;
+        }
+        
+        .formula-card {
+            background: var(--bg-secondary);
+            padding: 1rem;
+            border-radius: var(--radius-md);
+            margin: 1rem 0;
+            border-left: 4px solid var(--primary);
+        }
+        
+        .result-area {
+            background: var(--bg-secondary);
+            padding: 1rem;
+            border-radius: var(--radius-md);
+            text-align: center;
+            font-weight: bold;
+            margin-top: 1rem;
+        }
+        
+        .shape-selector {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: center;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .shape-btn {
+            padding: 0.5rem 1rem;
+            background: var(--bg-secondary);
+            border: 2px solid var(--border-light);
+            border-radius: var(--radius-full);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .shape-btn.active {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+        }
+        
+        .shape-btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        .angle-visual {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .angle-card {
+            background: var(--bg-secondary);
+            padding: 1rem;
+            border-radius: var(--radius-md);
+            text-align: center;
+            min-width: 150px;
+        }
+        
+        .angle-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary);
         }
     </style>
 </head>
@@ -32,7 +118,7 @@
                         <a href="#" class="nav-link active">Subjects </a>
                         <ul class="dropdown-menu">
                             <li><a href="algebra.html">Algebra</a></li>
-                            <li><a href="geometry.html">Geometry</a></li>
+                            <li><a href="geometry.html" class="active">Geometry</a></li>
                             <li><a href="precalculus.html">Pre-Calculus</a></li>
                             <li><a href="calculus.html">Calculus</a></li>
                             <li><a href="probability.html">Probability</a></li>
@@ -40,7 +126,7 @@
                     </li>
                     <li><a href="simulation.html" class="nav-link">Simulations</a></li>
                     <li><a href="game.html" class="nav-link">Games</a></li>
-                    <li><a href="tutorial.html" class="nav-link">Tutorials</a></li>
+                    <li><a href="tutorials.html" class="nav-link">Tutorials</a></li>
                     <li><a href="progress.html" class="nav-link">Progress</a></li>
                     <li><a href="accessibility.html" class="nav-link">Accessibility</a></li>
                 </ul>
@@ -64,7 +150,7 @@
     <main id="main-content" class="container" style="padding: 2rem 0;">
         <div class="subject-header">
             <h1> Geometry</h1>
-            <p>Explore shapes, angles, and spatial relationships</p>
+            <p>Explore shapes, angles, and spatial relationships with interactive tools</p>
         </div>
 
         <div class="subject-grid">
@@ -78,7 +164,7 @@
                     <span class="topic-tag">30-60-90</span>
                     <span class="topic-tag">45-45-90</span>
                 </div>
-                <button class="btn btn-primary" onclick="openGeometry('triangle')">Explore</button>
+                <button class="btn btn-primary" onclick="openGeometry('triangle')">Explore →</button>
             </div>
 
             <!-- Circles -->
@@ -91,7 +177,7 @@
                     <span class="topic-tag">Area</span>
                     <span class="topic-tag">Circumference</span>
                 </div>
-                <button class="btn btn-primary" onclick="openGeometry('circle')">Explore</button>
+                <button class="btn btn-primary" onclick="openGeometry('circle')">Explore →</button>
             </div>
 
             <!-- Angles -->
@@ -104,7 +190,7 @@
                     <span class="topic-tag">Supplementary</span>
                     <span class="topic-tag">Parallel</span>
                 </div>
-                <button class="btn btn-primary" onclick="openGeometry('angles')">Explore</button>
+                <button class="btn btn-primary" onclick="openGeometry('angles')">Explore →</button>
             </div>
 
             <!-- Area & Perimeter -->
@@ -117,7 +203,7 @@
                     <span class="topic-tag">Perimeter</span>
                     <span class="topic-tag">Composite</span>
                 </div>
-                <button class="btn btn-primary" onclick="openGeometry('area')">Explore</button>
+                <button class="btn btn-primary" onclick="openGeometry('area')">Explore →</button>
             </div>
 
             <!-- Volume -->
@@ -130,7 +216,7 @@
                     <span class="topic-tag">Sphere</span>
                     <span class="topic-tag">Cylinder</span>
                 </div>
-                <button class="btn btn-primary" onclick="openGeometry('volume')">Explore</button>
+                <button class="btn btn-primary" onclick="openGeometry('volume')">Explore →</button>
             </div>
 
             <!-- Transformations -->
@@ -143,22 +229,96 @@
                     <span class="topic-tag">Reflect</span>
                     <span class="topic-tag">Translate</span>
                 </div>
-                <button class="btn btn-primary" onclick="openGeometry('transform')">Explore</button>
+                <button class="btn btn-primary" onclick="openGeometry('transform')">Explore →</button>
             </div>
         </div>
 
         <!-- Interactive Geometry Tool -->
         <div class="interactive-tool" id="geometryTool" style="display: none;">
-            <h2 id="toolTitle">Interactive Geometry</h2>
-            <canvas id="geometryCanvas" class="geometry-canvas" width="600" height="300"></canvas>
-            <div class="tool-controls" id="toolControls"></div>
+            <h2 id="toolTitle">Interactive Geometry Tool</h2>
+            <canvas id="geometryCanvas" class="geometry-canvas" width="600" height="350"></canvas>
+            <div id="toolControls" class="tool-controls"></div>
+            <div id="toolResults" class="result-area"></div>
+            <div id="formulaDisplay" class="formula-card"></div>
+            <div style="text-align: center; margin-top: 1rem;">
+                <button class="btn btn-secondary" onclick="closeGeometry()">Close Tool</button>
+            </div>
+        </div>
+
+        <!-- Quick Reference / Cheat Sheet -->
+        <div class="cheat-sheet" style="margin-top: 3rem; background: var(--bg-card); border-radius: var(--radius-lg); padding: 2rem;">
+            <h3> Geometry Cheat Sheet</h3>
+            <div class="cheat-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem;">
+                <div class="cheat-item" style="padding: 0.75rem; background: var(--bg-secondary); border-radius: var(--radius-md);">
+                    <span class="cheat-term">Pythagorean Theorem:</span> a² + b² = c²
+                </div>
+                <div class="cheat-item" style="padding: 0.75rem; background: var(--bg-secondary); border-radius: var(--radius-md);">
+                    <span class="cheat-term">Area of Triangle:</span> A = ½ × base × height
+                </div>
+                <div class="cheat-item" style="padding: 0.75rem; background: var(--bg-secondary); border-radius: var(--radius-md);">
+                    <span class="cheat-term">Circle Area:</span> A = πr²
+                </div>
+                <div class="cheat-item" style="padding: 0.75rem; background: var(--bg-secondary); border-radius: var(--radius-md);">
+                    <span class="cheat-term">Circle Circumference:</span> C = 2πr
+                </div>
+                <div class="cheat-item" style="padding: 0.75rem; background: var(--bg-secondary); border-radius: var(--radius-md);">
+                    <span class="cheat-term">Volume of Sphere:</span> V = ⁴⁄₃πr³
+                </div>
+                <div class="cheat-item" style="padding: 0.75rem; background: var(--bg-secondary); border-radius: var(--radius-md);">
+                    <span class="cheat-term">Volume of Cylinder:</span> V = πr²h
+                </div>
+                <div class="cheat-item" style="padding: 0.75rem; background: var(--bg-secondary); border-radius: var(--radius-md);">
+                    <span class="cheat-term">30-60-90 Triangle:</span> sides: a : a√3 : 2a
+                </div>
+                <div class="cheat-item" style="padding: 0.75rem; background: var(--bg-secondary); border-radius: var(--radius-md);">
+                    <span class="cheat-term">45-45-90 Triangle:</span> sides: a : a : a√2
+                </div>
+                <div class="cheat-item" style="padding: 0.75rem; background: var(--bg-secondary); border-radius: var(--radius-md);">
+                    <span class="cheat-term">Complementary Angles:</span> Sum = 90°
+                </div>
+                <div class="cheat-item" style="padding: 0.75rem; background: var(--bg-secondary); border-radius: var(--radius-md);">
+                    <span class="cheat-term">Supplementary Angles:</span> Sum = 180°
+                </div>
+            </div>
         </div>
     </main>
 
     <footer class="footer">
         <div class="container">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h4>MathSim</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="tutorials.html">Tutorials</a></li>
+                        <li><a href="docs.html">Documentation</a></li>
+                        <li><a href="progress.html">Progress</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms of Use</a></li>
+                        <li><a href="accessibility.html">Accessibility</a></li>
+                    </ul>
+                </div>
+            </div>
             <div class="footer-bottom">
                 <p>© 2026 MathSim. All rights reserved.</p>
+                <p class="pwa-badge"> Install as app for offline use</p>
+                <p class="footer-links">
+                    <a href="privacy.html">Privacy</a> | 
+                    <a href="terms.html">Terms</a> | 
+                    <a href="accessibility.html">Accessibility</a>
+                </p>
             </div>
         </div>
     </footer>
@@ -168,10 +328,577 @@
             Install MathSim App
         </button>
     </div>
+    
+    <div id="onlineStatus" class="online-badge">Online</div>
 
     <script src="js/theme.js"></script>
     <script src="js/language.js"></script>
-    <script src="js/geometry.js"></script>
+    <script src="js/accessibility.js"></script>
+    <script src="js/analytics.js"></script>
     <script src="js/main.js"></script>
+    <script src="js/pwa.js"></script>
+    
+    <script>
+        let geometryCanvas, ctx;
+        let currentTool = null;
+        
+        
+        function openGeometry(type) {
+            const tool = document.getElementById('geometryTool');
+            const title = document.getElementById('toolTitle');
+            const controls = document.getElementById('toolControls');
+            const results = document.getElementById('toolResults');
+            const formula = document.getElementById('formulaDisplay');
+            
+            tool.style.display = 'block';
+            tool.scrollIntoView({ behavior: 'smooth' });
+            
+            geometryCanvas = document.getElementById('geometryCanvas');
+            ctx = geometryCanvas.getContext('2d');
+            
+            currentTool = type;
+            
+            // Set title based on type
+            const titles = {
+                'triangle': ' Triangle Explorer',
+                'circle': ' Circle Calculator',
+                'angles': ' Angle Explorer',
+                'area': ' Area & Perimeter Calculator',
+                'volume': ' Volume Calculator',
+                'transform': ' Transformation Tool'
+            };
+            title.textContent = titles[type] || 'Geometry Tool';
+            
+            // Generate controls based on type
+            generateControls(type, controls);
+            
+            // Draw initial shape
+            drawGeometry(type);
+        }
+        
+        function closeGeometry() {
+            document.getElementById('geometryTool').style.display = 'none';
+        }
+        
+        function generateControls(type, container) {
+            if (type === 'triangle') {
+                container.innerHTML = `
+                    <div class="shape-selector">
+                        <button class="shape-btn active" onclick="setTriangleType('right')">Right Triangle</button>
+                        <button class="shape-btn" onclick="setTriangleType('30-60-90')">30-60-90</button>
+                        <button class="shape-btn" onclick="setTriangleType('45-45-90')">45-45-90</button>
+                        <button class="shape-btn" onclick="setTriangleType('custom')">Custom</button>
+                    </div>
+                    <div id="triangleControls">
+                        <label>Side a: <input type="number" id="triangleA" value="3" step="0.5" onchange="updateTriangle()"></label>
+                        <label>Side b: <input type="number" id="triangleB" value="4" step="0.5" onchange="updateTriangle()"></label>
+                        <label>Angle C: <input type="number" id="triangleAngle" value="90" step="5" onchange="updateTriangle()"></label>
+                    </div>
+                `;
+                updateTriangle();
+            }
+            else if (type === 'circle') {
+                container.innerHTML = `
+                    <label>Radius: <input type="number" id="circleRadius" value="5" step="0.5" onchange="updateCircle()"></label>
+                `;
+                updateCircle();
+            }
+            else if (type === 'angles') {
+                container.innerHTML = `
+                    <label>Angle 1: <input type="number" id="angle1" value="30" step="5" onchange="updateAngles()"></label>
+                    <label>Angle 2: <input type="number" id="angle2" value="60" step="5" onchange="updateAngles()"></label>
+                `;
+                updateAngles();
+            }
+            else if (type === 'area') {
+                container.innerHTML = `
+                    <div class="shape-selector">
+                        <button class="shape-btn active" onclick="setAreaShape('rectangle')">Rectangle</button>
+                        <button class="shape-btn" onclick="setAreaShape('triangle')">Triangle</button>
+                        <button class="shape-btn" onclick="setAreaShape('circle')">Circle</button>
+                    </div>
+                    <div id="areaControls">
+                        <label>Width: <input type="number" id="areaWidth" value="5" step="0.5" onchange="updateArea()"></label>
+                        <label>Height: <input type="number" id="areaHeight" value="3" step="0.5" onchange="updateArea()"></label>
+                    </div>
+                `;
+                updateArea();
+            }
+            else if (type === 'volume') {
+                container.innerHTML = `
+                    <div class="shape-selector">
+                        <button class="shape-btn active" onclick="setVolumeShape('cube')">Cube</button>
+                        <button class="shape-btn" onclick="setVolumeShape('sphere')">Sphere</button>
+                        <button class="shape-btn" onclick="setVolumeShape('cylinder')">Cylinder</button>
+                        <button class="shape-btn" onclick="setVolumeShape('cone')">Cone</button>
+                    </div>
+                    <div id="volumeControls">
+                        <label>Radius: <input type="number" id="volumeRadius" value="3" step="0.5" onchange="updateVolume()"></label>
+                        <label>Height: <input type="number" id="volumeHeight" value="5" step="0.5" onchange="updateVolume()"></label>
+                    </div>
+                `;
+                updateVolume();
+            }
+            else if (type === 'transform') {
+                container.innerHTML = `
+                    <div class="shape-selector">
+                        <button class="shape-btn active" onclick="setTransformType('rotate')">Rotate</button>
+                        <button class="shape-btn" onclick="setTransformType('reflect')">Reflect</button>
+                        <button class="shape-btn" onclick="setTransformType('translate')">Translate</button>
+                    </div>
+                    <div id="transformControls">
+                        <label>Angle: <input type="number" id="transformAngle" value="45" step="15" onchange="updateTransform()"></label>
+                    </div>
+                `;
+                updateTransform();
+            }
+        }
+        
+        let currentTriangleType = 'right';
+        
+        function setTriangleType(type) {
+            currentTriangleType = type;
+            document.querySelectorAll('#toolControls .shape-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            updateTriangle();
+        }
+        
+        function updateTriangle() {
+            const a = parseFloat(document.getElementById('triangleA')?.value) || 3;
+            const b = parseFloat(document.getElementById('triangleB')?.value) || 4;
+            const angleC = parseFloat(document.getElementById('triangleAngle')?.value) || 90;
+            
+            let c, area, message;
+            
+            if (currentTriangleType === 'right') {
+                c = Math.sqrt(a * a + b * b);
+                area = (a * b) / 2;
+                message = `Right triangle with legs ${a} and ${b}<br>Hypotenuse = ${c.toFixed(2)}<br>Area = ${area.toFixed(2)}`;
+            }
+            else if (currentTriangleType === '30-60-90') {
+                const side = a;
+                c = side * 2;
+                const sideB = side * Math.sqrt(3);
+                area = (side * sideB) / 2;
+                message = `30-60-90 triangle<br>Side a (short) = ${side}<br>Side b (long) = ${sideB.toFixed(2)}<br>Hypotenuse = ${c.toFixed(2)}<br>Area = ${area.toFixed(2)}`;
+            }
+            else if (currentTriangleType === '45-45-90') {
+                const leg = a;
+                c = leg * Math.sqrt(2);
+                area = (leg * leg) / 2;
+                message = `45-45-90 triangle<br>Legs = ${leg}<br>Hypotenuse = ${c.toFixed(2)}<br>Area = ${area.toFixed(2)}`;
+            }
+            else {
+                const radians = angleC * Math.PI / 180;
+                c = Math.sqrt(a * a + b * b - 2 * a * b * Math.cos(radians));
+                area = 0.5 * a * b * Math.sin(radians);
+                message = `Triangle sides: a=${a}, b=${b}, c=${c.toFixed(2)}<br>Angle C = ${angleC}°<br>Area = ${area.toFixed(2)}`;
+            }
+            
+            document.getElementById('toolResults').innerHTML = message;
+            document.getElementById('formulaDisplay').innerHTML = `
+                <strong> Triangle Formulas:</strong><br>
+                Pythagorean Theorem: a² + b² = c²<br>
+                Area = ½ × base × height<br>
+                Law of Cosines: c² = a² + b² - 2ab·cos(C)
+            `;
+            drawTriangle(a, b, c, angleC);
+        }
+        
+        function drawTriangle(a, b, c, angleC) {
+            if (!ctx) return;
+            ctx.clearRect(0, 0, geometryCanvas.width, geometryCanvas.height);
+            drawGrid();
+            
+            const scale = 20;
+            const centerX = geometryCanvas.width / 2;
+            const centerY = geometryCanvas.height / 2;
+            
+            ctx.beginPath();
+            ctx.moveTo(centerX - 50, centerY + 50);
+            ctx.lineTo(centerX + 50, centerY + 50);
+            ctx.lineTo(centerX, centerY - 50);
+            ctx.closePath();
+            ctx.fillStyle = 'rgba(37, 99, 235, 0.2)';
+            ctx.fill();
+            ctx.strokeStyle = '#2563EB';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+        }
+        
+        // ===== CIRCLE FUNCTIONS =====
+        function updateCircle() {
+            const radius = parseFloat(document.getElementById('circleRadius')?.value) || 5;
+            const area = Math.PI * radius * radius;
+            const circumference = 2 * Math.PI * radius;
+            const diameter = 2 * radius;
+            
+            document.getElementById('toolResults').innerHTML = `
+                <strong>Circle with radius r = ${radius}</strong><br>
+                Diameter = ${diameter.toFixed(2)}<br>
+                Circumference = ${circumference.toFixed(2)}<br>
+                Area = ${area.toFixed(2)}
+            `;
+            document.getElementById('formulaDisplay').innerHTML = `
+                <strong> Circle Formulas:</strong><br>
+                Diameter = 2r<br>
+                Circumference = 2πr<br>
+                Area = πr²<br>
+                π ≈ 3.14159
+            `;
+            drawCircle(radius);
+        }
+        
+        function drawCircle(radius) {
+            if (!ctx) return;
+            ctx.clearRect(0, 0, geometryCanvas.width, geometryCanvas.height);
+            drawGrid();
+            
+            const centerX = geometryCanvas.width / 2;
+            const centerY = geometryCanvas.height / 2;
+            const scaledRadius = radius * 15;
+            
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, scaledRadius, 0, 2 * Math.PI);
+            ctx.fillStyle = 'rgba(37, 99, 235, 0.2)';
+            ctx.fill();
+            ctx.strokeStyle = '#2563EB';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+            
+            // Draw radius line
+            ctx.beginPath();
+            ctx.moveTo(centerX, centerY);
+            ctx.lineTo(centerX + scaledRadius, centerY);
+            ctx.strokeStyle = '#F59E0B';
+            ctx.stroke();
+        }
+        
+        // ===== ANGLE FUNCTIONS =====
+        function updateAngles() {
+            const angle1 = parseFloat(document.getElementById('angle1')?.value) || 30;
+            const angle2 = parseFloat(document.getElementById('angle2')?.value) || 60;
+            const complementary = angle1 + angle2 === 90;
+            const supplementary = angle1 + angle2 === 180;
+            
+            document.getElementById('toolResults').innerHTML = `
+                <div class="angle-visual">
+                    <div class="angle-card">
+                        <div>Angle A</div>
+                        <div class="angle-value">${angle1}°</div>
+                    </div>
+                    <div>+</div>
+                    <div class="angle-card">
+                        <div>Angle B</div>
+                        <div class="angle-value">${angle2}°</div>
+                    </div>
+                    <div>=</div>
+                    <div class="angle-card">
+                        <div>Sum</div>
+                        <div class="angle-value">${angle1 + angle2}°</div>
+                    </div>
+                </div>
+                <div style="margin-top: 1rem;">
+                    ${complementary ? '✓ These angles are <strong>complementary</strong> (sum = 90°)' : ''}
+                    ${supplementary ? '✓ These angles are <strong>supplementary</strong> (sum = 180°)' : ''}
+                    ${!complementary && !supplementary ? 'These angles are neither complementary nor supplementary.' : ''}
+                </div>
+            `;
+            drawAngles(angle1, angle2);
+        }
+        
+        function drawAngles(angle1, angle2) {
+            if (!ctx) return;
+            ctx.clearRect(0, 0, geometryCanvas.width, geometryCanvas.height);
+            drawGrid();
+            
+            const centerX = geometryCanvas.width / 3;
+            const centerY = geometryCanvas.height / 2;
+            const radius = 80;
+            
+            // Draw first angle
+            ctx.beginPath();
+            ctx.moveTo(centerX, centerY);
+            ctx.lineTo(centerX + radius, centerY);
+            ctx.lineTo(centerX + radius * Math.cos(angle1 * Math.PI / 180), centerY - radius * Math.sin(angle1 * Math.PI / 180));
+            ctx.fillStyle = 'rgba(37, 99, 235, 0.2)';
+            ctx.fill();
+            ctx.strokeStyle = '#2563EB';
+            ctx.stroke();
+            
+            // Draw second angle
+            ctx.beginPath();
+            ctx.moveTo(geometryCanvas.width - centerX, centerY);
+            ctx.lineTo(geometryCanvas.width - centerX + radius, centerY);
+            ctx.lineTo(geometryCanvas.width - centerX + radius * Math.cos(angle2 * Math.PI / 180), centerY - radius * Math.sin(angle2 * Math.PI / 180));
+            ctx.fillStyle = 'rgba(245, 158, 11, 0.2)';
+            ctx.fill();
+            ctx.strokeStyle = '#F59E0B';
+            ctx.stroke();
+        }
+        
+        let currentAreaShape = 'rectangle';
+        
+        function setAreaShape(shape) {
+            currentAreaShape = shape;
+            document.querySelectorAll('#toolControls .shape-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            const controls = document.getElementById('areaControls');
+            if (shape === 'rectangle') {
+                controls.innerHTML = `<label>Width: <input type="number" id="areaWidth" value="5" step="0.5" onchange="updateArea()"></label>
+                                      <label>Height: <input type="number" id="areaHeight" value="3" step="0.5" onchange="updateArea()"></label>`;
+            } else if (shape === 'triangle') {
+                controls.innerHTML = `<label>Base: <input type="number" id="areaBase" value="5" step="0.5" onchange="updateArea()"></label>
+                                      <label>Height: <input type="number" id="areaHeightTri" value="4" step="0.5" onchange="updateArea()"></label>`;
+            } else if (shape === 'circle') {
+                controls.innerHTML = `<label>Radius: <input type="number" id="areaRadius" value="3" step="0.5" onchange="updateArea()"></label>`;
+            }
+            updateArea();
+        }
+        
+        function updateArea() {
+            let area = 0, perimeter = 0, message = '';
+            
+            if (currentAreaShape === 'rectangle') {
+                const w = parseFloat(document.getElementById('areaWidth')?.value) || 5;
+                const h = parseFloat(document.getElementById('areaHeight')?.value) || 3;
+                area = w * h;
+                perimeter = 2 * (w + h);
+                message = `Rectangle ${w} × ${h}<br>Area = ${area}<br>Perimeter = ${perimeter}`;
+            } else if (currentAreaShape === 'triangle') {
+                const b = parseFloat(document.getElementById('areaBase')?.value) || 5;
+                const h = parseFloat(document.getElementById('areaHeightTri')?.value) || 4;
+                area = 0.5 * b * h;
+                message = `Triangle base ${b}, height ${h}<br>Area = ${area.toFixed(2)}`;
+            } else if (currentAreaShape === 'circle') {
+                const r = parseFloat(document.getElementById('areaRadius')?.value) || 3;
+                area = Math.PI * r * r;
+                perimeter = 2 * Math.PI * r;
+                message = `Circle radius ${r}<br>Area = ${area.toFixed(2)}<br>Circumference = ${perimeter.toFixed(2)}`;
+            }
+            
+            document.getElementById('toolResults').innerHTML = message;
+            drawAreaShape();
+        }
+        
+        function drawAreaShape() {
+            if (!ctx) return;
+            ctx.clearRect(0, 0, geometryCanvas.width, geometryCanvas.height);
+            drawGrid();
+            
+            const centerX = geometryCanvas.width / 2;
+            const centerY = geometryCanvas.height / 2;
+            
+            if (currentAreaShape === 'rectangle') {
+                const w = 100, h = 60;
+                ctx.fillStyle = 'rgba(37, 99, 235, 0.2)';
+                ctx.fillRect(centerX - w/2, centerY - h/2, w, h);
+                ctx.strokeStyle = '#2563EB';
+                ctx.strokeRect(centerX - w/2, centerY - h/2, w, h);
+            } else if (currentAreaShape === 'triangle') {
+                ctx.beginPath();
+                ctx.moveTo(centerX, centerY - 50);
+                ctx.lineTo(centerX - 50, centerY + 30);
+                ctx.lineTo(centerX + 50, centerY + 30);
+                ctx.closePath();
+                ctx.fillStyle = 'rgba(37, 99, 235, 0.2)';
+                ctx.fill();
+                ctx.strokeStyle = '#2563EB';
+                ctx.stroke();
+            } else if (currentAreaShape === 'circle') {
+                ctx.beginPath();
+                ctx.arc(centerX, centerY, 70, 0, 2 * Math.PI);
+                ctx.fillStyle = 'rgba(37, 99, 235, 0.2)';
+                ctx.fill();
+                ctx.strokeStyle = '#2563EB';
+                ctx.stroke();
+            }
+        }
+        
+        let currentVolumeShape = 'cube';
+        
+        function setVolumeShape(shape) {
+            currentVolumeShape = shape;
+            document.querySelectorAll('#toolControls .shape-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            updateVolume();
+        }
+        
+        function updateVolume() {
+            const radius = parseFloat(document.getElementById('volumeRadius')?.value) || 3;
+            const height = parseFloat(document.getElementById('volumeHeight')?.value) || 5;
+            let volume = 0, message = '';
+            
+            if (currentVolumeShape === 'cube') {
+                volume = radius * radius * radius;
+                message = `Cube side = ${radius}<br>Volume = ${volume.toFixed(2)}`;
+            } else if (currentVolumeShape === 'sphere') {
+                volume = (4/3) * Math.PI * radius * radius * radius;
+                message = `Sphere radius = ${radius}<br>Volume = ${volume.toFixed(2)}`;
+            } else if (currentVolumeShape === 'cylinder') {
+                volume = Math.PI * radius * radius * height;
+                message = `Cylinder radius = ${radius}, height = ${height}<br>Volume = ${volume.toFixed(2)}`;
+            } else if (currentVolumeShape === 'cone') {
+                volume = (1/3) * Math.PI * radius * radius * height;
+                message = `Cone radius = ${radius}, height = ${height}<br>Volume = ${volume.toFixed(2)}`;
+            }
+            
+            document.getElementById('toolResults').innerHTML = message;
+            drawVolumeShape();
+        }
+        
+        function drawVolumeShape() {
+            if (!ctx) return;
+            ctx.clearRect(0, 0, geometryCanvas.width, geometryCanvas.height);
+            drawGrid();
+            
+            const centerX = geometryCanvas.width / 2;
+            const centerY = geometryCanvas.height / 2;
+            
+            // Simplified 3D representation
+            if (currentVolumeShape === 'cube') {
+                ctx.strokeStyle = '#2563EB';
+                ctx.strokeRect(centerX - 50, centerY - 40, 100, 80);
+            } else if (currentVolumeShape === 'sphere') {
+                ctx.beginPath();
+                ctx.arc(centerX, centerY, 60, 0, 2 * Math.PI);
+                ctx.stroke();
+            } else {
+                ctx.beginPath();
+                ctx.rect(centerX - 40, centerY - 50, 80, 100);
+                ctx.stroke();
+                ctx.beginPath();
+                ctx.ellipse(centerX, centerY - 50, 40, 20, 0, 0, 2 * Math.PI);
+                ctx.stroke();
+            }
+        }
+        
+        // ===== TRANSFORMATION FUNCTIONS =====
+        let currentTransformType = 'rotate';
+        
+        function setTransformType(type) {
+            currentTransformType = type;
+            document.querySelectorAll('#toolControls .shape-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            const controls = document.getElementById('transformControls');
+            if (type === 'rotate') {
+                controls.innerHTML = `<label>Angle: <input type="number" id="transformAngle" value="45" step="15" onchange="updateTransform()"></label>`;
+            } else if (type === 'reflect') {
+                controls.innerHTML = `<label>Axis: 
+                    <select id="transformAxis" onchange="updateTransform()">
+                        <option value="x">X-Axis</option>
+                        <option value="y">Y-Axis</option>
+                        <option value="origin">Origin</option>
+                    </select>
+                </label>`;
+            } else if (type === 'translate') {
+                controls.innerHTML = `<label>dx: <input type="number" id="translateX" value="30" step="10" onchange="updateTransform()"></label>
+                                      <label>dy: <input type="number" id="translateY" value="20" step="10" onchange="updateTransform()"></label>`;
+            }
+            updateTransform();
+        }
+        
+        function updateTransform() {
+            let message = '';
+            if (currentTransformType === 'rotate') {
+                const angle = parseFloat(document.getElementById('transformAngle')?.value) || 45;
+                message = `Rotation by ${angle}° counterclockwise`;
+            } else if (currentTransformType === 'reflect') {
+                const axis = document.getElementById('transformAxis')?.value || 'x';
+                message = `Reflection across ${axis === 'x' ? 'X-axis' : axis === 'y' ? 'Y-axis' : 'Origin'}`;
+            } else if (currentTransformType === 'translate') {
+                const dx = parseFloat(document.getElementById('translateX')?.value) || 30;
+                const dy = parseFloat(document.getElementById('translateY')?.value) || 20;
+                message = `Translation by (${dx}, ${dy})`;
+            }
+            
+            document.getElementById('toolResults').innerHTML = message;
+            drawTransform();
+        }
+        
+        function drawTransform() {
+            if (!ctx) return;
+            ctx.clearRect(0, 0, geometryCanvas.width, geometryCanvas.height);
+            drawGrid();
+            
+            const centerX = geometryCanvas.width / 2;
+            const centerY = geometryCanvas.height / 2;
+            
+            // Original shape
+            ctx.fillStyle = 'rgba(37, 99, 235, 0.3)';
+            ctx.fillRect(centerX - 40, centerY - 30, 80, 60);
+            ctx.strokeStyle = '#2563EB';
+            ctx.strokeRect(centerX - 40, centerY - 30, 80, 60);
+            ctx.fillStyle = '#333';
+            ctx.fillText('Original', centerX - 20, centerY - 40);
+            
+            // Transformed shape
+            ctx.fillStyle = 'rgba(245, 158, 11, 0.3)';
+            if (currentTransformType === 'rotate') {
+                const angle = (parseFloat(document.getElementById('transformAngle')?.value) || 45) * Math.PI / 180;
+                ctx.save();
+                ctx.translate(centerX, centerY);
+                ctx.rotate(angle);
+                ctx.fillRect(-40, -30, 80, 60);
+                ctx.strokeRect(-40, -30, 80, 60);
+                ctx.restore();
+                ctx.fillStyle = '#F59E0B';
+                ctx.fillText('Rotated', centerX + 50, centerY - 20);
+            } else if (currentTransformType === 'reflect') {
+                const axis = document.getElementById('transformAxis')?.value || 'x';
+                if (axis === 'x') {
+                    ctx.fillRect(centerX - 40, geometryCanvas.height - (centerY - 30) - 60, 80, 60);
+                    ctx.strokeRect(centerX - 40, geometryCanvas.height - (centerY - 30) - 60, 80, 60);
+                } else {
+                    ctx.fillRect(geometryCanvas.width - (centerX - 40) - 80, centerY - 30, 80, 60);
+                    ctx.strokeRect(geometryCanvas.width - (centerX - 40) - 80, centerY - 30, 80, 60);
+                }
+                ctx.fillStyle = '#F59E0B';
+                ctx.fillText('Reflected', centerX + 60, centerY - 20);
+            } else if (currentTransformType === 'translate') {
+                const dx = parseFloat(document.getElementById('translateX')?.value) || 30;
+                const dy = parseFloat(document.getElementById('translateY')?.value) || 20;
+                ctx.fillRect(centerX - 40 + dx, centerY - 30 + dy, 80, 60);
+                ctx.strokeRect(centerX - 40 + dx, centerY - 30 + dy, 80, 60);
+                ctx.fillStyle = '#F59E0B';
+                ctx.fillText('Translated', centerX + dx + 20, centerY + dy - 20);
+            }
+        }
+        
+        // ===== HELPER FUNCTIONS =====
+        function drawGrid() {
+            if (!ctx) return;
+            ctx.strokeStyle = '#ddd';
+            ctx.lineWidth = 0.5;
+            for (let x = 0; x <= geometryCanvas.width; x += 30) {
+                ctx.beginPath();
+                ctx.moveTo(x, 0);
+                ctx.lineTo(x, geometryCanvas.height);
+                ctx.stroke();
+            }
+            for (let y = 0; y <= geometryCanvas.height; y += 30) {
+                ctx.beginPath();
+                ctx.moveTo(0, y);
+                ctx.lineTo(geometryCanvas.width, y);
+                ctx.stroke();
+            }
+            
+            ctx.strokeStyle = '#999';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(0, geometryCanvas.height/2);
+            ctx.lineTo(geometryCanvas.width, geometryCanvas.height/2);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(geometryCanvas.width/2, 0);
+            ctx.lineTo(geometryCanvas.width/2, geometryCanvas.height);
+            ctx.stroke();
+        }
+        
+        // Initialize
+        drawGrid();
+    </script>
 </body>
 </html>

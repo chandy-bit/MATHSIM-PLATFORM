@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MathSim | Probability</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#4CAF50">
 </head>
 <body>
     <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -20,18 +22,18 @@
                 <ul class="nav-menu" id="navMenu">
                     <li><a href="index.html" class="nav-link">Home</a></li>
                     <li class="dropdown">
-                        <a href="#" class="nav-link active">Subjects ▼</a>
+                        <a href="#" class="nav-link active">Subjects </a>
                         <ul class="dropdown-menu">
                             <li><a href="algebra.html">Algebra</a></li>
                             <li><a href="geometry.html">Geometry</a></li>
                             <li><a href="precalculus.html">Pre-Calculus</a></li>
                             <li><a href="calculus.html">Calculus</a></li>
-                            <li><a href="probability.html">Probability</a></li>
+                            <li><a href="probability.html" class="active">Probability</a></li>
                         </ul>
                     </li>
                     <li><a href="simulation.html" class="nav-link">Simulations</a></li>
                     <li><a href="game.html" class="nav-link">Games</a></li>
-                    <li><a href="tutorial.html" class="nav-link">Tutorials</a></li>
+                    <li><a href="tutorials.html" class="nav-link">Tutorials</a></li>
                     <li><a href="progress.html" class="nav-link">Progress</a></li>
                     <li><a href="accessibility.html" class="nav-link">Accessibility</a></li>
                 </ul>
@@ -54,8 +56,8 @@
 
     <main id="main-content" class="container" style="padding: 2rem 0;">
         <div class="subject-header">
-            <h1> Probability</h1>
-            <p>Understand chance, randomness, and statistical thinking</p>
+            <h1> Probability & Statistics</h1>
+            <p>Understand chance, randomness, and statistical thinking through interactive simulations</p>
         </div>
 
         <div class="subject-grid">
@@ -67,9 +69,9 @@
                 <div class="topic-list">
                     <span class="topic-tag">Events</span>
                     <span class="topic-tag">Sample Space</span>
-                    <span class="topic-tag">Rules</span>
+                    <span class="topic-tag">Probability Rules</span>
                 </div>
-                <a href="#" class="btn btn-primary">Explore</a>
+                <button class="btn btn-primary" onclick="showProbabilityInfo()">Learn More</button>
             </div>
 
             <!-- Coin Flips & Dice -->
@@ -77,11 +79,11 @@
                 <div class="subject-icon"></div>
                 <h3>Coin Flips & Dice</h3>
                 <p>Simulate coin tosses, dice rolls, and combinations</p>
-                <div class="simulation-preview">
+                <div class="simulation-preview" style="display: flex; gap: 0.5rem; justify-content: center; margin: 1rem 0;">
                     <button class="btn-small" onclick="flipCoin()">Flip Coin</button>
                     <button class="btn-small" onclick="rollDice()">Roll Dice</button>
                 </div>
-                <a href="#" class="btn btn-primary">Try Simulator</a>
+                <button class="btn btn-primary" onclick="openFullSimulator()">Open Simulator</button>
             </div>
 
             <!-- Conditional Probability -->
@@ -91,10 +93,10 @@
                 <p>P(A|B), Bayes' theorem, dependent events</p>
                 <div class="topic-list">
                     <span class="topic-tag">Conditional</span>
-                    <span class="topic-tag">Bayes</span>
-                    <span class="topic-tag">Dependent</span>
+                    <span class="topic-tag">Bayes' Theorem</span>
+                    <span class="topic-tag">Dependent Events</span>
                 </div>
-                <a href="#" class="btn btn-primary">Explore</a>
+                <button class="btn btn-primary" onclick="showConditionalInfo()">Learn More</button>
             </div>
 
             <!-- Combinations & Permutations -->
@@ -107,7 +109,7 @@
                     <span class="topic-tag">nPr</span>
                     <span class="topic-tag">Factorial</span>
                 </div>
-                <a href="#" class="btn btn-primary">Explore</a>
+                <button class="btn btn-primary" onclick="showCombinationsInfo()">Calculate</button>
             </div>
 
             <!-- Probability Distributions -->
@@ -120,7 +122,7 @@
                     <span class="topic-tag">Normal</span>
                     <span class="topic-tag">Expected Value</span>
                 </div>
-                <a href="#" class="btn btn-primary">Explore</a>
+                <button class="btn btn-primary" onclick="showDistributionsInfo()">Explore</button>
             </div>
 
             <!-- Statistics -->
@@ -131,25 +133,111 @@
                 <div class="topic-list">
                     <span class="topic-tag">Mean</span>
                     <span class="topic-tag">Median</span>
-                    <span class="topic-tag">Std Dev</span>
+                    <span class="topic-tag">Standard Deviation</span>
                 </div>
-                <a href="#" class="btn btn-primary">Explore</a>
+                <button class="btn btn-primary" onclick="showStatisticsInfo()">Learn</button>
             </div>
         </div>
 
-        <!-- Probability Simulator -->
-        <div class="simulator-section">
+        <!-- Probability Simulator - FULL VERSION -->
+        <div class="simulator-section" id="probabilitySimulator">
             <h2> Probability Simulator</h2>
+            <p>Run experiments to see probability in action!</p>
+            
+            <div class="simulator-tabs" style="display: flex; gap: 1rem; margin-bottom: 1rem;">
+                <button class="tab-btn active" onclick="switchSimulator('coin')">Coin Flip</button>
+                <button class="tab-btn" onclick="switchSimulator('dice')">Dice Roll</button>
+                <button class="tab-btn" onclick="switchSimulator('custom')">Custom</button>
+            </div>
+
             <div class="simulator-container">
                 <div class="simulator-controls">
-                    <button class="btn btn-primary" onclick="runSimulation(10)">Run 10 Trials</button>
-                    <button class="btn btn-primary" onclick="runSimulation(100)">Run 100 Trials</button>
-                    <button class="btn btn-primary" onclick="runSimulation(1000)">Run 1000 Trials</button>
+                    <label>Number of Trials:</label>
+                    <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                        <button class="btn btn-primary" onclick="runSimulation(10)">10 Trials</button>
+                        <button class="btn btn-primary" onclick="runSimulation(100)">100 Trials</button>
+                        <button class="btn btn-primary" onclick="runSimulation(1000)">1,000 Trials</button>
+                        <button class="btn btn-primary" onclick="runSimulation(10000)">10,000 Trials</button>
+                    </div>
+                    <div style="margin-top: 1rem;">
+                        <label>Custom Trials: </label>
+                        <input type="number" id="customTrials" value="500" min="1" max="100000" style="width: 100px;">
+                        <button class="btn btn-secondary" onclick="runSimulationCustom()">Run</button>
+                    </div>
                 </div>
-                <div id="simulationResults" class="results-area">
-                    <div class="result-item">Heads: 0</div>
-                    <div class="result-item">Tails: 0</div>
-                    <div class="result-item">Ratio: 0.00</div>
+
+                <!-- Coin Flip Display -->
+                <div id="coinSimulator" class="simulator-display">
+                    <div class="coin-container" style="text-align: center;">
+                        <div class="coin" id="coin" style="font-size: 5rem; margin: 1rem 0;"></div>
+                        <div id="lastResult" style="font-size: 1.2rem; font-weight: bold;"></div>
+                    </div>
+                </div>
+
+                <!-- Dice Display (hidden by default) -->
+                <div id="diceSimulator" class="simulator-display" style="display: none;">
+                    <div class="dice-container" style="text-align: center;">
+                        <div class="dice" id="dice" style="font-size: 5rem; margin: 1rem 0;"></div>
+                        <div id="diceResult" style="font-size: 1.2rem; font-weight: bold;"></div>
+                    </div>
+                </div>
+
+                <!-- Custom Display (hidden by default) -->
+                <div id="customSimulator" class="simulator-display" style="display: none;">
+                    <div class="custom-container" style="text-align: center;">
+                        <label>Probability of Success (0-1): </label>
+                        <input type="range" id="customProb" min="0" max="1" step="0.01" value="0.5">
+                        <span id="customProbValue">0.50</span>
+                        <div id="customResult" style="margin-top: 1rem;"></div>
+                    </div>
+                </div>
+
+                <div id="simulationResults" class="results-area" style="margin-top: 2rem;">
+                    <div class="results-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem;">
+                        <div class="result-card" style="background: var(--bg-secondary); padding: 1rem; border-radius: var(--radius-md); text-align: center;">
+                            <div class="result-label">Trials</div>
+                            <div class="result-value" id="trialsCount">0</div>
+                        </div>
+                        <div class="result-card" style="background: var(--bg-secondary); padding: 1rem; border-radius: var(--radius-md); text-align: center;">
+                            <div class="result-label">Successes</div>
+                            <div class="result-value" id="successCount">0</div>
+                        </div>
+                        <div class="result-card" style="background: var(--bg-secondary); padding: 1rem; border-radius: var(--radius-md); text-align: center;">
+                            <div class="result-label">Probability</div>
+                            <div class="result-value" id="probabilityResult">0.00%</div>
+                        </div>
+                        <div class="result-card" style="background: var(--bg-secondary); padding: 1rem; border-radius: var(--radius-md); text-align: center;">
+                            <div class="result-label">Theoretical</div>
+                            <div class="result-value" id="theoreticalProb">50.00%</div>
+                        </div>
+                    </div>
+                </div>
+
+                <canvas id="probabilityChart" width="600" height="200" style="margin-top: 2rem; max-width: 100%; background: var(--bg-card); border-radius: var(--radius-md);"></canvas>
+            </div>
+        </div>
+
+        <!-- Quick Reference / Cheat Sheet -->
+        <div class="cheat-sheet" style="margin-top: 3rem;">
+            <h3> Probability Cheat Sheet</h3>
+            <div class="cheat-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
+                <div class="cheat-item" style="padding: 0.75rem; background: var(--bg-card); border-radius: var(--radius-md);">
+                    <span class="cheat-term">Probability of an event:</span> P(E) = favorable outcomes / total outcomes
+                </div>
+                <div class="cheat-item" style="padding: 0.75rem; background: var(--bg-card); border-radius: var(--radius-md);">
+                    <span class="cheat-term">Complement rule:</span> P(not A) = 1 - P(A)
+                </div>
+                <div class="cheat-item" style="padding: 0.75rem; background: var(--bg-card); border-radius: var(--radius-md);">
+                    <span class="cheat-term">Addition rule:</span> P(A or B) = P(A) + P(B) - P(A and B)
+                </div>
+                <div class="cheat-item" style="padding: 0.75rem; background: var(--bg-card); border-radius: var(--radius-md);">
+                    <span class="cheat-term">Multiplication rule:</span> P(A and B) = P(A) × P(B|A)
+                </div>
+                <div class="cheat-item" style="padding: 0.75rem; background: var(--bg-card); border-radius: var(--radius-md);">
+                    <span class="cheat-term">Expected value:</span> E(X) = Σ x × P(x)
+                </div>
+                <div class="cheat-item" style="padding: 0.75rem; background: var(--bg-card); border-radius: var(--radius-md);">
+                    <span class="cheat-term">Binomial probability:</span> P(X=k) = C(n,k) × p^k × (1-p)^(n-k)
                 </div>
             </div>
         </div>
@@ -157,8 +245,40 @@
 
     <footer class="footer">
         <div class="container">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h4>MathSim</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="tutorials.html">Tutorials</a></li>
+                        <li><a href="docs.html">Documentation</a></li>
+                        <li><a href="progress.html">Progress</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms of Use</a></li>
+                        <li><a href="accessibility.html">Accessibility</a></li>
+                    </ul>
+                </div>
+            </div>
             <div class="footer-bottom">
                 <p>© 2026 MathSim. All rights reserved.</p>
+                <p class="pwa-badge"> Install as app for offline use</p>
+                <p class="footer-links">
+                    <a href="privacy.html">Privacy</a> | 
+                    <a href="terms.html">Terms</a> | 
+                    <a href="accessibility.html">Accessibility</a>
+                </p>
             </div>
         </div>
     </footer>
@@ -168,10 +288,336 @@
             Install MathSim App
         </button>
     </div>
+    
+    <div id="onlineStatus" class="online-badge">Online</div>
 
     <script src="js/theme.js"></script>
     <script src="js/language.js"></script>
-    <script src="js/probability.js"></script>
+    <script src="js/accessibility.js"></script>
+    <script src="js/analytics.js"></script>
     <script src="js/main.js"></script>
+    <script src="js/pwa.js"></script>
+    
+    <script>
+        // Probability Simulator Variables
+        let currentSimulator = 'coin';
+        let chart = null;
+        let simulationHistory = [];
+        
+        // ===== COIN FLIP FUNCTIONS =====
+        function flipCoin() {
+            const result = Math.random() < 0.5 ? 'Heads' : 'Tails';
+            const coinElement = document.getElementById('coin');
+            const resultElement = document.getElementById('lastResult');
+            
+            if (coinElement) {
+                coinElement.style.animation = 'none';
+                setTimeout(() => coinElement.style.animation = '', 10);
+                coinElement.style.transform = 'rotateY(180deg)';
+                setTimeout(() => coinElement.style.transform = '', 500);
+            }
+            
+            if (resultElement) {
+                resultElement.textContent = `Result: ${result}`;
+                resultElement.style.color = result === 'Heads' ? '#4CAF50' : '#f44336';
+            }
+            
+            // Single flip simulation
+            runSimulation(1);
+            
+            if (typeof analytics !== 'undefined') {
+                analytics.trackEvent('Probability', 'Coin Flip', result);
+            }
+        }
+        
+        function rollDice() {
+            const result = Math.floor(Math.random() * 6) + 1;
+            const diceElement = document.getElementById('dice');
+            const resultElement = document.getElementById('diceResult');
+            
+            const diceFaces = ['⚀', '⚁', '⚂', '⚃', '⚄', '⚅'];
+            
+            if (diceElement) {
+                diceElement.textContent = diceFaces[result - 1];
+                diceElement.style.animation = 'shake 0.5s ease';
+                setTimeout(() => diceElement.style.animation = '', 500);
+            }
+            
+            if (resultElement) {
+                resultElement.textContent = `You rolled a ${result}!`;
+            }
+            
+            // Single dice roll simulation
+            runSimulation(1, 'dice');
+            
+            if (typeof analytics !== 'undefined') {
+                analytics.trackEvent('Probability', 'Dice Roll', result);
+            }
+        }
+        
+        function runSimulation(trials, type = null) {
+            const simType = type || currentSimulator;
+            let successes = 0;
+            let history = [];
+            
+            if (simType === 'coin') {
+                for (let i = 0; i < trials; i++) {
+                    const isHeads = Math.random() < 0.5;
+                    if (isHeads) successes++;
+                    if (i % Math.max(1, Math.floor(trials / 20)) === 0) {
+                        history.push({ trial: i + 1, probability: (successes / (i + 1)) * 100 });
+                    }
+                }
+                updateResults(successes, trials, 50, 'Coin Flip');
+            } 
+            else if (simType === 'dice') {
+                // For dice, count rolls of 6 as "success"
+                for (let i = 0; i < trials; i++) {
+                    const roll = Math.floor(Math.random() * 6) + 1;
+                    if (roll === 6) successes++;
+                    if (i % Math.max(1, Math.floor(trials / 20)) === 0) {
+                        history.push({ trial: i + 1, probability: (successes / (i + 1)) * 100 });
+                    }
+                }
+                updateResults(successes, trials, 16.67, 'Rolling 6');
+            }
+            else if (simType === 'custom') {
+                const probability = parseFloat(document.getElementById('customProb')?.value) || 0.5;
+                for (let i = 0; i < trials; i++) {
+                    const isSuccess = Math.random() < probability;
+                    if (isSuccess) successes++;
+                    if (i % Math.max(1, Math.floor(trials / 20)) === 0) {
+                        history.push({ trial: i + 1, probability: (successes / (i + 1)) * 100 });
+                    }
+                }
+                updateResults(successes, trials, probability * 100, 'Custom Event');
+            }
+            
+            simulationHistory = history;
+            updateChart(history);
+        }
+        
+        function runSimulationCustom() {
+            const trials = parseInt(document.getElementById('customTrials')?.value) || 500;
+            runSimulation(trials, 'custom');
+        }
+        
+        function updateResults(successes, trials, theoreticalPercent, eventName) {
+            const probability = (successes / trials) * 100;
+            
+            document.getElementById('trialsCount').textContent = trials.toLocaleString();
+            document.getElementById('successCount').textContent = successes.toLocaleString();
+            document.getElementById('probabilityResult').textContent = probability.toFixed(2) + '%';
+            document.getElementById('theoreticalProb').textContent = theoreticalPercent.toFixed(2) + '%';
+            
+            // Show animation for results
+            const resultsArea = document.getElementById('simulationResults');
+            if (resultsArea) {
+                resultsArea.style.animation = 'fadeIn 0.5s ease';
+                setTimeout(() => resultsArea.style.animation = '', 500);
+            }
+            
+            // Update last result display based on simulator type
+            if (currentSimulator === 'coin') {
+                const lastResult = document.getElementById('lastResult');
+                if (lastResult && successes === 1 && trials === 1) {
+                    lastResult.textContent = `Result: ${successes === 1 ? 'Heads' : 'Tails'}`;
+                } else if (lastResult) {
+                    lastResult.textContent = `Last run: ${successes} ${eventName} out of ${trials}`;
+                }
+            }
+        }
+        
+        function updateChart(history) {
+            const canvas = document.getElementById('probabilityChart');
+            if (!canvas) return;
+            
+            const ctx = canvas.getContext('2d');
+            const width = canvas.width;
+            const height = canvas.height;
+            
+            ctx.clearRect(0, 0, width, height);
+            
+            if (!history || history.length === 0) return;
+            
+            // Draw axes
+            ctx.strokeStyle = '#666';
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(50, 10);
+            ctx.lineTo(50, height - 30);
+            ctx.lineTo(width - 20, height - 30);
+            ctx.stroke();
+            
+            // Draw grid
+            ctx.strokeStyle = '#ddd';
+            ctx.lineWidth = 0.5;
+            for (let i = 0; i <= 5; i++) {
+                const y = 30 + (i / 5) * (height - 60);
+                ctx.beginPath();
+                ctx.moveTo(45, y);
+                ctx.lineTo(width - 20, y);
+                ctx.stroke();
+            }
+            
+            // Draw probability line
+            ctx.beginPath();
+            ctx.strokeStyle = '#4CAF50';
+            ctx.lineWidth = 2;
+            
+            const maxTrials = Math.max(...history.map(h => h.trial));
+            const theoreticalValue = parseFloat(document.getElementById('theoreticalProb').textContent) || 50;
+            
+            for (let i = 0; i < history.length; i++) {
+                const x = 50 + ((history[i].trial - history[0].trial) / (maxTrials - history[0].trial)) * (width - 70);
+                const y = (height - 30) - (history[i].probability / 100) * (height - 60);
+                
+                if (i === 0) ctx.moveTo(x, y);
+                else ctx.lineTo(x, y);
+            }
+            ctx.stroke();
+            
+            // Draw theoretical line
+            ctx.beginPath();
+            ctx.strokeStyle = '#f44336';
+            ctx.lineWidth = 1.5;
+            ctx.setLineDash([5, 5]);
+            ctx.moveTo(50, (height - 30) - (theoreticalValue / 100) * (height - 60));
+            ctx.lineTo(width - 20, (height - 30) - (theoreticalValue / 100) * (height - 60));
+            ctx.stroke();
+            ctx.setLineDash([]);
+            
+            // Labels
+            ctx.fillStyle = '#666';
+            ctx.font = '10px Arial';
+            ctx.fillText('0%', 20, height - 30);
+            ctx.fillText('50%', 20, height - 30 - (height - 60) / 2);
+            ctx.fillText('100%', 20, 20);
+            ctx.fillText('Trials', width / 2, height - 10);
+        }
+        
+        function switchSimulator(type) {
+            currentSimulator = type;
+            
+            // Hide all simulators
+            document.getElementById('coinSimulator').style.display = 'none';
+            document.getElementById('diceSimulator').style.display = 'none';
+            document.getElementById('customSimulator').style.display = 'none';
+            
+            // Show selected simulator
+            if (type === 'coin') {
+                document.getElementById('coinSimulator').style.display = 'block';
+            } else if (type === 'dice') {
+                document.getElementById('diceSimulator').style.display = 'block';
+            } else if (type === 'custom') {
+                document.getElementById('customSimulator').style.display = 'block';
+            }
+            
+            // Update active tab
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // Reset display
+            runSimulation(100, type);
+        }
+        
+        function showProbabilityInfo() {
+            alert(' Basic Probability\n\nProbability measures the likelihood of an event occurring.\n\nFormula: P(E) = Number of favorable outcomes / Total number of possible outcomes\n\nExample: Probability of rolling a 6 on a fair die = 1/6 ≈ 0.167');
+        }
+        
+        function showConditionalInfo() {
+            alert(' Conditional Probability\n\nP(A|B) = Probability of A given B has occurred\n\nFormula: P(A|B) = P(A ∩ B) / P(B)\n\nExample: Probability of rain given clouds = P(rain AND clouds) / P(clouds)');
+        }
+        
+        function showCombinationsInfo() {
+            const n = prompt('Enter n (total items):', '5');
+            const r = prompt('Enter r (items to choose):', '3');
+            
+            if (n && r) {
+                const nNum = parseInt(n);
+                const rNum = parseInt(r);
+                
+                function factorial(x) {
+                    if (x <= 1) return 1;
+                    return x * factorial(x - 1);
+                }
+                
+                const nCr = factorial(nNum) / (factorial(rNum) * factorial(nNum - rNum));
+                const nPr = factorial(nNum) / factorial(nNum - rNum);
+                
+                alert(`Combinations (nCr): ${nNum}C${rNum} = ${nCr}\n\nPermutations (nPr): ${nNum}P${rNum} = ${nPr}`);
+            }
+        }
+        
+        function showDistributionsInfo() {
+            alert(' Probability Distributions\n\nBinomial Distribution: Models number of successes in n trials\nNormal Distribution: Bell curve for continuous data\nPoisson Distribution: Models rare events over time');
+        }
+        
+        function showStatisticsInfo() {
+            alert(' Statistics\n\nMean: Average of all values\nMedian: Middle value when sorted\nMode: Most frequent value\nStandard Deviation: Measures spread of data');
+        }
+        
+        function openFullSimulator() {
+            document.getElementById('probabilitySimulator').scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        // ===== ANIMATION CSS =====
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes shake {
+                0%, 100% { transform: translateX(0); }
+                25% { transform: translateX(-10px); }
+                75% { transform: translateX(10px); }
+            }
+            
+            @keyframes fadeIn {
+                from { opacity: 0; transform: translateY(10px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+            
+            .result-card {
+                transition: transform 0.2s ease;
+            }
+            
+            .result-card:hover {
+                transform: translateY(-3px);
+            }
+            
+            .tab-btn {
+                transition: all 0.2s ease;
+            }
+        `;
+        document.head.appendChild(style);
+        
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set up custom probability slider
+            const customProb = document.getElementById('customProb');
+            const customProbValue = document.getElementById('customProbValue');
+            
+            if (customProb && customProbValue) {
+                customProb.addEventListener('input', function() {
+                    customProbValue.textContent = parseFloat(this.value).toFixed(2);
+                    runSimulation(100, 'custom');
+                });
+            }
+            
+            // Initial run
+            runSimulation(100, 'coin');
+        });
+        
+        // Make functions globally available
+        window.flipCoin = flipCoin;
+        window.rollDice = rollDice;
+        window.runSimulation = runSimulation;
+        window.runSimulationCustom = runSimulationCustom;
+        window.switchSimulator = switchSimulator;
+        window.showProbabilityInfo = showProbabilityInfo;
+        window.showConditionalInfo = showConditionalInfo;
+        window.showCombinationsInfo = showCombinationsInfo;
+        window.showDistributionsInfo = showDistributionsInfo;
+        window.showStatisticsInfo = showStatisticsInfo;
+        window.openFullSimulator = openFullSimulator;
+    </script>
 </body>
 </html>

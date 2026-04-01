@@ -1,0 +1,190 @@
+ .consent-container {
+            max-width: 900px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            transition: background-color var(--transition-base);
+        }
+        
+        .consent-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 3px solid var(--primary);
+        }
+        
+        .consent-header h1 {
+            color: var(--primary);
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .consent-header p {
+            color: var(--text-secondary);
+        }
+        
+        .study-info {
+            background: var(--bg-secondary);
+            padding: 1.5rem;
+            border-radius: var(--radius-md);
+            margin-bottom: 2rem;
+            transition: background-color var(--transition-base);
+        }
+        
+        .study-info h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .study-info p {
+            margin-bottom: 0.5rem;
+        }
+        
+        .consent-item {
+            margin-bottom: 1.25rem;
+            padding: 0.75rem;
+            background: var(--bg-secondary);
+            border-radius: var(--radius-sm);
+            transition: background 0.2s;
+        }
+        
+        .consent-item:hover {
+            background: var(--bg-tertiary);
+        }
+        
+        .consent-item label {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            cursor: pointer;
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+        
+        .consent-item input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            margin-top: 2px;
+            flex-shrink: 0;
+            cursor: pointer;
+        }
+        
+        .radio-group {
+            background: var(--bg-secondary);
+            padding: 1rem;
+            border-radius: var(--radius-md);
+            margin-bottom: 1.25rem;
+        }
+        
+        .radio-group p {
+            font-weight: bold;
+            margin-bottom: 0.75rem;
+            color: var(--text-primary);
+        }
+        
+        .radio-group label {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-right: 1.5rem;
+            cursor: pointer;
+        }
+        
+        .radio-group input[type="radio"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+        
+        .final-consent {
+            background: var(--primary-light);
+            border: 2px solid var(--primary);
+            margin-top: 1.5rem;
+        }
+        
+        .btn-consent {
+            width: 100%;
+            padding: 1rem;
+            font-size: 1.2rem;
+            margin-top: 1.5rem;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-consent:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .btn-consent:disabled {
+            background: var(--border-medium);
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .error-message {
+            color: var(--error);
+            text-align: center;
+            margin-top: 1rem;
+            padding: 0.5rem;
+            background: var(--error-light);
+            border-radius: var(--radius-sm);
+            display: none;
+        }
+        
+        .download-box {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding: 1rem;
+            background: var(--bg-secondary);
+            border-radius: var(--radius-md);
+        }
+        
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--secondary);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--radius-md);
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .download-btn:hover {
+            background: var(--secondary-dark);
+            transform: translateY(-2px);
+        }
+        
+        .progress-indicator {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        
+        hr {
+            margin: 1.5rem 0;
+            border-color: var(--border-light);
+        }
+
+         .btn-consent {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .btn-consent:hover {
+            background: var(--primary-dark);
+        }
+        
+        .btn-consent:disabled {
+            background: var(--border-medium);
+        }

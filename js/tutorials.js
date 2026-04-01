@@ -658,6 +658,30 @@ const tutorial = {
     }
 };
 
+const additionalTutorials = {
+    'derivatives': {
+        title: 'Introduction to Derivatives',
+        videoId: 'QEXde5nuG9M',
+        subject: 'calculus',
+        duration: '10:15',
+        level: 'Advanced'
+    },
+    'integrals': {
+        title: 'Understanding Integrals',
+        videoId: 'RqXOJsCalYQ',
+        subject: 'calculus',
+        duration: '11:30',
+        level: 'Advanced'
+    },
+    'probability-basics': {
+        title: 'Probability Fundamentals',
+        videoId: 'y99lNRqLjBA',
+        subject: 'probability',
+        duration: '7:50',
+        level: 'Beginner'
+    }
+};
+
 function filterTutorials(subject) {
     const cards = document.querySelectorAll('.tutorial-card');
     cards.forEach(card => {

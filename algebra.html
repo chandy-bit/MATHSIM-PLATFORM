@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MathSim | Algebra</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#4CAF50">
+   
 </head>
 <body>
     <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -22,7 +25,7 @@
                     <li class="dropdown">
                         <a href="#" class="nav-link active">Subjects </a>
                         <ul class="dropdown-menu">
-                            <li><a href="algebra.html">Algebra</a></li>
+                            <li><a href="algebra.html" class="active">Algebra</a></li>
                             <li><a href="geometry.html">Geometry</a></li>
                             <li><a href="precalculus.html">Pre-Calculus</a></li>
                             <li><a href="calculus.html">Calculus</a></li>
@@ -31,7 +34,7 @@
                     </li>
                     <li><a href="simulation.html" class="nav-link">Simulations</a></li>
                     <li><a href="game.html" class="nav-link">Games</a></li>
-                    <li><a href="tutorial.html" class="nav-link">Tutorials</a></li>
+                    <li><a href="tutorials.html" class="nav-link">Tutorials</a></li>
                     <li><a href="progress.html" class="nav-link">Progress</a></li>
                     <li><a href="accessibility.html" class="nav-link">Accessibility</a></li>
                 </ul>
@@ -55,10 +58,11 @@
     <main id="main-content" class="container" style="padding: 2rem 0;">
         <div class="subject-header">
             <h1> Algebra</h1>
-            <p>Master equations, functions, and algebraic thinking</p>
+            <p>Master equations, functions, and algebraic thinking through interactive tools</p>
         </div>
 
         <div class="subject-grid">
+            <!-- Linear Equations -->
             <div class="subject-card">
                 <div class="subject-icon"></div>
                 <h3>Linear Equations</h3>
@@ -68,7 +72,7 @@
                     <span class="topic-tag">Intercepts</span>
                     <span class="topic-tag">Graphing</span>
                 </div>
-                <a href="simulation.html?type=linear" class="btn btn-primary">Explore</a>
+                <a href="simulation.html?type=linear" class="btn btn-primary">Explore →</a>
             </div>
 
             <!-- Quadratic Equations -->
@@ -81,9 +85,10 @@
                     <span class="topic-tag">Vertex</span>
                     <span class="topic-tag">Factoring</span>
                 </div>
-                <a href="simulation.html?type=quadratic" class="btn btn-primary">Explore</a>
+                <a href="simulation.html?type=quadratic" class="btn btn-primary">Explore →</a>
             </div>
 
+            <!-- Systems of Equations -->
             <div class="subject-card">
                 <div class="subject-icon"></div>
                 <h3>Systems of Equations</h3>
@@ -93,9 +98,10 @@
                     <span class="topic-tag">Elimination</span>
                     <span class="topic-tag">Graphing</span>
                 </div>
-                <a href="#" class="btn btn-primary">Explore</a>
+                <button class="btn btn-primary" onclick="openSystemSolver()">Solve →</button>
             </div>
 
+            <!-- Polynomials -->
             <div class="subject-card">
                 <div class="subject-icon"></div>
                 <h3>Polynomials</h3>
@@ -105,7 +111,7 @@
                     <span class="topic-tag">Roots</span>
                     <span class="topic-tag">Factoring</span>
                 </div>
-                <a href="#" class="btn btn-primary">Explore</a>
+                <button class="btn btn-primary" onclick="openPolynomialTool()">Factor →</button>
             </div>
 
             <!-- Inequalities -->
@@ -118,7 +124,7 @@
                     <span class="topic-tag">Quadratic</span>
                     <span class="topic-tag">Compound</span>
                 </div>
-                <a href="#" class="btn btn-primary">Explore</a>
+                <button class="btn btn-primary" onclick="openInequalitySolver()">Solve →</button>
             </div>
 
             <!-- Exponents & Logarithms -->
@@ -131,15 +137,207 @@
                     <span class="topic-tag">Logarithms</span>
                     <span class="topic-tag">e</span>
                 </div>
-                <a href="#" class="btn btn-primary">Explore</a>
+                <button class="btn btn-primary" onclick="openExponentTool()">Calculate →</button>
+            </div>
+        </div>
+
+        <!-- Equation Solver Tool -->
+        <div class="equation-solver" id="equationSolver" style="display: none;">
+            <h2> Equation Solver</h2>
+            <p>Solve linear and quadratic equations step by step</p>
+            
+            <div class="solver-input">
+                <select id="equationType" onchange="switchEquationType()">
+                    <option value="linear">Linear: ax + b = c</option>
+                    <option value="quadratic">Quadratic: ax² + bx + c = 0</option>
+                </select>
+            </div>
+            
+            <div id="linearInputs" class="solver-input">
+                <input type="number" id="linearA" value="2" step="1" placeholder="a">
+                <span>x +</span>
+                <input type="number" id="linearB" value="3" step="1" placeholder="b">
+                <span>=</span>
+                <input type="number" id="linearC" value="7" step="1" placeholder="c">
+                <button class="btn btn-primary" onclick="solveLinear()">Solve</button>
+            </div>
+            
+            <div id="quadraticInputs" class="solver-input" style="display: none;">
+                <input type="number" id="quadA" value="1" step="0.5" placeholder="a">
+                <span>x² +</span>
+                <input type="number" id="quadB" value="-4" step="1" placeholder="b">
+                <span>x +</span>
+                <input type="number" id="quadC" value="3" step="1" placeholder="c">
+                <span>= 0</span>
+                <button class="btn btn-primary" onclick="solveQuadratic()">Solve</button>
+            </div>
+            
+            <div id="solutionDisplay" class="solution-steps">
+                <p>Enter an equation and click Solve to see step-by-step solution</p>
+            </div>
+            
+            <button class="btn btn-secondary" onclick="closeEquationSolver()" style="margin-top: 1rem;">Close</button>
+        </div>
+
+        <!-- Factoring Tool -->
+        <div class="equation-solver" id="factoringTool" style="display: none;">
+            <h2> Polynomial Factoring</h2>
+            <p>Factor quadratic expressions step by step</p>
+            
+            <div class="solver-input">
+                <input type="number" id="factorA" value="1" step="1" placeholder="a">
+                <span>x² +</span>
+                <input type="number" id="factorB" value="5" step="1" placeholder="b">
+                <span>x +</span>
+                <input type="number" id="factorC" value="6" step="1" placeholder="c">
+                <button class="btn btn-primary" onclick="factorPolynomial()">Factor</button>
+            </div>
+            
+            <div id="factoringResult" class="solution-steps">
+                <p>Enter a quadratic expression to factor</p>
+            </div>
+            
+            <button class="btn btn-secondary" onclick="closeFactoringTool()" style="margin-top: 1rem;">Close</button>
+        </div>
+
+        <!-- Inequality Solver -->
+        <div class="equation-solver" id="inequalitySolver" style="display: none;">
+            <h2>Inequality Solver</h2>
+            <p>Solve linear inequalities step by step</p>
+            
+            <div class="solver-input">
+                <input type="number" id="ineqA" value="2" step="1" placeholder="a">
+                <span>x</span>
+                <select id="ineqOperator">
+                    <option value=">">&gt;</option>
+                    <option value="<">&lt;</option>
+                    <option value="≥">≥</option>
+                    <option value="≤">≤</option>
+                </select>
+                <input type="number" id="ineqB" value="3" step="1" placeholder="b">
+                <input type="number" id="ineqC" value="7" step="1" placeholder="c">
+                <button class="btn btn-primary" onclick="solveInequality()">Solve</button>
+            </div>
+            
+            <div id="inequalityResult" class="solution-steps">
+                <p>Enter an inequality to solve (ax + b &lt; c)</p>
+            </div>
+            
+            <div id="inequalityVisual" class="inequality-visual"></div>
+            
+            <button class="btn btn-secondary" onclick="closeInequalitySolver()" style="margin-top: 1rem;">Close</button>
+        </div>
+
+        <!-- Exponent & Logarithm Tool -->
+        <div class="equation-solver" id="exponentTool" style="display: none;">
+            <h2> Exponent & Logarithm Calculator</h2>
+            
+            <div class="solver-input">
+                <select id="expType" onchange="switchExpType()">
+                    <option value="exponent">Exponent: a^b</option>
+                    <option value="log">Logarithm: logₐ(b)</option>
+                    <option value="natural">Natural Log: ln(x)</option>
+                </select>
+            </div>
+            
+            <div id="exponentInputs" class="solver-input">
+                <input type="number" id="expBase" value="2" step="1" placeholder="Base">
+                <span>^</span>
+                <input type="number" id="expPower" value="3" step="1" placeholder="Power">
+                <button class="btn btn-primary" onclick="calculateExponent()">Calculate</button>
+            </div>
+            
+            <div id="logInputs" class="solver-input" style="display: none;">
+                <span>log</span>
+                <sub><input type="number" id="logBase" value="10" step="1" placeholder="Base" style="width: 80px;"></sub>
+                <span>(</span>
+                <input type="number" id="logValue" value="100" step="1" placeholder="Value">
+                <span>)</span>
+                <button class="btn btn-primary" onclick="calculateLog()">Calculate</button>
+            </div>
+            
+            <div id="naturalInputs" class="solver-input" style="display: none;">
+                <span>ln(</span>
+                <input type="number" id="naturalValue" value="2.718" step="0.1" placeholder="x">
+                <span>)</span>
+                <button class="btn btn-primary" onclick="calculateNatural()">Calculate</button>
+            </div>
+            
+            <div id="expResult" class="solution-steps">
+                <p>Select a calculation type and enter values</p>
+            </div>
+            
+            <button class="btn btn-secondary" onclick="closeExponentTool()" style="margin-top: 1rem;">Close</button>
+        </div>
+
+        <!-- Quick Reference / Cheat Sheet -->
+        <div class="cheat-sheet" style="margin-top: 3rem; background: var(--bg-card); border-radius: var(--radius-lg); padding: 2rem;">
+            <h3> Algebra Cheat Sheet</h3>
+            <div class="cheat-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
+                <div class="cheat-item" style="padding: 0.75rem; background: var(--bg-secondary); border-radius: var(--radius-md);">
+                    <span class="cheat-term">Slope formula:</span> m = (y₂ - y₁)/(x₂ - x₁)
+                </div>
+                <div class="cheat-item" style="padding: 0.75rem; background: var(--bg-secondary); border-radius: var(--radius-md);">
+                    <span class="cheat-term">Slope-intercept:</span> y = mx + b
+                </div>
+                <div class="cheat-item" style="padding: 0.75rem; background: var(--bg-secondary); border-radius: var(--radius-md);">
+                    <span class="cheat-term">Quadratic formula:</span> x = [-b ± √(b² - 4ac)] / 2a
+                </div>
+                <div class="cheat-item" style="padding: 0.75rem; background: var(--bg-secondary); border-radius: var(--radius-md);">
+                    <span class="cheat-term">Discriminant:</span> Δ = b² - 4ac
+                </div>
+                <div class="cheat-item" style="padding: 0.75rem; background: var(--bg-secondary); border-radius: var(--radius-md);">
+                    <span class="cheat-term">Factoring (a=1):</span> x² + (p+q)x + pq = (x+p)(x+q)
+                </div>
+                <div class="cheat-item" style="padding: 0.75rem; background: var(--bg-secondary); border-radius: var(--radius-md);">
+                    <span class="cheat-term">Log rule:</span> logₐ(b) = ln(b)/ln(a)
+                </div>
+                <div class="cheat-item" style="padding: 0.75rem; background: var(--bg-secondary); border-radius: var(--radius-md);">
+                    <span class="cheat-term">Exponent rule:</span> aᵐ × aⁿ = aᵐ⁺ⁿ
+                </div>
+                <div class="cheat-item" style="padding: 0.75rem; background: var(--bg-secondary); border-radius: var(--radius-md);">
+                    <span class="cheat-term">Vertex formula:</span> x = -b/(2a)
+                </div>
             </div>
         </div>
     </main>
 
     <footer class="footer">
         <div class="container">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h4>MathSim</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="tutorials.html">Tutorials</a></li>
+                        <li><a href="docs.html">Documentation</a></li>
+                        <li><a href="progress.html">Progress</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms of Use</a></li>
+                        <li><a href="accessibility.html">Accessibility</a></li>
+                    </ul>
+                </div>
+            </div>
             <div class="footer-bottom">
                 <p>© 2026 MathSim. All rights reserved.</p>
+                <p class="pwa-badge"> Install as app for offline use</p>
+                <p class="footer-links">
+                    <a href="privacy.html">Privacy</a> | 
+                    <a href="terms.html">Terms</a> | 
+                    <a href="accessibility.html">Accessibility</a>
+                </p>
             </div>
         </div>
     </footer>
@@ -149,9 +347,258 @@
             Install MathSim App
         </button>
     </div>
+    
+    <div id="onlineStatus" class="online-badge">Online</div>
 
     <script src="js/theme.js"></script>
     <script src="js/language.js"></script>
+    <script src="js/accessibility.js"></script>
+    <script src="js/analytics.js"></script>
     <script src="js/main.js"></script>
+    <script src="js/pwa.js"></script>
+    
+    <script>
+        // ===== EQUATION SOLVER FUNCTIONS =====
+        
+        function openSystemSolver() {
+            document.getElementById('equationSolver').style.display = 'block';
+            document.getElementById('equationSolver').scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        function openPolynomialTool() {
+            document.getElementById('factoringTool').style.display = 'block';
+            document.getElementById('factoringTool').scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        function openInequalitySolver() {
+            document.getElementById('inequalitySolver').style.display = 'block';
+            document.getElementById('inequalitySolver').scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        function openExponentTool() {
+            document.getElementById('exponentTool').style.display = 'block';
+            document.getElementById('exponentTool').scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        function closeEquationSolver() {
+            document.getElementById('equationSolver').style.display = 'none';
+        }
+        
+        function closeFactoringTool() {
+            document.getElementById('factoringTool').style.display = 'none';
+        }
+        
+        function closeInequalitySolver() {
+            document.getElementById('inequalitySolver').style.display = 'none';
+        }
+        
+        function closeExponentTool() {
+            document.getElementById('exponentTool').style.display = 'none';
+        }
+        
+        function switchEquationType() {
+            const type = document.getElementById('equationType').value;
+            if (type === 'linear') {
+                document.getElementById('linearInputs').style.display = 'flex';
+                document.getElementById('quadraticInputs').style.display = 'none';
+            } else {
+                document.getElementById('linearInputs').style.display = 'none';
+                document.getElementById('quadraticInputs').style.display = 'flex';
+            }
+        }
+        
+        function solveLinear() {
+            const a = parseFloat(document.getElementById('linearA').value) || 0;
+            const b = parseFloat(document.getElementById('linearB').value) || 0;
+            const c = parseFloat(document.getElementById('linearC').value) || 0;
+            
+            const solution = (c - b) / a;
+            const steps = [
+                `Start with: ${a}x + ${b} = ${c}`,
+                `Subtract ${b} from both sides: ${a}x = ${c - b}`,
+                `Divide both sides by ${a}: x = ${(c - b)} / ${a}`,
+                `Solution: x = ${solution.toFixed(4)}`
+            ];
+            
+            document.getElementById('solutionDisplay').innerHTML = `
+                <h3>Step-by-Step Solution</h3>
+                ${steps.map(step => `<div class="step">${step}</div>`).join('')}
+                <div class="step" style="font-weight: bold; margin-top: 1rem;">Answer: x = ${solution.toFixed(4)}</div>
+            `;
+            
+            if (typeof analytics !== 'undefined') {
+                analytics.answer(true);
+            }
+        }
+        
+        function solveQuadratic() {
+            const a = parseFloat(document.getElementById('quadA').value) || 1;
+            const b = parseFloat(document.getElementById('quadB').value) || 0;
+            const c = parseFloat(document.getElementById('quadC').value) || 0;
+            
+            const discriminant = b * b - 4 * a * c;
+            
+            let steps = [
+                `Start with: ${a}x² + ${b}x + ${c} = 0`,
+                `Calculate discriminant: Δ = b² - 4ac = ${b}² - 4(${a})(${c}) = ${discriminant}`
+            ];
+            
+            let solutions = [];
+            
+            if (discriminant < 0) {
+                steps.push(`Δ < 0, so no real solutions`);
+                solutions = ['No real solutions'];
+            } else if (discriminant === 0) {
+                const x = -b / (2 * a);
+                steps.push(`Δ = 0, so one solution`);
+                steps.push(`x = -b / (2a) = ${-b} / ${2 * a} = ${x.toFixed(4)}`);
+                solutions = [`x = ${x.toFixed(4)}`];
+            } else {
+                const sqrtDelta = Math.sqrt(discriminant);
+                const x1 = (-b + sqrtDelta) / (2 * a);
+                const x2 = (-b - sqrtDelta) / (2 * a);
+                steps.push(`√Δ = ${sqrtDelta.toFixed(4)}`);
+                steps.push(`x₁ = (-b + √Δ) / (2a) = (${-b} + ${sqrtDelta.toFixed(4)}) / ${2 * a} = ${x1.toFixed(4)}`);
+                steps.push(`x₂ = (-b - √Δ) / (2a) = (${-b} - ${sqrtDelta.toFixed(4)}) / ${2 * a} = ${x2.toFixed(4)}`);
+                solutions = [`x₁ = ${x1.toFixed(4)}`, `x₂ = ${x2.toFixed(4)}`];
+            }
+            
+            document.getElementById('solutionDisplay').innerHTML = `
+                <h3>Step-by-Step Solution</h3>
+                ${steps.map(step => `<div class="step">${step}</div>`).join('')}
+                <div class="step" style="font-weight: bold; margin-top: 1rem;">${solutions.join(' | ')}</div>
+            `;
+            
+            if (typeof analytics !== 'undefined') {
+                analytics.answer(true);
+            }
+        }
+        
+        function factorPolynomial() {
+            const a = parseFloat(document.getElementById('factorA').value) || 1;
+            const b = parseFloat(document.getElementById('factorB').value) || 0;
+            const c = parseFloat(document.getElementById('factorC').value) || 0;
+            
+            if (a !== 1) {
+                document.getElementById('factoringResult').innerHTML = `
+                    <h3>Factoring Result</h3>
+                    <div class="step">${a}x² + ${b}x + ${c}</div>
+                    <div class="step">For a ≠ 1, factoring is more complex. Use quadratic formula.</div>
+                    <div class="step">Discriminant: ${b*b - 4*a*c}</div>
+                `;
+                return;
+            }
+            
+            // Find factors of c that add to b
+            const factors = [];
+            for (let i = -Math.abs(c); i <= Math.abs(c); i++) {
+                if (i === 0) continue;
+                if (i * (c / i) === c && i + (c / i) === b) {
+                    factors.push(i, c / i);
+                    break;
+                }
+            }
+            
+            let result = '';
+            if (factors.length === 2) {
+                result = `(x + ${factors[0]})(x + ${factors[1]})`;
+            } else {
+                result = `Cannot factor with integers. Use quadratic formula.`;
+            }
+            
+            document.getElementById('factoringResult').innerHTML = `
+                <h3>Factoring Result</h3>
+                <div class="step">${a}x² + ${b}x + ${c}</div>
+                <div class="step">Factors: ${result}</div>
+                <div class="step">Check: ${a}x² + ${b}x + ${c} = ${result}</div>
+            `;
+        }
+        
+        function solveInequality() {
+            const a = parseFloat(document.getElementById('ineqA').value) || 1;
+            const b = parseFloat(document.getElementById('ineqB').value) || 0;
+            const c = parseFloat(document.getElementById('ineqC').value) || 0;
+            const op = document.getElementById('ineqOperator').value;
+            
+            const solution = (c - b) / a;
+            let solutionText = '';
+            
+            if (a > 0) {
+                if (op === '>') solutionText = `x > ${solution.toFixed(4)}`;
+                else if (op === '<') solutionText = `x < ${solution.toFixed(4)}`;
+                else if (op === '≥') solutionText = `x ≥ ${solution.toFixed(4)}`;
+                else if (op === '≤') solutionText = `x ≤ ${solution.toFixed(4)}`;
+            } else {
+                if (op === '>') solutionText = `x < ${solution.toFixed(4)}`;
+                else if (op === '<') solutionText = `x > ${solution.toFixed(4)}`;
+                else if (op === '≥') solutionText = `x ≤ ${solution.toFixed(4)}`;
+                else if (op === '≤') solutionText = `x ≥ ${solution.toFixed(4)}`;
+            }
+            
+            document.getElementById('inequalityResult').innerHTML = `
+                <h3>Step-by-Step Solution</h3>
+                <div class="step">Start with: ${a}x + ${b} ${op} ${c}</div>
+                <div class="step">Subtract ${b}: ${a}x ${op} ${c - b}</div>
+                <div class="step">Divide by ${a} (${a > 0 ? 'positive, sign stays' : 'negative, sign flips'}):</div>
+                <div class="step">${solutionText}</div>
+                <div class="step" style="font-weight: bold; margin-top: 1rem;">Solution: ${solutionText}</div>
+            `;
+        }
+        
+        function switchExpType() {
+            const type = document.getElementById('expType').value;
+            document.getElementById('exponentInputs').style.display = 'none';
+            document.getElementById('logInputs').style.display = 'none';
+            document.getElementById('naturalInputs').style.display = 'none';
+            
+            if (type === 'exponent') {
+                document.getElementById('exponentInputs').style.display = 'flex';
+            } else if (type === 'log') {
+                document.getElementById('logInputs').style.display = 'flex';
+            } else if (type === 'natural') {
+                document.getElementById('naturalInputs').style.display = 'flex';
+            }
+        }
+        
+        function calculateExponent() {
+            const base = parseFloat(document.getElementById('expBase').value) || 2;
+            const power = parseFloat(document.getElementById('expPower').value) || 3;
+            const result = Math.pow(base, power);
+            
+            document.getElementById('expResult').innerHTML = `
+                <h3>Exponent Calculation</h3>
+                <div class="step">${base}^${power} = ${result.toFixed(6)}</div>
+                <div class="step">Calculation: ${base} × ${base} ${power > 2 ? `× ${base} × ...` : ''} = ${result.toFixed(6)}</div>
+            `;
+        }
+        
+        function calculateLog() {
+            const base = parseFloat(document.getElementById('logBase').value) || 10;
+            const value = parseFloat(document.getElementById('logValue').value) || 100;
+            const result = Math.log(value) / Math.log(base);
+            
+            document.getElementById('expResult').innerHTML = `
+                <h3>Logarithm Calculation</h3>
+                <div class="step">log${base}(${value}) = ${result.toFixed(6)}</div>
+                <div class="step">This means: ${base}^${result.toFixed(6)} = ${value}</div>
+            `;
+        }
+        
+        function calculateNatural() {
+            const value = parseFloat(document.getElementById('naturalValue').value) || 2.718;
+            const result = Math.log(value);
+            
+            document.getElementById('expResult').innerHTML = `
+                <h3>Natural Log Calculation</h3>
+                <div class="step">ln(${value}) = ${result.toFixed(6)}</div>
+                <div class="step">This means: e^${result.toFixed(6)} = ${value}</div>
+                <div class="step">e ≈ 2.718281828459045</div>
+            `;
+        }
+        
+        // Initialize
+        switchEquationType();
+        switchExpType();
+    </script>
 </body>
 </html>

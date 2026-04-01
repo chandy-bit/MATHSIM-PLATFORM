@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MathSim | Frequently Asked Questions</title>
+    <meta name="theme-color" content="#4CAF50">
+    <meta name="description" content="Find answers to common questions about MathSim, including how to use simulations, accessibility features, offline mode, and more.">
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/upgrade.css">
+    <style>
+        .faq-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .faq-header h1 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .faq-header p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .faq-search {
+            max-width: 500px;
+            margin: 2rem auto;
+            position: relative;
+        }
+        
+        .faq-search input {
+            width: 100%;
+            padding: 1rem 1rem 1rem 3rem;
+            border: 2px solid var(--border-light);
+            border-radius: 50px;
+            background: var(--bg-card);
+            color: var(--text-primary);
+            font-size: 1rem;
+        }
+        
+        .faq-search::before {
+            content: "🔍";
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.2rem;
+        }
+        
+        .faq-categories {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 3rem;
+        }
+        
+        .category-btn {
+            padding: 0.6rem 1.5rem;
+            background: var(--bg-secondary);
+            border: 2px solid var(--border-light);
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        
+        .category-btn:hover {
+            transform: translateY(-2px);
+            border-color: var(--primary);
+        }
+        
+        .category-btn.active {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+        }
+        
+        .faq-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+        
+        .faq-item {
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .faq-item:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .faq-question {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: var(--text-primary);
+        }
+        
+        .faq-question-icon {
+            font-size: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+        
+        .faq-item.active .faq-question-icon {
+            transform: rotate(180deg);
+        }
+        
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, margin-top 0.3s ease;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+        
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+            margin-top: 1rem;
+        }
+        
+        .faq-answer a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+        
+        .faq-answer a:hover {
+            text-decoration: underline;
+        }
+        
+        .faq-answer ul, .faq-answer ol {
+            margin: 1rem 0;
+            padding-left: 1.5rem;
+        }
+        
+        .faq-answer li {
+            margin: 0.5rem 0;
+        }
+        
+        .contact-support {
+            background: var(--gradient-primary);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            text-align: center;
+            color: white;
+            margin-top: 2rem;
+        }
+        
+        .contact-support h3 {
+            margin-bottom: 1rem;
+        }
+        
+        .contact-support p {
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
+        }
+        
+        .contact-support .btn {
+            background: white;
+            color: var(--primary);
+        }
+        
+        .contact-support .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        
+        .no-results {
+            text-align: center;
+            padding: 3rem;
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            color: var(--text-secondary);
+        }
+        
+        @media (max-width: 768px) {
+            .faq-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .faq-header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <a href="index.html" class="logo">
+                    <span class="logo-icon"></span>
+                    <span class="logo-text">MathSim</span>
+                </a>
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="nav-link">Subjects </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="algebra.html">Algebra</a></li>
+                            <li><a href="geometry.html">Geometry</a></li>
+                            <li><a href="precalculus.html">Pre-Calculus</a></li>
+                            <li><a href="calculus.html">Calculus</a></li>
+                            <li><a href="probability.html">Probability</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="simulation.html" class="nav-link">Simulations</a></li>
+                    <li><a href="game.html" class="nav-link">Games</a></li>
+                    <li><a href="tutorials.html" class="nav-link">Tutorials</a></li>
+                    <li><a href="progress.html" class="nav-link">Progress</a></li>
+                    <li><a href="accessibility.html" class="nav-link">Accessibility</a></li>
+                    <li><a href="faq.html" class="nav-link active">FAQ</a></li>
+                </ul>
+                <div class="nav-controls">
+                    <div class="language-selector">
+                        <select id="languageSelect" aria-label="Select Language">
+                            <option value="en">English</option>
+                            <option value="es">Español</option>
+                            <option value="fr">Français</option>
+                            <option value="de">Deutsch</option>
+                        </select>
+                    </div>
+                    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">🌓</button>
+                    <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu">
+                        <span class="hamburger"></span>
+                    </button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main id="main-content" class="container" style="padding: 2rem 0;">
+        <div class="faq-header">
+            <h1> Frequently Asked Questions</h1>
+            <p>Find answers to common questions about MathSim. Can't find what you're looking for? Contact our support team.</p>
+        </div>
+
+        <div class="faq-search">
+            <input type="text" id="faqSearch" placeholder="Search questions..." onkeyup="searchFAQ()">
+        </div>
+
+        <div class="faq-categories">
+            <button class="category-btn active" onclick="filterFAQ('all')">All</button>
+            <button class="category-btn" onclick="filterFAQ('getting-started')">Getting Started</button>
+            <button class="category-btn" onclick="filterFAQ('simulations')">Simulations</button>
+            <button class="category-btn" onclick="filterFAQ('games')">Games</button>
+            <button class="category-btn" onclick="filterFAQ('accessibility')">Accessibility</button>
+            <button class="category-btn" onclick="filterFAQ('offline')">Offline & PWA</button>
+            <button class="category-btn" onclick="filterFAQ('technical')">Technical</button>
+        </div>
+
+        <div id="faqContainer" class="faq-grid">
+            <!-- Getting Started Section -->
+            <div class="faq-item" data-category="getting-started">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>What is MathSim?</span>
+                    <span class="faq-question-icon">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p>MathSim is an interactive mathematics learning platform that combines simulations, games, tutorials, and learning analytics to help students understand mathematical concepts through visual exploration and practice. The platform covers Algebra, Geometry, Pre-Calculus, Calculus, and Probability.</p>
+                </div>
+            </div>
+
+            <div class="faq-item" data-category="getting-started">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>Do I need to create an account?</span>
+                    <span class="faq-question-icon">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p>No! MathSim does not require an account. All your progress is saved locally on your device using your browser's storage. You can start using the platform immediately without any sign-up process.</p>
+                </div>
+            </div>
+
+            <div class="faq-item" data-category="getting-started">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>Is MathSim free?</span>
+                    <span class="faq-question-icon">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Yes! MathSim is completely free to use. No subscription, no hidden fees, no ads. The platform is open source and maintained for educational purposes.</p>
+                </div>
+            </div>
+
+            <!-- Simulations Section -->
+            <div class="faq-item" data-category="simulations">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>How do I use the interactive simulations?</span>
+                    <span class="faq-question-icon">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Using simulations is simple:</p>
+                    <ol>
+                        <li>Go to the <a href="simulation.html">Simulations page</a></li>
+                        <li>Select the function type (linear, quadratic, cubic, etc.)</li>
+                        <li>Adjust parameters using the sliders</li>
+                        <li>Watch the graph update in real-time</li>
+                        <li>Use preset buttons to see common configurations</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="faq-item" data-category="simulations">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>What types of functions can I graph?</span>
+                    <span class="faq-question-icon">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p>MathSim supports multiple function types:</p>
+                    <ul>
+                        <li><strong>Linear:</strong> y = mx + b</li>
+                        <li><strong>Quadratic:</strong> y = ax² + bx + c</li>
+                        <li><strong>Cubic:</strong> y = ax³ + bx² + cx + d</li>
+                        <li><strong>Trigonometric:</strong> sin(x), cos(x), tan(x)</li>
+                        <li><strong>Exponential:</strong> y = a·bˣ</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="faq-item" data-category="simulations">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>Can I save my graphs?</span>
+                    <span class="faq-question-icon">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Yes! Use <kbd>Ctrl + S</kbd> to save your current graph settings, and <kbd>Ctrl + L</kbd> to load them later. You can also export your graph as an image using the export button.</p>
+                </div>
+            </div>
+
+            <!-- Games Section -->
+            <div class="faq-item" data-category="games">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>How do I play the Slope Challenge game?</span>
+                    <span class="faq-question-icon">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p>In the Slope Challenge game, you'll see a line on a coordinate grid. Your task is to identify its slope from the given options. Each correct answer earns points, and consecutive correct answers increase your score multiplier. You have three lives - use them wisely!</p>
+                </div>
+            </div>
+
+            <div class="faq-item" data-category="games">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>What happens when I get an answer wrong?</span>
+                    <span class="faq-question-icon">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p>When you answer incorrectly:</p>
+                    <ul>
+                        <li>You lose one life (hearts)</li>
+                        <li>The correct answer is highlighted to help you learn</li>
+                        <li>Your streak resets to zero</li>
+                        <li>You can use the hint button for help on the next question</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="faq-item" data-category="games">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>How does the scoring system work?</span>
+                    <span class="faq-question-icon">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Score is calculated as follows:</p>
+                    <ul>
+                        <li>Base points: 10 × current level</li>
+                        <li>Streak bonus: Each correct answer adds to your streak multiplier</li>
+                        <li>Higher levels = more points per correct answer</li>
+                        <li>Your best score is saved and displayed on the progress page</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Accessibility Section -->
+            <div class="faq-item" data-category="accessibility">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>What accessibility features does MathSim offer?</span>
+                    <span class="faq-question-icon">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p>MathSim is committed to accessibility:</p>
+                    <ul>
+                        <li><strong>High Contrast Mode:</strong> Improved visibility for users with visual impairments</li>
+                        <li><strong>Large Text Mode:</strong> Increased font size throughout the platform</li>
+                        <li><strong>Reduced Motion:</strong> Disables animations for users sensitive to motion</li>
+                        <li><strong>Dyslexic Font:</strong> OpenDyslexic font option for easier reading</li>
+                        <li><strong>Screen Reader Support:</strong> Full ARIA labels and semantic HTML</li>
+                        <li><strong>Keyboard Navigation:</strong> Complete functionality without a mouse</li>
+                    </ul>
+                    <p>Visit the <a href="accessibility.html">Accessibility page</a> to customize your experience.</p>
+                </div>
+            </div>
+
+            <div class="faq-item" data-category="accessibility">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>Does MathSim work with screen readers?</span>
+                    <span class="faq-question-icon">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Yes! MathSim is designed to work with screen readers like NVDA, JAWS, and VoiceOver. All interactive elements have descriptive ARIA labels, and dynamic content updates are announced to screen readers. The graph descriptions provide text alternatives for visual content.</p>
+                </div>
+            </div>
+
+            <!-- Offline & PWA Section -->
+            <div class="faq-item" data-category="offline">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>Does MathSim work offline?</span>
+                    <span class="faq-question-icon">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Yes! MathSim is a Progressive Web App (PWA). Once you visit the site, it caches all necessary files for offline use. You can access simulations, games, and tutorials even without an internet connection. Your progress saves locally and syncs when you reconnect.</p>
+                </div>
+            </div>
+
+            <div class="faq-item" data-category="offline">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>How do I install MathSim as an app?</span>
+                    <span class="faq-question-icon">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Installing MathSim is easy:</p>
+                    <ul>
+                        <li><strong>Desktop (Chrome/Edge):</strong> Click the install icon in the address bar or click the "Install MathSim App" button</li>
+                        <li><strong>Mobile (iOS):</strong> Tap Share → "Add to Home Screen"</li>
+                        <li><strong>Mobile (Android):</strong> Tap Menu → "Install App" or "Add to Home Screen"</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Technical Section -->
+            <div class="faq-item" data-category="technical">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>What browsers are supported?</span>
+                    <span class="faq-question-icon">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p>MathSim works on all modern browsers:</p>
+                    <ul>
+                        <li>Google Chrome (recommended)</li>
+                        <li>Mozilla Firefox</li>
+                        <li>Safari (macOS and iOS)</li>
+                        <li>Microsoft Edge</li>
+                    </ul>
+                    <p>For the best experience, we recommend using the latest version of Chrome or Firefox.</p>
+                </div>
+            </div>
+
+            <div class="faq-item" data-category="technical">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>How is my data stored and protected?</span>
+                    <span class="faq-question-icon">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Your data is stored locally on your device using your browser's localStorage. We do not collect or store any personal information on external servers. You have complete control over your data and can export or delete it at any time from the <a href="progress.html">Progress page</a>. <a href="privacy.html">Read our Privacy Policy</a> for more details.</p>
+                </div>
+            </div>
+
+            <div class="faq-item" data-category="technical">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>Can I track my learning progress?</span>
+                    <span class="faq-question-icon">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Absolutely! The <a href="progress.html">Progress page</a> tracks:</p>
+                    <ul>
+                        <li>Tutorials watched</li>
+                        <li>Games played</li>
+                        <li>Accuracy percentage</li>
+                        <li>Best scores</li>
+                        <li>Total study time</li>
+                        <li>Achievements unlocked</li>
+                    </ul>
+                    <p>You can also export your progress data for backup or analysis.</p>
+                </div>
+            </div>
+
+            <div class="faq-item" data-category="technical">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>How do I change the language?</span>
+                    <span class="faq-question-icon">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p>To change the language:</p>
+                    <ol>
+                        <li>Look for the language selector in the top-right corner of the page</li>
+                        <li>Click the dropdown menu</li>
+                        <li>Select your preferred language (English, Español, Français, Deutsch)</li>
+                        <li>The page content will update immediately</li>
+                    </ol>
+                    <p>Your language preference is saved for future visits.</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="noResults" class="no-results" style="display: none;">
+            <p>🔍 No questions found matching your search.</p>
+            <p>Try different keywords or <a href="feedback.html">contact us</a> for help.</p>
+        </div>
+
+        <div class="contact-support">
+            <h3>Still have questions?</h3>
+            <p>We're here to help! Contact our support team and we'll get back to you as soon as possible.</p>
+            <a href="feedback.html" class="btn btn-primary">Contact Support →</a>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h4>MathSim</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="tutorials.html">Tutorials</a></li>
+                        <li><a href="docs.html">Documentation</a></li>
+                        <li><a href="progress.html">Progress</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Support</h4>
+                    <ul>
+                        <li><a href="faq.html">FAQ</a></li>
+                        <li><a href="feedback.html">Feedback</a></li>
+                        <li><a href="accessibility.html">Accessibility</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms of Use</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 MathSim. All rights reserved.</p>
+                <p class="pwa-badge"> Install as app for offline use</p>
+                <p class="footer-links">
+                    <a href="privacy.html">Privacy</a> | 
+                    <a href="terms.html">Terms</a> | 
+                    <a href="accessibility.html">Accessibility</a> |
+                    <a href="faq.html">FAQ</a> |
+                    <a href="feedback.html">Feedback</a>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <div id="onlineStatus" class="online-badge">Online</div>
+
+    <script src="js/theme.js"></script>
+    <script src="js/language.js"></script>
+    <script src="js/accessibility.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/pwa.js"></script>
+
+    <script>
+        function toggleFAQ(element) {
+            const faqItem = element.closest('.faq-item');
+            faqItem.classList.toggle('active');
+        }
+
+        function filterFAQ(category) {
+            const items = document.querySelectorAll('.faq-item');
+            const buttons = document.querySelectorAll('.category-btn');
+            
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            items.forEach(item => {
+                if (category === 'all' || item.dataset.category === category) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+            
+            // Reset search if filtering
+            document.getElementById('faqSearch').value = '';
+            showAllItems();
+        }
+
+        function searchFAQ() {
+            const searchTerm = document.getElementById('faqSearch').value.toLowerCase();
+            const items = document.querySelectorAll('.faq-item');
+            let visibleCount = 0;
+            
+            items.forEach(item => {
+                const question = item.querySelector('.faq-question span:first-child').textContent.toLowerCase();
+                const answer = item.querySelector('.faq-answer').textContent.toLowerCase();
+                
+                if (question.includes(searchTerm) || answer.includes(searchTerm) || searchTerm === '') {
+                    item.style.display = 'block';
+                    visibleCount++;
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+            
+            const noResults = document.getElementById('noResults');
+            if (visibleCount === 0 && searchTerm !== '') {
+                noResults.style.display = 'block';
+            } else {
+                noResults.style.display = 'none';
+            }
+        }
+        
+        function showAllItems() {
+            const items = document.querySelectorAll('.faq-item');
+            items.forEach(item => {
+                item.style.display = 'block';
+            });
+            document.getElementById('noResults').style.display = 'none';
+        }
+        
+        // Make functions global
+        window.toggleFAQ = toggleFAQ;
+        window.filterFAQ = filterFAQ;
+        window.searchFAQ = searchFAQ;
+    </script>
+</body>
+</html>

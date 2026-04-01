@@ -5,6 +5,113 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MathSim | Pre-Calculus</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#4CAF50">
+    <style>
+        .precalc-tool {
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .tool-controls {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 1rem 0;
+        }
+        
+        .tool-controls input, .tool-controls select {
+            padding: 0.5rem;
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-sm);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+        }
+        
+        .result-area {
+            background: var(--bg-secondary);
+            padding: 1.5rem;
+            border-radius: var(--radius-md);
+            margin-top: 1rem;
+            text-align: center;
+        }
+        
+        .formula-card {
+            background: var(--bg-secondary);
+            padding: 1rem;
+            border-radius: var(--radius-md);
+            margin: 1rem 0;
+            border-left: 4px solid var(--primary);
+        }
+        
+        .unit-circle {
+            width: 300px;
+            height: 300px;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        .vector-display {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .vector-card {
+            background: var(--bg-secondary);
+            padding: 1rem;
+            border-radius: var(--radius-md);
+            text-align: center;
+            min-width: 150px;
+        }
+        
+        .graph-container {
+            display: flex;
+            justify-content: center;
+            margin: 1rem 0;
+        }
+        
+        canvas {
+            background: var(--bg-card);
+            border: 2px solid var(--border-light);
+            border-radius: var(--radius-md);
+            max-width: 100%;
+            height: auto;
+        }
+        
+        .tab-buttons {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: center;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .tab-btn {
+            padding: 0.5rem 1rem;
+            background: var(--bg-secondary);
+            border: 2px solid var(--border-light);
+            border-radius: var(--radius-full);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .tab-btn.active {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+        }
+        
+        .tab-btn:hover {
+            transform: translateY(-2px);
+        }
+    </style>
 </head>
 <body>
     <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -24,14 +131,14 @@
                         <ul class="dropdown-menu">
                             <li><a href="algebra.html">Algebra</a></li>
                             <li><a href="geometry.html">Geometry</a></li>
-                            <li><a href="precalculus.html">Pre-Calculus</a></li>
+                            <li><a href="precalculus.html" class="active">Pre-Calculus</a></li>
                             <li><a href="calculus.html">Calculus</a></li>
                             <li><a href="probability.html">Probability</a></li>
                         </ul>
                     </li>
                     <li><a href="simulation.html" class="nav-link">Simulations</a></li>
                     <li><a href="game.html" class="nav-link">Games</a></li>
-                    <li><a href="tutorial.html" class="nav-link">Tutorials</a></li>
+                    <li><a href="tutorials.html" class="nav-link">Tutorials</a></li>
                     <li><a href="progress.html" class="nav-link">Progress</a></li>
                     <li><a href="accessibility.html" class="nav-link">Accessibility</a></li>
                 </ul>
@@ -54,8 +161,8 @@
 
     <main id="main-content" class="container" style="padding: 2rem 0;">
         <div class="subject-header">
-            <h1> Pre-Calculus</h1>
-            <p>Prepare for calculus with functions, trigonometry, and limits</p>
+            <h1>Pre-Calculus</h1>
+            <p>Prepare for calculus with functions, trigonometry, and limits through interactive tools</p>
         </div>
 
         <div class="subject-grid">
@@ -69,7 +176,7 @@
                     <span class="topic-tag">Range</span>
                     <span class="topic-tag">Inverse</span>
                 </div>
-                <a href="simulation.html?type=functions" class="btn btn-primary">Explore</a>
+                <button class="btn btn-primary" onclick="openPrecalcTool('functions')">Explore →</button>
             </div>
 
             <!-- Trigonometry -->
@@ -82,7 +189,7 @@
                     <span class="topic-tag">cos</span>
                     <span class="topic-tag">tan</span>
                 </div>
-                <a href="#" class="btn btn-primary">Explore</a>
+                <button class="btn btn-primary" onclick="openPrecalcTool('trig')">Explore →</button>
             </div>
 
             <!-- Limits -->
@@ -95,7 +202,7 @@
                     <span class="topic-tag">Continuity</span>
                     <span class="topic-tag">Approach</span>
                 </div>
-                <a href="#" class="btn btn-primary">Explore</a>
+                <button class="btn btn-primary" onclick="openPrecalcTool('limits')">Explore →</button>
             </div>
 
             <!-- Sequences & Series -->
@@ -108,7 +215,7 @@
                     <span class="topic-tag">Geometric</span>
                     <span class="topic-tag">Sum</span>
                 </div>
-                <a href="#" class="btn btn-primary">Explore</a>
+                <button class="btn btn-primary" onclick="openPrecalcTool('sequences')">Explore →</button>
             </div>
 
             <!-- Vectors -->
@@ -121,7 +228,7 @@
                     <span class="topic-tag">Direction</span>
                     <span class="topic-tag">Dot Product</span>
                 </div>
-                <a href="#" class="btn btn-primary">Explore</a>
+                <button class="btn btn-primary" onclick="openPrecalcTool('vectors')">Explore →</button>
             </div>
 
             <!-- Polar Coordinates -->
@@ -134,21 +241,604 @@
                     <span class="topic-tag">θ</span>
                     <span class="topic-tag">Conversion</span>
                 </div>
-                <a href="#" class="btn btn-primary">Explore</a>
+                <button class="btn btn-primary" onclick="openPrecalcTool('polar')">Explore →</button>
+            </div>
+        </div>
+
+        <!-- Interactive Pre-Calculus Tool -->
+        <div class="precalc-tool" id="precalcTool" style="display: none;">
+            <h2 id="toolTitle">Pre-Calculus Tool</h2>
+            <div id="toolTabs" class="tab-buttons"></div>
+            <div id="toolControls" class="tool-controls"></div>
+            <div id="toolCanvas" class="graph-container"></div>
+            <div id="toolResults" class="result-area"></div>
+            <div id="toolFormula" class="formula-card"></div>
+            <div style="text-align: center; margin-top: 1rem;">
+                <button class="btn btn-secondary" onclick="closePrecalcTool()">Close Tool</button>
+            </div>
+        </div>
+
+        <!-- Quick Reference / Cheat Sheet -->
+        <div class="cheat-sheet" style="margin-top: 3rem; background: var(--bg-card); border-radius: var(--radius-lg); padding: 2rem;">
+            <h3> Pre-Calculus Cheat Sheet</h3>
+            <div class="cheat-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem;">
+                <div class="cheat-item" style="padding: 0.75rem; background: var(--bg-secondary); border-radius: var(--radius-md);">
+                    <span class="cheat-term">sin²θ + cos²θ = 1</span>
+                </div>
+                <div class="cheat-item" style="padding: 0.75rem; background: var(--bg-secondary); border-radius: var(--radius-md);">
+                    <span class="cheat-term">sin(2θ) = 2 sinθ cosθ</span>
+                </div>
+                <div class="cheat-item" style="padding: 0.75rem; background: var(--bg-secondary); border-radius: var(--radius-md);">
+                    <span class="cheat-term">cos(2θ) = cos²θ - sin²θ</span>
+                </div>
+                <div class="cheat-item" style="padding: 0.75rem; background: var(--bg-secondary); border-radius: var(--radius-md);">
+                    <span class="cheat-term">lim(x→0) sin x / x = 1</span>
+                </div>
+                <div class="cheat-item" style="padding: 0.75rem; background: var(--bg-secondary); border-radius: var(--radius-md);">
+                    <span class="cheat-term">Arithmetic Series: S = n(a₁ + aₙ)/2</span>
+                </div>
+                <div class="cheat-item" style="padding: 0.75rem; background: var(--bg-secondary); border-radius: var(--radius-md);">
+                    <span class="cheat-term">Geometric Series: S = a₁/(1-r)</span>
+                </div>
+                <div class="cheat-item" style="padding: 0.75rem; background: var(--bg-secondary); border-radius: var(--radius-md);">
+                    <span class="cheat-term">Vector Magnitude: |v| = √(x² + y²)</span>
+                </div>
+                <div class="cheat-item" style="padding: 0.75rem; background: var(--bg-secondary); border-radius: var(--radius-md);">
+                    <span class="cheat-term">Dot Product: u·v = |u||v|cosθ</span>
+                </div>
+                <div class="cheat-item" style="padding: 0.75rem; background: var(--bg-secondary); border-radius: var(--radius-md);">
+                    <span class="cheat-term">Polar to Cartesian: x = r cosθ, y = r sinθ</span>
+                </div>
+                <div class="cheat-item" style="padding: 0.75rem; background: var(--bg-secondary); border-radius: var(--radius-md);">
+                    <span class="cheat-term">Cartesian to Polar: r = √(x²+y²), θ = tan⁻¹(y/x)</span>
+                </div>
             </div>
         </div>
     </main>
 
     <footer class="footer">
         <div class="container">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h4>MathSim</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="tutorials.html">Tutorials</a></li>
+                        <li><a href="docs.html">Documentation</a></li>
+                        <li><a href="progress.html">Progress</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms of Use</a></li>
+                        <li><a href="accessibility.html">Accessibility</a></li>
+                    </ul>
+                </div>
+            </div>
             <div class="footer-bottom">
                 <p>© 2026 MathSim. All rights reserved.</p>
+                <p class="pwa-badge"> Install as app for offline use</p>
+                <p class="footer-links">
+                    <a href="privacy.html">Privacy</a> | 
+                    <a href="terms.html">Terms</a> | 
+                    <a href="accessibility.html">Accessibility</a>
+                </p>
             </div>
         </div>
     </footer>
 
+    <div id="installContainer" style="display: none; text-align: center; margin: 1rem 0;">
+        <button class="btn btn-primary" onclick="installPWA()" style="font-size: 1.1rem; padding: 1rem 2rem;">
+            Install MathSim App
+        </button>
+    </div>
+    
+    <div id="onlineStatus" class="online-badge">Online</div>
+
     <script src="js/theme.js"></script>
     <script src="js/language.js"></script>
+    <script src="js/accessibility.js"></script>
+    <script src="js/analytics.js"></script>
     <script src="js/main.js"></script>
+    <script src="js/pwa.js"></script>
+    
+    <script>
+        let precalcCanvas, ctx;
+        let currentTool = null;
+        
+        // ===== MAIN FUNCTIONS =====
+        
+        function openPrecalcTool(toolType) {
+            const tool = document.getElementById('precalcTool');
+            const title = document.getElementById('toolTitle');
+            
+            tool.style.display = 'block';
+            tool.scrollIntoView({ behavior: 'smooth' });
+            
+            currentTool = toolType;
+            
+            const titles = {
+                'functions': ' Function Explorer',
+                'trig': ' Trigonometric Functions',
+                'limits': ' Limit Visualizer',
+                'sequences': ' Sequences & Series',
+                'vectors': ' Vector Calculator',
+                'polar': ' Polar Coordinates'
+            };
+            title.textContent = titles[toolType] || 'Pre-Calculus Tool';
+            
+            generateToolUI(toolType);
+        }
+        
+        function closePrecalcTool() {
+            document.getElementById('precalcTool').style.display = 'none';
+        }
+        
+        function generateToolUI(toolType) {
+            const controls = document.getElementById('toolControls');
+            const canvasContainer = document.getElementById('toolCanvas');
+            
+            if (toolType === 'functions') {
+                controls.innerHTML = `
+                    <label>Function: 
+                        <select id="funcType" onchange="updateFunction()">
+                            <option value="linear">Linear: f(x) = mx + b</option>
+                            <option value="quadratic">Quadratic: f(x) = ax² + bx + c</option>
+                            <option value="cubic">Cubic: f(x) = ax³ + bx² + cx + d</option>
+                            <option value="exponential">Exponential: f(x) = a·bˣ</option>
+                        </select>
+                    </label>
+                    <label>a: <input type="number" id="funcA" value="1" step="0.5" onchange="updateFunction()"></label>
+                    <label>b: <input type="number" id="funcB" value="0" step="0.5" onchange="updateFunction()"></label>
+                    <label>c: <input type="number" id="funcC" value="0" step="0.5" onchange="updateFunction()"></label>
+                `;
+                canvasContainer.innerHTML = '<canvas id="funcCanvas" width="500" height="300"></canvas>';
+                setupCanvas('funcCanvas');
+                updateFunction();
+            }
+            else if (toolType === 'trig') {
+                controls.innerHTML = `
+                    <label>Function: 
+                        <select id="trigType" onchange="updateTrig()">
+                            <option value="sin">sin(x)</option>
+                            <option value="cos">cos(x)</option>
+                            <option value="tan">tan(x)</option>
+                        </select>
+                    </label>
+                    <label>Amplitude: <input type="number" id="amp" value="1" step="0.5" onchange="updateTrig()"></label>
+                    <label>Frequency: <input type="number" id="freq" value="1" step="0.5" onchange="updateTrig()"></label>
+                    <label>Phase: <input type="number" id="phase" value="0" step="0.5" onchange="updateTrig()"></label>
+                `;
+                canvasContainer.innerHTML = '<canvas id="trigCanvas" width="500" height="300"></canvas>';
+                setupCanvas('trigCanvas');
+                updateTrig();
+            }
+            else if (toolType === 'limits') {
+                controls.innerHTML = `
+                    <label>Function: 
+                        <select id="limitFunc" onchange="updateLimit()">
+                            <option value="sinx/x">sin(x)/x</option>
+                            <option value="x^2">x²</option>
+                            <option value="1/x">1/x</option>
+                        </select>
+                    </label>
+                    <label>Approach x = <input type="number" id="limitPoint" value="0" step="0.1" onchange="updateLimit()"></label>
+                `;
+                canvasContainer.innerHTML = '<canvas id="limitCanvas" width="500" height="300"></canvas>';
+                setupCanvas('limitCanvas');
+                updateLimit();
+            }
+            else if (toolType === 'sequences') {
+                controls.innerHTML = `
+                    <label>Type: 
+                        <select id="seqType" onchange="updateSequence()">
+                            <option value="arithmetic">Arithmetic</option>
+                            <option value="geometric">Geometric</option>
+                        </select>
+                    </label>
+                    <label>First Term (a₁): <input type="number" id="seqA1" value="2" step="1" onchange="updateSequence()"></label>
+                    <label>Common Difference/Ratio: <input type="number" id="seqD" value="3" step="0.5" onchange="updateSequence()"></label>
+                    <label>Number of Terms: <input type="number" id="seqN" value="5" step="1" onchange="updateSequence()"></label>
+                `;
+                canvasContainer.innerHTML = '<canvas id="seqCanvas" width="500" height="300"></canvas>';
+                setupCanvas('seqCanvas');
+                updateSequence();
+            }
+            else if (toolType === 'vectors') {
+                controls.innerHTML = `
+                    <label>Vector u: ( <input type="number" id="ux" value="3" step="1" onchange="updateVectors()"> , <input type="number" id="uy" value="4" step="1" onchange="updateVectors()"> )</label>
+                    <label>Vector v: ( <input type="number" id="vx" value="1" step="1" onchange="updateVectors()"> , <input type="number" id="vy" value="2" step="1" onchange="updateVectors()"> )</label>
+                `;
+                canvasContainer.innerHTML = '<canvas id="vecCanvas" width="500" height="300"></canvas>';
+                setupCanvas('vecCanvas');
+                updateVectors();
+            }
+            else if (toolType === 'polar') {
+                controls.innerHTML = `
+                    <label>Convert: 
+                        <select id="polarType" onchange="updatePolar()">
+                            <option value="polar2cart">Polar (r,θ) → Cartesian (x,y)</option>
+                            <option value="cart2polar">Cartesian (x,y) → Polar (r,θ)</option>
+                        </select>
+                    </label>
+                    <div id="polarInputs">
+                        <label>r: <input type="number" id="polarR" value="5" step="0.5" onchange="updatePolar()"></label>
+                        <label>θ (degrees): <input type="number" id="polarTheta" value="45" step="15" onchange="updatePolar()"></label>
+                    </div>
+                `;
+                canvasContainer.innerHTML = '<canvas id="polarCanvas" width="500" height="300"></canvas>';
+                setupCanvas('polarCanvas');
+                updatePolar();
+                
+                // Add event listener for type change
+                document.getElementById('polarType').addEventListener('change', function() {
+                    const inputs = document.getElementById('polarInputs');
+                    if (this.value === 'polar2cart') {
+                        inputs.innerHTML = `
+                            <label>r: <input type="number" id="polarR" value="5" step="0.5" onchange="updatePolar()"></label>
+                            <label>θ (degrees): <input type="number" id="polarTheta" value="45" step="15" onchange="updatePolar()"></label>
+                        `;
+                    } else {
+                        inputs.innerHTML = `
+                            <label>x: <input type="number" id="cartX" value="3" step="0.5" onchange="updatePolar()"></label>
+                            <label>y: <input type="number" id="cartY" value="4" step="0.5" onchange="updatePolar()"></label>
+                        `;
+                    }
+                    updatePolar();
+                });
+            }
+        }
+        
+        function setupCanvas(canvasId) {
+            precalcCanvas = document.getElementById(canvasId);
+            if (precalcCanvas) {
+                ctx = precalcCanvas.getContext('2d');
+                drawGrid(ctx, precalcCanvas);
+            }
+        }
+        
+        // ===== FUNCTIONS TOOL =====
+        function updateFunction() {
+            const type = document.getElementById('funcType').value;
+            const a = parseFloat(document.getElementById('funcA').value) || 0;
+            const b = parseFloat(document.getElementById('funcB').value) || 0;
+            const c = parseFloat(document.getElementById('funcC').value) || 0;
+            
+            let expression = '', domain = '', range = '', inverse = '';
+            
+            if (type === 'linear') {
+                expression = `f(x) = ${a}x + ${b}`;
+                domain = 'All real numbers';
+                range = 'All real numbers';
+                inverse = `f⁻¹(x) = (x - ${b})/${a}`;
+            } else if (type === 'quadratic') {
+                expression = `f(x) = ${a}x² + ${b}x + ${c}`;
+                domain = 'All real numbers';
+                const vertex = -b / (2 * a);
+                const vertexY = a * vertex * vertex + b * vertex + c;
+                range = a > 0 ? `y ≥ ${vertexY.toFixed(2)}` : `y ≤ ${vertexY.toFixed(2)}`;
+                inverse = 'Use quadratic formula to find inverse';
+            } else if (type === 'cubic') {
+                expression = `f(x) = ${a}x³ + ${b}x² + ${c}x`;
+                domain = 'All real numbers';
+                range = 'All real numbers';
+                inverse = 'Complex inverse function';
+            } else {
+                expression = `f(x) = ${a}·${b}ˣ`;
+                domain = 'All real numbers';
+                range = a > 0 ? 'y > 0' : 'y < 0';
+                inverse = `f⁻¹(x) = log${b}(x/${a})`;
+            }
+            
+            document.getElementById('toolResults').innerHTML = `
+                <strong>Function:</strong> ${expression}<br>
+                <strong>Domain:</strong> ${domain}<br>
+                <strong>Range:</strong> ${range}<br>
+                <strong>Inverse:</strong> ${inverse}
+            `;
+            
+            drawFunction(type, a, b, c);
+        }
+        
+        function drawFunction(type, a, b, c) {
+            if (!ctx) return;
+            ctx.clearRect(0, 0, precalcCanvas.width, precalcCanvas.height);
+            drawGrid(ctx, precalcCanvas);
+            
+            ctx.beginPath();
+            ctx.strokeStyle = '#2563EB';
+            ctx.lineWidth = 2;
+            
+            let first = true;
+            for (let x = -250; x <= 250; x += 5) {
+                const scaledX = x / 50;
+                let y = 0;
+                if (type === 'linear') y = a * scaledX + b;
+                else if (type === 'quadratic') y = a * scaledX * scaledX + b * scaledX + c;
+                else if (type === 'cubic') y = a * scaledX * scaledX * scaledX + b * scaledX * scaledX + c * scaledX;
+                else if (type === 'exponential') y = a * Math.pow(b, scaledX);
+                
+                const canvasX = precalcCanvas.width/2 + x;
+                const canvasY = precalcCanvas.height/2 - y * 30;
+                
+                if (canvasY >= 0 && canvasY <= precalcCanvas.height) {
+                    if (first) ctx.moveTo(canvasX, canvasY);
+                    else ctx.lineTo(canvasX, canvasY);
+                    first = false;
+                } else first = true;
+            }
+            ctx.stroke();
+        }
+        
+        // ===== TRIGONOMETRY TOOL =====
+        function updateTrig() {
+            const type = document.getElementById('trigType').value;
+            const amp = parseFloat(document.getElementById('amp').value) || 1;
+            const freq = parseFloat(document.getElementById('freq').value) || 1;
+            const phase = parseFloat(document.getElementById('phase').value) || 0;
+            
+            document.getElementById('toolResults').innerHTML = `
+                <strong>Function:</strong> f(x) = ${amp}·${type}(${freq}x + ${phase})<br>
+                <strong>Amplitude:</strong> ${amp}<br>
+                <strong>Period:</strong> ${(2 * Math.PI / freq).toFixed(2)}<br>
+                <strong>Phase Shift:</strong> ${phase} radians
+            `;
+            
+            drawTrig(type, amp, freq, phase);
+        }
+        
+        function drawTrig(type, amp, freq, phase) {
+            if (!ctx) return;
+            ctx.clearRect(0, 0, precalcCanvas.width, precalcCanvas.height);
+            drawGrid(ctx, precalcCanvas);
+            
+            ctx.beginPath();
+            ctx.strokeStyle = '#2563EB';
+            ctx.lineWidth = 2;
+            
+            for (let x = -250; x <= 250; x += 2) {
+                const radians = (x / 50) * Math.PI;
+                let y = 0;
+                if (type === 'sin') y = amp * Math.sin(freq * radians + phase);
+                else if (type === 'cos') y = amp * Math.cos(freq * radians + phase);
+                else if (type === 'tan') y = amp * Math.tan(freq * radians + phase);
+                
+                const canvasX = precalcCanvas.width/2 + x;
+                const canvasY = precalcCanvas.height/2 - y * 50;
+                
+                if (Math.abs(y) < 5 && canvasY >= 0 && canvasY <= precalcCanvas.height) {
+                    ctx.lineTo(canvasX, canvasY);
+                } else {
+                    ctx.moveTo(canvasX, canvasY);
+                }
+            }
+            ctx.stroke();
+        }
+        
+        // ===== LIMITS TOOL =====
+        function updateLimit() {
+            const func = document.getElementById('limitFunc').value;
+            const point = parseFloat(document.getElementById('limitPoint').value) || 0;
+            
+            let limit = '';
+            if (func === 'sinx/x') limit = (Math.sin(point) / point).toFixed(4);
+            else if (func === 'x^2') limit = (point * point).toFixed(4);
+            else if (func === '1/x') limit = point === 0 ? 'undefined' : (1 / point).toFixed(4);
+            
+            document.getElementById('toolResults').innerHTML = `
+                <strong>Limit as x → ${point} of ${func}</strong><br>
+                Approaching from left: ${limit}<br>
+                Approaching from right: ${limit}<br>
+                <strong>Limit = ${limit}</strong>
+            `;
+        }
+        
+        // ===== SEQUENCES TOOL =====
+        function updateSequence() {
+            const type = document.getElementById('seqType').value;
+            const a1 = parseFloat(document.getElementById('seqA1').value) || 1;
+            const d = parseFloat(document.getElementById('seqD').value) || 1;
+            const n = parseInt(document.getElementById('seqN').value) || 5;
+            
+            let terms = [], sum = 0;
+            
+            if (type === 'arithmetic') {
+                for (let i = 0; i < n; i++) {
+                    terms.push(a1 + i * d);
+                }
+                sum = (n / 2) * (2 * a1 + (n - 1) * d);
+            } else {
+                for (let i = 0; i < n; i++) {
+                    terms.push(a1 * Math.pow(d, i));
+                }
+                sum = a1 * (1 - Math.pow(d, n)) / (1 - d);
+            }
+            
+            document.getElementById('toolResults').innerHTML = `
+                <strong>${type === 'arithmetic' ? 'Arithmetic' : 'Geometric'} Sequence:</strong><br>
+                Terms: ${terms.join(', ')}<br>
+                Sum of first ${n} terms: ${sum.toFixed(2)}<br>
+                ${type === 'arithmetic' ? `Formula: aₙ = ${a1} + (n-1)·${d}` : `Formula: aₙ = ${a1}·${d}^(n-1)`}
+            `;
+            
+            drawSequence(terms);
+        }
+        
+        function drawSequence(terms) {
+            if (!ctx) return;
+            ctx.clearRect(0, 0, precalcCanvas.width, precalcCanvas.height);
+            drawGrid(ctx, precalcCanvas);
+            
+            const barWidth = precalcCanvas.width / (terms.length + 1);
+            const maxY = Math.max(...terms, 1);
+            
+            for (let i = 0; i < terms.length; i++) {
+                const x = (i + 1) * barWidth;
+                const height = (terms[i] / maxY) * (precalcCanvas.height - 100);
+                ctx.fillStyle = '#2563EB';
+                ctx.fillRect(x - 20, precalcCanvas.height - 50 - height, 40, height);
+                ctx.fillStyle = '#333';
+                ctx.fillText(terms[i], x - 10, precalcCanvas.height - 55 - height);
+            }
+        }
+        
+        // ===== VECTORS TOOL =====
+        function updateVectors() {
+            const ux = parseFloat(document.getElementById('ux').value) || 0;
+            const uy = parseFloat(document.getElementById('uy').value) || 0;
+            const vx = parseFloat(document.getElementById('vx').value) || 0;
+            const vy = parseFloat(document.getElementById('vy').value) || 0;
+            
+            const uMag = Math.sqrt(ux*ux + uy*uy);
+            const vMag = Math.sqrt(vx*vx + vy*vy);
+            const dot = ux*vx + uy*vy;
+            const angle = Math.acos(dot / (uMag * vMag)) * 180 / Math.PI;
+            
+            document.getElementById('toolResults').innerHTML = `
+                <div class="vector-display">
+                    <div class="vector-card">
+                        <strong>Vector u</strong><br>
+                        (${ux}, ${uy})<br>
+                        |u| = ${uMag.toFixed(2)}<br>
+                        θ = ${Math.atan2(uy, ux) * 180 / Math.PI}°
+                    </div>
+                    <div class="vector-card">
+                        <strong>Vector v</strong><br>
+                        (${vx}, ${vy})<br>
+                        |v| = ${vMag.toFixed(2)}<br>
+                        θ = ${Math.atan2(vy, vx) * 180 / Math.PI}°
+                    </div>
+                    <div class="vector-card">
+                        <strong>Operations</strong><br>
+                        u·v = ${dot}<br>
+                        Angle = ${angle.toFixed(1)}°<br>
+                        u+v = (${ux+vx}, ${uy+vy})
+                    </div>
+                </div>
+            `;
+            
+            drawVectors(ux, uy, vx, vy);
+        }
+        
+        function drawVectors(ux, uy, vx, vy) {
+            if (!ctx) return;
+            ctx.clearRect(0, 0, precalcCanvas.width, precalcCanvas.height);
+            drawGrid(ctx, precalcCanvas);
+            
+            const centerX = precalcCanvas.width / 2;
+            const centerY = precalcCanvas.height / 2;
+            const scale = 20;
+            
+            // Draw vector u
+            ctx.beginPath();
+            ctx.moveTo(centerX, centerY);
+            ctx.lineTo(centerX + ux * scale, centerY - uy * scale);
+            ctx.strokeStyle = '#2563EB';
+            ctx.lineWidth = 3;
+            ctx.stroke();
+            ctx.fillStyle = '#2563EB';
+            ctx.fillText('u', centerX + ux * scale + 5, centerY - uy * scale);
+            
+            // Draw vector v
+            ctx.beginPath();
+            ctx.moveTo(centerX, centerY);
+            ctx.lineTo(centerX + vx * scale, centerY - vy * scale);
+            ctx.strokeStyle = '#F59E0B';
+            ctx.stroke();
+            ctx.fillStyle = '#F59E0B';
+            ctx.fillText('v', centerX + vx * scale + 5, centerY - vy * scale);
+            
+            // Draw resultant
+            ctx.beginPath();
+            ctx.moveTo(centerX, centerY);
+            ctx.lineTo(centerX + (ux+vx) * scale, centerY - (uy+vy) * scale);
+            ctx.strokeStyle = '#4CAF50';
+            ctx.setLineDash([5, 5]);
+            ctx.stroke();
+            ctx.setLineDash([]);
+            ctx.fillStyle = '#4CAF50';
+            ctx.fillText('u+v', centerX + (ux+vx) * scale + 5, centerY - (uy+vy) * scale);
+        }
+        
+        // ===== POLAR COORDINATES TOOL =====
+        function updatePolar() {
+            const type = document.getElementById('polarType').value;
+            let result = '';
+            
+            if (type === 'polar2cart') {
+                const r = parseFloat(document.getElementById('polarR').value) || 0;
+                const theta = parseFloat(document.getElementById('polarTheta').value) || 0;
+                const rad = theta * Math.PI / 180;
+                const x = r * Math.cos(rad);
+                const y = r * Math.sin(rad);
+                result = `Polar (${r}, ${theta}°) → Cartesian (${x.toFixed(2)}, ${y.toFixed(2)})`;
+                drawPolarPoint(x, y);
+            } else {
+                const x = parseFloat(document.getElementById('cartX').value) || 0;
+                const y = parseFloat(document.getElementById('cartY').value) || 0;
+                const r = Math.sqrt(x*x + y*y);
+                const theta = Math.atan2(y, x) * 180 / Math.PI;
+                result = `Cartesian (${x}, ${y}) → Polar (${r.toFixed(2)}, ${theta.toFixed(1)}°)`;
+                drawPolarPoint(x, y);
+            }
+            
+            document.getElementById('toolResults').innerHTML = `<strong>${result}</strong>`;
+        }
+        
+        function drawPolarPoint(x, y) {
+            if (!ctx) return;
+            ctx.clearRect(0, 0, precalcCanvas.width, precalcCanvas.height);
+            drawGrid(ctx, precalcCanvas);
+            
+            const centerX = precalcCanvas.width / 2;
+            const centerY = precalcCanvas.height / 2;
+            const scale = 20;
+            
+            ctx.beginPath();
+            ctx.arc(centerX + x * scale, centerY - y * scale, 6, 0, 2 * Math.PI);
+            ctx.fillStyle = '#2563EB';
+            ctx.fill();
+            ctx.fillStyle = '#333';
+            ctx.fillText(`(${x}, ${y})`, centerX + x * scale + 5, centerY - y * scale - 5);
+        }
+        
+        // ===== HELPER FUNCTIONS =====
+        function drawGrid(ctx, canvas) {
+            ctx.strokeStyle = '#ddd';
+            ctx.lineWidth = 0.5;
+            for (let x = 0; x <= canvas.width; x += 30) {
+                ctx.beginPath();
+                ctx.moveTo(x, 0);
+                ctx.lineTo(x, canvas.height);
+                ctx.stroke();
+            }
+            for (let y = 0; y <= canvas.height; y += 30) {
+                ctx.beginPath();
+                ctx.moveTo(0, y);
+                ctx.lineTo(canvas.width, y);
+                ctx.stroke();
+            }
+            
+            ctx.strokeStyle = '#999';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(0, canvas.height/2);
+            ctx.lineTo(canvas.width, canvas.height/2);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(canvas.width/2, 0);
+            ctx.lineTo(canvas.width/2, canvas.height);
+            ctx.stroke();
+        }
+    </script>
 </body>
 </html>

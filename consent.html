@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Consent Form - MathSim</title>
+  <link rel="stylesheet" href="css/consent.css">
+  <link rel="stylesheet" href="css/style.css">
+  <meta name="theme-color" content="#4CAF50">
+</head>
+<body>
+
+<div class="consent-container">
+        <div class="consent-header">
+            <h1>MathSim Research Study</h1>
+            <p>Consent Form for Participation in the Research Study</p>
+            <p><strong>King's College, Aberdeen, AB24 3FX, UK</strong></p>
+        </div>
+
+        <div class="study-info">
+            <h3> Study Information</h3>
+            <p><strong>Study Title:</strong> MathSim: An Interactive Web-Based Mathematics Learning Tool</p>
+            <p><strong>Principal Investigator:</strong> Sandra Jude Oni Idahosa</p>
+            <p><strong>Institution:</strong> University of Aberdeen</p>
+            <p><strong>Purpose:</strong> This study evaluates the effectiveness of interactive mathematics learning tools in improving student engagement and understanding of mathematical concepts.</p>
+        </div>
+
+        <div class="download-box">
+            <p> For full details, please download the complete consent form:</p>
+            <a href="assets/consent-form.pdf" download class="download-btn">
+                Download Full Consent Form (PDF)
+            </a>
+        </div>
+
+        <div class="progress-indicator">
+            <span>Please complete all sections below</span>
+        </div>
+
+        <form id="consentForm">
+            <div class="consent-item">
+                <label>
+                    <input type="checkbox" id="consent1" required>
+                    <span>I have read and understood the associated participant information sheet (or it has been read to me). I have had the opportunity to ask questions about the research study and have had these answered satisfactorily.</span>
+                </label>
+            </div>
+
+            <div class="consent-item">
+                <label>
+                    <input type="checkbox" id="consent2" required>
+                    <span>I understand that my participation in this research study is voluntary. I can refuse to answer questions. I can withdraw from the research study at any time without providing a reason and without any detriment to me.</span>
+                </label>
+            </div>
+
+            <div class="consent-item">
+                <label>
+                    <input type="checkbox" id="consent3" required>
+                    <span>I agree to have my data securely collected, stored and processed as part of this research under the conditions outlined in the participant information sheet.</span>
+                </label>
+            </div>
+
+            <div class="radio-group">
+                <p><strong>Data Usage Preference:</strong></p>
+                <label>
+                    <input type="radio" name="dataUsage" value="anonymised" required>
+                    <span>I agree to my anonymised data being used for publications and other scholarly means of disseminating the findings from the research project.</span>
+                </label>
+                <label style="display: block; margin-top: 0.5rem;">
+                    <input type="radio" name="dataUsage" value="identifiable">
+                    <span>I agree to my identifiable data being used for publications and other scholarly means of disseminating the findings from the research project.</span>
+                </label>
+            </div>
+
+            <div class="consent-item">
+                <label>
+                    <input type="checkbox" id="consent4" required>
+                    <span>I understand that my data can only be withdrawn before submission of the online survey, by exiting the browser. Once the survey has been submitted, it will not be possible to withdraw the data as all responses are fully anonymised and cannot be identified.</span>
+                </label>
+            </div>
+
+            <div class="consent-item">
+                <label>
+                    <input type="checkbox" id="consent5" required>
+                    <span>I agree to my anonymised data being used in future studies of the principal investigator without my further permission.</span>
+                </label>
+            </div>
+
+            <div class="consent-item">
+                <label>
+                    <input type="checkbox" id="consent6" required>
+                    <span>I understand that the University may publish appropriately anonymised data in appropriate data repositories for verification purposes and to make it accessible to researchers and other research users.</span>
+                </label>
+            </div>
+
+            <div class="consent-item final-consent">
+                <label>
+                    <input type="checkbox" id="finalConsent" required>
+                    <span><strong>I consent to take part in the research study MathSim.</strong></span>
+                </label>
+            </div>
+
+            <button type="submit" class="btn-consent" id="submitBtn">
+                I Agree & Continue to Survey
+            </button>
+
+            <div id="errorMessage" class="error-message"></div>
+        </form>
+
+        <hr>
+
+        <p style="font-size: 0.85rem; color: var(--text-tertiary); text-align: center;">
+            If you have any questions about this research, please contact:<br>
+            Sandra Jude Oni Idahosa at <a href="u05so22@abdn.ac.uk">u05so22@abdn.ac.uk</a>
+        </p>
+    </div>
+
+    <script>
+        // Consent Form Handler
+        const consentForm = document.getElementById('consentForm');
+        const errorMessage = document.getElementById('errorMessage');
+        const submitBtn = document.getElementById('submitBtn');
+
+        consentForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Check if all required consents are given
+            const allConsents = [
+                document.getElementById('consent1').checked,
+                document.getElementById('consent2').checked,
+                document.getElementById('consent3').checked,
+                document.getElementById('consent4').checked,
+                document.getElementById('consent5').checked,
+                document.getElementById('consent6').checked,
+                document.getElementById('finalConsent').checked
+            ];
+            
+            const dataUsageSelected = document.querySelector('input[name="dataUsage"]:checked');
+            
+            if (!allConsents.every(consent => consent === true)) {
+                errorMessage.style.display = 'block';
+                errorMessage.textContent = 'Please check all consent boxes before continuing.';
+                return;
+            }
+            
+            if (!dataUsageSelected) {
+                errorMessage.style.display = 'block';
+                errorMessage.textContent = 'Please select your data usage preference.';
+                return;
+            }
+            
+            // Save consent data to localStorage
+            const consentData = {
+                given: true,
+                timestamp: new Date().toISOString(),
+                dataUsage: dataUsageSelected.value,
+                consents: {
+                    understanding: document.getElementById('consent1').checked,
+                    voluntary: document.getElementById('consent2').checked,
+                    dataProcessing: document.getElementById('consent3').checked,
+                    withdrawal: document.getElementById('consent4').checked,
+                    futureResearch: document.getElementById('consent5').checked,
+                    publication: document.getElementById('consent6').checked,
+                    final: document.getElementById('finalConsent').checked
+                }
+            };
+            
+            localStorage.setItem('mathsim-consent', JSON.stringify(consentData));
+            
+            // Also record in analytics if available
+            if (typeof analytics !== 'undefined') {
+                analytics.trackEvent('Consent', 'Given', dataUsageSelected.value);
+            }
+            
+            // Redirect to survey page
+            window.location.href = 'survey.html';
+        });
+        
+        // Real-time validation: enable button when all required fields are filled
+        function checkAllRequired() {
+            const allConsents = [
+                document.getElementById('consent1')?.checked,
+                document.getElementById('consent2')?.checked,
+                document.getElementById('consent3')?.checked,
+                document.getElementById('consent4')?.checked,
+                document.getElementById('consent5')?.checked,
+                document.getElementById('consent6')?.checked,
+                document.getElementById('finalConsent')?.checked
+            ];
+            
+            const dataUsageSelected = document.querySelector('input[name="dataUsage"]:checked');
+            const allChecked = allConsents.every(consent => consent === true);
+            
+            if (submitBtn) {
+                submitBtn.disabled = !(allChecked && dataUsageSelected);
+            }
+            
+            // Hide error if user is fixing
+            if (allChecked && dataUsageSelected && errorMessage.style.display === 'block') {
+                errorMessage.style.display = 'none';
+            }
+        }
+        
+        // Add event listeners to all checkboxes and radio buttons
+        document.querySelectorAll('input[type="checkbox"], input[type="radio"]').forEach(input => {
+            input.addEventListener('change', checkAllRequired);
+        });
+        
+        // Initial check
+        checkAllRequired();
+        
+        // Check if user already gave consent
+        const existingConsent = localStorage.getItem('mathsim-consent');
+        if (existingConsent) {
+            const consent = JSON.parse(existingConsent);
+            if (consent.given) {
+                const daysSince = (new Date() - new Date(consent.timestamp)) / (1000 * 60 * 60 * 24);
+                if (daysSince < 30) {
+                    // If consent was given less than 30 days ago, offer to continue
+                    const continueConsent = confirm(
+                        'You have already given consent for this study within the last 30 days.\n\n' +
+                        'Would you like to continue to the survey?\n\n' +
+                        'Click OK to proceed, or Cancel to review consent form again.'
+                    );
+                    if (continueConsent) {
+                        window.location.href = 'survey.html';
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+</html>

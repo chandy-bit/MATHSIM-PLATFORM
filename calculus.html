@@ -5,6 +5,109 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MathSim | Calculus</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#4CAF50">
+    <style>
+        .calculus-tool {
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .tool-controls {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 1rem 0;
+        }
+        
+        .tool-controls input, .tool-controls select {
+            padding: 0.5rem;
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-sm);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+        }
+        
+        .result-area {
+            background: var(--bg-secondary);
+            padding: 1.5rem;
+            border-radius: var(--radius-md);
+            margin-top: 1rem;
+            text-align: center;
+        }
+        
+        .formula-card {
+            background: var(--bg-secondary);
+            padding: 1rem;
+            border-radius: var(--radius-md);
+            margin: 1rem 0;
+            border-left: 4px solid var(--primary);
+        }
+        
+        .graph-container {
+            display: flex;
+            justify-content: center;
+            margin: 1rem 0;
+        }
+        
+        canvas {
+            background: var(--bg-card);
+            border: 2px solid var(--border-light);
+            border-radius: var(--radius-md);
+            max-width: 100%;
+            height: auto;
+        }
+        
+        .tab-buttons {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: center;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .tab-btn {
+            padding: 0.5rem 1rem;
+            background: var(--bg-secondary);
+            border: 2px solid var(--border-light);
+            border-radius: var(--radius-full);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .tab-btn.active {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+        }
+        
+        .tab-btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        .slope-field {
+            display: flex;
+            justify-content: center;
+            gap: 5px;
+            flex-wrap: wrap;
+        }
+        
+        .slope-arrow {
+            width: 20px;
+            height: 20px;
+            background: var(--primary);
+            margin: 2px;
+        }
+        
+        .series-term {
+            font-family: monospace;
+            font-size: 1.2rem;
+        }
+    </style>
 </head>
 <body>
     <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -20,12 +123,12 @@
                 <ul class="nav-menu" id="navMenu">
                     <li><a href="index.html" class="nav-link">Home</a></li>
                     <li class="dropdown">
-                        <a href="#" class="nav-link active">Subjects</a>
+                        <a href="#" class="nav-link active">Subjects </a>
                         <ul class="dropdown-menu">
                             <li><a href="algebra.html">Algebra</a></li>
                             <li><a href="geometry.html">Geometry</a></li>
                             <li><a href="precalculus.html">Pre-Calculus</a></li>
-                            <li><a href="calculus.html">Calculus</a></li>
+                            <li><a href="calculus.html" class="active">Calculus</a></li>
                             <li><a href="probability.html">Probability</a></li>
                         </ul>
                     </li>
@@ -55,7 +158,7 @@
     <main id="main-content" class="container" style="padding: 2rem 0;">
         <div class="subject-header">
             <h1> Calculus</h1>
-            <p>Master derivatives, integrals, and the mathematics of change</p>
+            <p>Master derivatives, integrals, and the mathematics of change through interactive tools</p>
         </div>
 
         <div class="subject-grid">
@@ -69,7 +172,7 @@
                     <span class="topic-tag">Continuity</span>
                     <span class="topic-tag">Asymptotes</span>
                 </div>
-                <a href="#" class="btn btn-primary">Review</a>
+                <button class="btn btn-primary" onclick="openCalculusTool('limits')">Review →</button>
             </div>
 
             <!-- Derivatives -->
@@ -82,7 +185,7 @@
                     <span class="topic-tag">Product Rule</span>
                     <span class="topic-tag">Chain Rule</span>
                 </div>
-                <a href="simulation.html?type=derivatives" class="btn btn-primary">Explore</a>
+                <button class="btn btn-primary" onclick="openCalculusTool('derivatives')">Explore →</button>
             </div>
 
             <!-- Integrals -->
@@ -95,7 +198,7 @@
                     <span class="topic-tag">Definite</span>
                     <span class="topic-tag">Area</span>
                 </div>
-                <a href="simulation.html?type=integrals" class="btn btn-primary">Explore</a>
+                <button class="btn btn-primary" onclick="openCalculusTool('integrals')">Explore →</button>
             </div>
 
             <!-- Applications -->
@@ -108,7 +211,7 @@
                     <span class="topic-tag">Related Rates</span>
                     <span class="topic-tag">Motion</span>
                 </div>
-                <a href="#" class="btn btn-primary">Explore</a>
+                <button class="btn btn-primary" onclick="openCalculusTool('applications')">Explore →</button>
             </div>
 
             <!-- Differential Equations -->
@@ -121,7 +224,7 @@
                     <span class="topic-tag">Linear</span>
                     <span class="topic-tag">Slope Fields</span>
                 </div>
-                <a href="#" class="btn btn-primary">Explore</a>
+                <button class="btn btn-primary" onclick="openCalculusTool('diffeq')">Explore →</button>
             </div>
 
             <!-- Series -->
@@ -134,25 +237,97 @@
                     <span class="topic-tag">Maclaurin</span>
                     <span class="topic-tag">Convergence</span>
                 </div>
-                <a href="#" class="btn btn-primary">Explore</a>
+                <button class="btn btn-primary" onclick="openCalculusTool('series')">Explore →</button>
             </div>
         </div>
 
-        <!-- Derivative Calculator Tool -->
-        <div class="advanced-tool">
-            <h2> Derivative Calculator</h2>
-            <div class="tool-container">
-                <input type="text" id="functionInput" placeholder="Enter function (e.g., x^2 + 3x)" class="function-input">
-                <button class="btn btn-primary" onclick="calculateDerivative()">Calculate Derivative</button>
-                <div id="derivativeResult" class="result-box"></div>
+        <!-- Interactive Calculus Tool -->
+        <div class="calculus-tool" id="calculusTool" style="display: none;">
+            <h2 id="toolTitle">Calculus Tool</h2>
+            <div id="toolTabs" class="tab-buttons"></div>
+            <div id="toolControls" class="tool-controls"></div>
+            <div id="toolCanvas" class="graph-container"></div>
+            <div id="toolResults" class="result-area"></div>
+            <div id="toolFormula" class="formula-card"></div>
+            <div style="text-align: center; margin-top: 1rem;">
+                <button class="btn btn-secondary" onclick="closeCalculusTool()">Close Tool</button>
+            </div>
+        </div>
+
+        <!-- Quick Reference / Cheat Sheet -->
+        <div class="cheat-sheet" style="margin-top: 3rem; background: var(--bg-card); border-radius: var(--radius-lg); padding: 2rem;">
+            <h3> Calculus Cheat Sheet</h3>
+            <div class="cheat-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem;">
+                <div class="cheat-item" style="padding: 0.75rem; background: var(--bg-secondary); border-radius: var(--radius-md);">
+                    <span class="cheat-term">Power Rule:</span> d/dx[xⁿ] = n·xⁿ⁻¹
+                </div>
+                <div class="cheat-item" style="padding: 0.75rem; background: var(--bg-secondary); border-radius: var(--radius-md);">
+                    <span class="cheat-term">Product Rule:</span> d/dx[uv] = u'v + uv'
+                </div>
+                <div class="cheat-item" style="padding: 0.75rem; background: var(--bg-secondary); border-radius: var(--radius-md);">
+                    <span class="cheat-term">Quotient Rule:</span> d/dx[u/v] = (u'v - uv')/v²
+                </div>
+                <div class="cheat-item" style="padding: 0.75rem; background: var(--bg-secondary); border-radius: var(--radius-md);">
+                    <span class="cheat-term">Chain Rule:</span> d/dx[f(g(x))] = f'(g(x))·g'(x)
+                </div>
+                <div class="cheat-item" style="padding: 0.75rem; background: var(--bg-secondary); border-radius: var(--radius-md);">
+                    <span class="cheat-term">Integral of xⁿ:</span> ∫xⁿ dx = xⁿ⁺¹/(n+1) + C
+                </div>
+                <div class="cheat-item" style="padding: 0.75rem; background: var(--bg-secondary); border-radius: var(--radius-md);">
+                    <span class="cheat-term">Fundamental Theorem:</span> ∫ₐᵇ f(x)dx = F(b)-F(a)
+                </div>
+                <div class="cheat-item" style="padding: 0.75rem; background: var(--bg-secondary); border-radius: var(--radius-md);">
+                    <span class="cheat-term">Taylor Series:</span> f(x) = Σ fⁿ(a)/n! · (x-a)ⁿ
+                </div>
+                <div class="cheat-item" style="padding: 0.75rem; background: var(--bg-secondary); border-radius: var(--radius-md);">
+                    <span class="cheat-term">Maclaurin Series:</span> f(x) = Σ fⁿ(0)/n! · xⁿ
+                </div>
+                <div class="cheat-item" style="padding: 0.75rem; background: var(--bg-secondary); border-radius: var(--radius-md);">
+                    <span class="cheat-term">eˣ Series:</span> eˣ = Σ xⁿ/n!
+                </div>
+                <div class="cheat-item" style="padding: 0.75rem; background: var(--bg-secondary); border-radius: var(--radius-md);">
+                    <span class="cheat-term">sin(x) Series:</span> sin(x) = Σ (-1)ⁿ·x²ⁿ⁺¹/(2n+1)!
+                </div>
             </div>
         </div>
     </main>
 
     <footer class="footer">
         <div class="container">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h4>MathSim</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="tutorials.html">Tutorials</a></li>
+                        <li><a href="docs.html">Documentation</a></li>
+                        <li><a href="progress.html">Progress</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms of Use</a></li>
+                        <li><a href="accessibility.html">Accessibility</a></li>
+                    </ul>
+                </div>
+            </div>
             <div class="footer-bottom">
                 <p>© 2026 MathSim. All rights reserved.</p>
+                <p class="pwa-badge"> Install as app for offline use</p>
+                <p class="footer-links">
+                    <a href="privacy.html">Privacy</a> | 
+                    <a href="terms.html">Terms</a> | 
+                    <a href="accessibility.html">Accessibility</a>
+                </p>
             </div>
         </div>
     </footer>
@@ -162,10 +337,613 @@
             Install MathSim App
         </button>
     </div>
+    
+    <div id="onlineStatus" class="online-badge">Online</div>
 
     <script src="js/theme.js"></script>
     <script src="js/language.js"></script>
-    <script src="js/calculus.js"></script>
+    <script src="js/accessibility.js"></script>
+    <script src="js/analytics.js"></script>
     <script src="js/main.js"></script>
+    <script src="js/pwa.js"></script>
+    
+    <script>
+        let calculusCanvas, ctx;
+        let currentTool = null;
+        
+        // ===== MAIN FUNCTIONS =====
+        
+        function openCalculusTool(toolType) {
+            const tool = document.getElementById('calculusTool');
+            const title = document.getElementById('toolTitle');
+            
+            tool.style.display = 'block';
+            tool.scrollIntoView({ behavior: 'smooth' });
+            
+            currentTool = toolType;
+            
+            const titles = {
+                'limits': ' Limit Visualizer',
+                'derivatives': ' Derivative Explorer',
+                'integrals': ' Integral Calculator',
+                'applications': ' Applications of Calculus',
+                'diffeq': ' Differential Equations',
+                'series': ' Taylor & Maclaurin Series'
+            };
+            title.textContent = titles[toolType] || 'Calculus Tool';
+            
+            generateCalculusUI(toolType);
+        }
+        
+        function closeCalculusTool() {
+            document.getElementById('calculusTool').style.display = 'none';
+        }
+        
+        function generateCalculusUI(toolType) {
+            const controls = document.getElementById('toolControls');
+            const canvasContainer = document.getElementById('toolCanvas');
+            
+            if (toolType === 'limits') {
+                controls.innerHTML = `
+                    <label>Function: 
+                        <select id="limitFunc" onchange="updateLimit()">
+                            <option value="x^2">x²</option>
+                            <option value="sinx/x">sin(x)/x</option>
+                            <option value="1/x">1/x</option>
+                            <option value="(x^2-1)/(x-1)">(x²-1)/(x-1)</option>
+                        </select>
+                    </label>
+                    <label>x → <input type="number" id="limitPoint" value="0" step="0.1" onchange="updateLimit()"></label>
+                `;
+                canvasContainer.innerHTML = '<canvas id="limitCanvas" width="500" height="300"></canvas>';
+                setupCanvas('limitCanvas');
+                updateLimit();
+            }
+            else if (toolType === 'derivatives') {
+                controls.innerHTML = `
+                    <label>Function: 
+                        <select id="derivFunc" onchange="updateDerivative()">
+                            <option value="x^2">x²</option>
+                            <option value="x^3">x³</option>
+                            <option value="sin(x)">sin(x)</option>
+                            <option value="e^x">eˣ</option>
+                            <option value="ln(x)">ln(x)</option>
+                        </select>
+                    </label>
+                    <label>Point x = <input type="number" id="derivPoint" value="1" step="0.5" onchange="updateDerivative()"></label>
+                    <label>Δx: <input type="number" id="deltaX" value="0.1" step="0.05" onchange="updateDerivative()"></label>
+                `;
+                canvasContainer.innerHTML = '<canvas id="derivCanvas" width="500" height="300"></canvas>';
+                setupCanvas('derivCanvas');
+                updateDerivative();
+            }
+            else if (toolType === 'integrals') {
+                controls.innerHTML = `
+                    <label>Function: 
+                        <select id="integralFunc" onchange="updateIntegral()">
+                            <option value="x^2">x²</option>
+                            <option value="x^3">x³</option>
+                            <option value="sin(x)">sin(x)</option>
+                            <option value="e^x">eˣ</option>
+                        </select>
+                    </label>
+                    <label>From a = <input type="number" id="integralA" value="0" step="0.5" onchange="updateIntegral()"></label>
+                    <label>To b = <input type="number" id="integralB" value="2" step="0.5" onchange="updateIntegral()"></label>
+                `;
+                canvasContainer.innerHTML = '<canvas id="integralCanvas" width="500" height="300"></canvas>';
+                setupCanvas('integralCanvas');
+                updateIntegral();
+            }
+            else if (toolType === 'applications') {
+                controls.innerHTML = `
+                    <label>Application:
+                        <select id="appType" onchange="updateApplication()">
+                            <option value="velocity">Velocity & Acceleration</option>
+                            <option value="optimization">Optimization</option>
+                            <option value="related">Related Rates</option>
+                        </select>
+                    </label>
+                    <div id="appInputs">
+                        <label>Position: s(t) = <input type="text" id="positionFunc" value="t^2 + 2t" onchange="updateApplication()"></label>
+                        <label>t = <input type="number" id="timeValue" value="2" step="0.5" onchange="updateApplication()"></label>
+                    </div>
+                `;
+                canvasContainer.innerHTML = '<canvas id="appCanvas" width="500" height="300"></canvas>';
+                setupCanvas('appCanvas');
+                updateApplication();
+            }
+            else if (toolType === 'diffeq') {
+                controls.innerHTML = `
+                    <label>Equation: dy/dx = 
+                        <select id="deqType" onchange="updateDiffEq()">
+                            <option value="y">y</option>
+                            <option value="x">x</option>
+                            <option value="x+y">x + y</option>
+                            <option value="x*y">x·y</option>
+                        </select>
+                    </label>
+                    <label>Initial y(0) = <input type="number" id="initialY" value="1" step="0.5" onchange="updateDiffEq()"></label>
+                `;
+                canvasContainer.innerHTML = '<canvas id="deqCanvas" width="500" height="300"></canvas>';
+                setupCanvas('deqCanvas');
+                updateDiffEq();
+            }
+            else if (toolType === 'series') {
+                controls.innerHTML = `
+                    <label>Function: 
+                        <select id="seriesFunc" onchange="updateSeries()">
+                            <option value="e^x">eˣ</option>
+                            <option value="sin(x)">sin(x)</option>
+                            <option value="cos(x)">cos(x)</option>
+                            <option value="1/(1-x)">1/(1-x)</option>
+                        </select>
+                    </label>
+                    <label>Terms: <input type="number" id="seriesTerms" value="5" min="1" max="10" step="1" onchange="updateSeries()"></label>
+                    <label>x = <input type="number" id="seriesX" value="0.5" step="0.1" onchange="updateSeries()"></label>
+                `;
+                canvasContainer.innerHTML = '<canvas id="seriesCanvas" width="500" height="300"></canvas>';
+                setupCanvas('seriesCanvas');
+                updateSeries();
+            }
+        }
+        
+        function setupCanvas(canvasId) {
+            calculusCanvas = document.getElementById(canvasId);
+            if (calculusCanvas) {
+                ctx = calculusCanvas.getContext('2d');
+                drawGrid(ctx, calculusCanvas);
+            }
+        }
+        
+        // ===== LIMITS TOOL =====
+        function updateLimit() {
+            const func = document.getElementById('limitFunc').value;
+            const point = parseFloat(document.getElementById('limitPoint').value) || 0;
+            
+            let leftLimit = 0, rightLimit = 0, limit = '';
+            
+            if (func === 'x^2') {
+                leftLimit = point * point;
+                rightLimit = point * point;
+                limit = leftLimit.toFixed(4);
+            } else if (func === 'sinx/x') {
+                if (point === 0) {
+                    limit = '1 (famous limit)';
+                } else {
+                    limit = (Math.sin(point) / point).toFixed(4);
+                }
+            } else if (func === '1/x') {
+                if (point === 0) {
+                    limit = '∞ (undefined)';
+                } else {
+                    limit = (1 / point).toFixed(4);
+                }
+            } else if (func === '(x^2-1)/(x-1)') {
+                if (point === 1) {
+                    limit = '2 (after simplification)';
+                } else {
+                    limit = ((point * point - 1) / (point - 1)).toFixed(4);
+                }
+            }
+            
+            document.getElementById('toolResults').innerHTML = `
+                <strong>Limit as x → ${point} of ${func}</strong><br>
+                Approaching from left: ${limit}<br>
+                Approaching from right: ${limit}<br>
+                <strong>Limit = ${limit}</strong>
+            `;
+            
+            drawLimitFunction(func, point);
+        }
+        
+        function drawLimitFunction(func, point) {
+            if (!ctx) return;
+            ctx.clearRect(0, 0, calculusCanvas.width, calculusCanvas.height);
+            drawGrid(ctx, calculusCanvas);
+            
+            ctx.beginPath();
+            ctx.strokeStyle = '#2563EB';
+            ctx.lineWidth = 2;
+            
+            let first = true;
+            for (let x = -250; x <= 250; x += 5) {
+                const scaledX = x / 50;
+                let y = 0;
+                
+                if (func === 'x^2') y = scaledX * scaledX;
+                else if (func === 'sinx/x') y = scaledX === 0 ? 1 : Math.sin(scaledX) / scaledX;
+                else if (func === '1/x') y = scaledX === 0 ? 100 : 1 / scaledX;
+                else if (func === '(x^2-1)/(x-1)') y = scaledX === 1 ? 2 : (scaledX * scaledX - 1) / (scaledX - 1);
+                
+                const canvasX = calculusCanvas.width/2 + x;
+                const canvasY = calculusCanvas.height/2 - y * 50;
+                
+                if (canvasY >= 0 && canvasY <= calculusCanvas.height) {
+                    if (first) ctx.moveTo(canvasX, canvasY);
+                    else ctx.lineTo(canvasX, canvasY);
+                    first = false;
+                } else first = true;
+            }
+            ctx.stroke();
+            
+            // Mark limit point
+            const markX = calculusCanvas.width/2 + point * 50;
+            ctx.beginPath();
+            ctx.arc(markX, calculusCanvas.height/2, 5, 0, 2 * Math.PI);
+            ctx.fillStyle = '#F59E0B';
+            ctx.fill();
+        }
+        
+        // ===== DERIVATIVES TOOL =====
+        function updateDerivative() {
+            const func = document.getElementById('derivFunc').value;
+            const point = parseFloat(document.getElementById('derivPoint').value) || 1;
+            const delta = parseFloat(document.getElementById('deltaX').value) || 0.1;
+            
+            let f = (x) => 0;
+            let fPrime = (x) => 0;
+            let formula = '';
+            
+            if (func === 'x^2') {
+                f = (x) => x * x;
+                fPrime = (x) => 2 * x;
+                formula = 'f\'(x) = 2x';
+            } else if (func === 'x^3') {
+                f = (x) => x * x * x;
+                fPrime = (x) => 3 * x * x;
+                formula = 'f\'(x) = 3x²';
+            } else if (func === 'sin(x)') {
+                f = (x) => Math.sin(x);
+                fPrime = (x) => Math.cos(x);
+                formula = 'f\'(x) = cos(x)';
+            } else if (func === 'e^x') {
+                f = (x) => Math.exp(x);
+                fPrime = (x) => Math.exp(x);
+                formula = 'f\'(x) = eˣ';
+            } else if (func === 'ln(x)') {
+                f = (x) => Math.log(x);
+                fPrime = (x) => 1 / x;
+                formula = 'f\'(x) = 1/x';
+            }
+            
+            const exactDerivative = fPrime(point);
+            const numericalDerivative = (f(point + delta) - f(point)) / delta;
+            
+            document.getElementById('toolResults').innerHTML = `
+                <strong>Derivative of ${func} at x = ${point}</strong><br>
+                ${formula}<br>
+                Exact derivative: ${exactDerivative.toFixed(4)}<br>
+                Numerical approximation (Δx = ${delta}): ${numericalDerivative.toFixed(4)}<br>
+                <strong>Slope of tangent line: ${exactDerivative.toFixed(4)}</strong>
+            `;
+            
+            drawDerivative(f, fPrime, point);
+        }
+        
+        function drawDerivative(f, fPrime, point) {
+            if (!ctx) return;
+            ctx.clearRect(0, 0, calculusCanvas.width, calculusCanvas.height);
+            drawGrid(ctx, calculusCanvas);
+            
+            // Draw function
+            ctx.beginPath();
+            ctx.strokeStyle = '#2563EB';
+            ctx.lineWidth = 2;
+            let first = true;
+            for (let x = -250; x <= 250; x += 5) {
+                const scaledX = x / 50;
+                const y = f(scaledX);
+                const canvasX = calculusCanvas.width/2 + x;
+                const canvasY = calculusCanvas.height/2 - y * 50;
+                
+                if (canvasY >= 0 && canvasY <= calculusCanvas.height) {
+                    if (first) ctx.moveTo(canvasX, canvasY);
+                    else ctx.lineTo(canvasX, canvasY);
+                    first = false;
+                } else first = true;
+            }
+            ctx.stroke();
+            
+            // Draw tangent line
+            const yAtPoint = f(point);
+            const slope = fPrime(point);
+            
+            ctx.beginPath();
+            ctx.strokeStyle = '#F59E0B';
+            ctx.lineWidth = 3;
+            for (let x = -100; x <= 100; x += 5) {
+                const scaledX = point + (x / 50);
+                const y = yAtPoint + slope * (scaledX - point);
+                const canvasX = calculusCanvas.width/2 + scaledX * 50;
+                const canvasY = calculusCanvas.height/2 - y * 50;
+                if (x === -100) ctx.moveTo(canvasX, canvasY);
+                else ctx.lineTo(canvasX, canvasY);
+            }
+            ctx.stroke();
+            
+            // Mark point
+            ctx.beginPath();
+            ctx.arc(calculusCanvas.width/2 + point * 50, calculusCanvas.height/2 - yAtPoint * 50, 6, 0, 2 * Math.PI);
+            ctx.fillStyle = '#F59E0B';
+            ctx.fill();
+        }
+        
+        // ===== INTEGRALS TOOL =====
+        function updateIntegral() {
+            const func = document.getElementById('integralFunc').value;
+            const a = parseFloat(document.getElementById('integralA').value) || 0;
+            const b = parseFloat(document.getElementById('integralB').value) || 2;
+            
+            let f = (x) => 0;
+            let antiderivative = '';
+            
+            if (func === 'x^2') {
+                f = (x) => x * x;
+                antiderivative = 'x³/3';
+            } else if (func === 'x^3') {
+                f = (x) => x * x * x;
+                antiderivative = 'x⁴/4';
+            } else if (func === 'sin(x)') {
+                f = (x) => Math.sin(x);
+                antiderivative = '-cos(x)';
+            } else if (func === 'e^x') {
+                f = (x) => Math.exp(x);
+                antiderivative = 'eˣ';
+            }
+            
+            // Numerical integration (Riemann sum)
+            let sum = 0;
+            const steps = 1000;
+            const step = (b - a) / steps;
+            for (let i = 0; i < steps; i++) {
+                const x = a + i * step;
+                sum += f(x) * step;
+            }
+            
+            document.getElementById('toolResults').innerHTML = `
+                <strong>Definite Integral ∫ₐᵇ f(x) dx</strong><br>
+                f(x) = ${func}<br>
+                from a = ${a} to b = ${b}<br>
+                Antiderivative: ${antiderivative}<br>
+                Numerical area: ${sum.toFixed(4)}<br>
+                <strong>Area under curve = ${sum.toFixed(4)}</strong>
+            `;
+            
+            drawIntegral(f, a, b);
+        }
+        
+        function drawIntegral(f, a, b) {
+            if (!ctx) return;
+            ctx.clearRect(0, 0, calculusCanvas.width, calculusCanvas.height);
+            drawGrid(ctx, calculusCanvas);
+            
+            // Draw function
+            ctx.beginPath();
+            ctx.strokeStyle = '#2563EB';
+            ctx.lineWidth = 2;
+            let first = true;
+            for (let x = -250; x <= 250; x += 5) {
+                const scaledX = x / 50;
+                const y = f(scaledX);
+                const canvasX = calculusCanvas.width/2 + x;
+                const canvasY = calculusCanvas.height/2 - y * 50;
+                if (canvasY >= 0 && canvasY <= calculusCanvas.height) {
+                    if (first) ctx.moveTo(canvasX, canvasY);
+                    else ctx.lineTo(canvasX, canvasY);
+                    first = false;
+                } else first = true;
+            }
+            ctx.stroke();
+            
+            // Shade area under curve
+            const startX = calculusCanvas.width/2 + a * 50;
+            const endX = calculusCanvas.width/2 + b * 50;
+            
+            ctx.fillStyle = 'rgba(37, 99, 235, 0.3)';
+            ctx.beginPath();
+            for (let x = a; x <= b; x += 0.05) {
+                const y = f(x);
+                const canvasX = calculusCanvas.width/2 + x * 50;
+                const canvasY = calculusCanvas.height/2 - y * 50;
+                if (x === a) {
+                    ctx.moveTo(canvasX, calculusCanvas.height/2);
+                    ctx.lineTo(canvasX, canvasY);
+                } else {
+                    ctx.lineTo(canvasX, canvasY);
+                }
+            }
+            ctx.lineTo(endX, calculusCanvas.height/2);
+            ctx.fill();
+        }
+        
+        // ===== APPLICATIONS TOOL =====
+        function updateApplication() {
+            const appType = document.getElementById('appType').value;
+            
+            if (appType === 'velocity') {
+                const t = parseFloat(document.getElementById('timeValue').value) || 2;
+                const velocity = 2 * t + 2;
+                const acceleration = 2;
+                
+                document.getElementById('toolResults').innerHTML = `
+                    <strong>Motion Analysis</strong><br>
+                    Position: s(t) = t² + 2t<br>
+                    Velocity: v(t) = 2t + 2<br>
+                    Acceleration: a(t) = 2<br><br>
+                    At t = ${t}:<br>
+                    Position = ${(t*t + 2*t).toFixed(2)}<br>
+                    Velocity = ${velocity.toFixed(2)}<br>
+                    Acceleration = ${acceleration.toFixed(2)}
+                `;
+            } else if (appType === 'optimization') {
+                document.getElementById('toolResults').innerHTML = `
+                    <strong>Optimization Example</strong><br>
+                    Problem: Maximize area of rectangle with perimeter 20<br>
+                    Let width = x, length = 10 - x<br>
+                    Area = x(10 - x) = 10x - x²<br>
+                    Derivative: A'(x) = 10 - 2x = 0 → x = 5<br>
+                    <strong>Optimal dimensions: width = 5, length = 5 (square)</strong><br>
+                    Maximum area = 25 square units
+                `;
+            } else if (appType === 'related') {
+                document.getElementById('toolResults').innerHTML = `
+                    <strong>Related Rates Example</strong><br>
+                    Problem: A ladder 10 ft long slides down a wall<br>
+                    If top slides at 1 ft/s, how fast is bottom moving?<br>
+                    Using Pythagorean theorem: x² + y² = 100<br>
+                    2x·dx/dt + 2y·dy/dt = 0<br>
+                    When y = 6, x = 8:<br>
+                    dx/dt = -(y/x)·dy/dt = -(6/8)·(-1) = 0.75 ft/s<br>
+                    <strong>Bottom moves at 0.75 ft/s away from wall</strong>
+                `;
+            }
+        }
+        
+        // ===== DIFFERENTIAL EQUATIONS TOOL =====
+        function updateDiffEq() {
+            const deqType = document.getElementById('deqType').value;
+            const initialY = parseFloat(document.getElementById('initialY').value) || 1;
+            
+            let equation = '';
+            let solution = '';
+            
+            if (deqType === 'y') {
+                equation = 'dy/dx = y';
+                solution = `y = ${initialY}·eˣ`;
+            } else if (deqType === 'x') {
+                equation = 'dy/dx = x';
+                solution = `y = x²/2 + ${initialY}`;
+            } else if (deqType === 'x+y') {
+                equation = 'dy/dx = x + y';
+                solution = `y = Ceˣ - x - 1, with C = ${initialY + 1}`;
+            } else if (deqType === 'x*y') {
+                equation = 'dy/dx = x·y';
+                solution = `y = ${initialY}·e^(x²/2)`;
+            }
+            
+            document.getElementById('toolResults').innerHTML = `
+                <strong>Differential Equation:</strong> ${equation}<br>
+                Initial condition: y(0) = ${initialY}<br>
+                <strong>Solution:</strong> ${solution}
+            `;
+            
+            drawSlopeField(deqType);
+        }
+        
+        function drawSlopeField(deqType) {
+            if (!ctx) return;
+            ctx.clearRect(0, 0, calculusCanvas.width, calculusCanvas.height);
+            drawGrid(ctx, calculusCanvas);
+            
+            const step = 25;
+            const arrowSize = 8;
+            
+            for (let x = -200; x <= 200; x += step) {
+                for (let y = -150; y <= 150; y += step) {
+                    const scaledX = x / 50;
+                    const scaledY = y / 50;
+                    let slope = 0;
+                    
+                    if (deqType === 'y') slope = scaledY;
+                    else if (deqType === 'x') slope = scaledX;
+                    else if (deqType === 'x+y') slope = scaledX + scaledY;
+                    else if (deqType === 'x*y') slope = scaledX * scaledY;
+                    
+                    const angle = Math.atan(slope);
+                    const dx = arrowSize * Math.cos(angle);
+                    const dy = arrowSize * Math.sin(angle);
+                    
+                    ctx.beginPath();
+                    ctx.moveTo(calculusCanvas.width/2 + x, calculusCanvas.height/2 - y);
+                    ctx.lineTo(calculusCanvas.width/2 + x + dx, calculusCanvas.height/2 - y - dy);
+                    ctx.strokeStyle = '#666';
+                    ctx.stroke();
+                }
+            }
+        }
+        
+        // ===== SERIES TOOL =====
+        function updateSeries() {
+            const func = document.getElementById('seriesFunc').value;
+            const terms = parseInt(document.getElementById('seriesTerms').value) || 5;
+            const x = parseFloat(document.getElementById('seriesX').value) || 0.5;
+            
+            let series = [];
+            let actual = 0;
+            let seriesSum = 0;
+            
+            if (func === 'e^x') {
+                actual = Math.exp(x);
+                for (let n = 0; n < terms; n++) {
+                    const term = Math.pow(x, n) / factorial(n);
+                    series.push(`${term.toFixed(4)}`);
+                    seriesSum += term;
+                }
+            } else if (func === 'sin(x)') {
+                actual = Math.sin(x);
+                for (let n = 0; n < terms; n++) {
+                    const term = Math.pow(-1, n) * Math.pow(x, 2*n + 1) / factorial(2*n + 1);
+                    series.push(`${term.toFixed(4)}`);
+                    seriesSum += term;
+                }
+            } else if (func === 'cos(x)') {
+                actual = Math.cos(x);
+                for (let n = 0; n < terms; n++) {
+                    const term = Math.pow(-1, n) * Math.pow(x, 2*n) / factorial(2*n);
+                    series.push(`${term.toFixed(4)}`);
+                    seriesSum += term;
+                }
+            } else if (func === '1/(1-x)') {
+                actual = 1 / (1 - x);
+                for (let n = 0; n < terms; n++) {
+                    const term = Math.pow(x, n);
+                    series.push(`${term.toFixed(4)}`);
+                    seriesSum += term;
+                }
+            }
+            
+            document.getElementById('toolResults').innerHTML = `
+                <strong>${func} Taylor Series at x = 0 (Maclaurin)</strong><br>
+                Terms: ${series.join(' + ')}<br>
+                Series approximation (${terms} terms): ${seriesSum.toFixed(6)}<br>
+                Actual value: ${actual.toFixed(6)}<br>
+                <strong>Error: ${Math.abs(actual - seriesSum).toFixed(6)}</strong>
+            `;
+        }
+        
+        function factorial(n) {
+            if (n <= 1) return 1;
+            return n * factorial(n - 1);
+        }
+        
+        // ===== HELPER FUNCTIONS =====
+        function drawGrid(ctx, canvas) {
+            ctx.strokeStyle = '#ddd';
+            ctx.lineWidth = 0.5;
+            for (let x = 0; x <= canvas.width; x += 30) {
+                ctx.beginPath();
+                ctx.moveTo(x, 0);
+                ctx.lineTo(x, canvas.height);
+                ctx.stroke();
+            }
+            for (let y = 0; y <= canvas.height; y += 30) {
+                ctx.beginPath();
+                ctx.moveTo(0, y);
+                ctx.lineTo(canvas.width, y);
+                ctx.stroke();
+            }
+            
+            ctx.strokeStyle = '#999';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(0, canvas.height/2);
+            ctx.lineTo(canvas.width, canvas.height/2);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(canvas.width/2, 0);
+            ctx.lineTo(canvas.width/2, canvas.height);
+            ctx.stroke();
+        }
+    </script>
 </body>
 </html>

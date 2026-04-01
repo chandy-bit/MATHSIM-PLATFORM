@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MathSim | Contact</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/upgrade.css">
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <a href="index.html" class="logo"> MathSim</a>
+                <ul class="nav-menu">
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li><a href="about.html" class="nav-link">About</a></li>
+                    <li><a href="simulation.html" class="nav-link">Simulations</a></li>
+                    <li><a href="game.html" class="nav-link">Games</a></li>
+                    <li><a href="tutorials.html" class="nav-link">Tutorials</a></li>
+                    <li><a href="docs.html" class="nav-link">Docs</a></li>
+                    <li><a href="contact.html" class="nav-link active">Contact</a></li>
+                </ul>
+                <div class="nav-controls">
+                    <button class="theme-toggle" id="themeToggle"></button>
+                    <button class="mobile-menu-btn" id="mobileMenuBtn">
+                        <span class="hamburger"></span>
+                    </button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main id="main-content" class="container" style="padding: 2rem 0;">
+        <div class="contact-grid">
+            <div class="contact-info">
+                <h1>Get in Touch</h1>
+                <p>Have questions, suggestions, or feedback? We'd love to hear from you!</p>
+                
+                <div class="contact-methods">
+                    <div class="contact-method">
+                        <div class="contact-icon"></div>
+                        <div>
+                            <h3>Email</h3>
+                            <p><a href="mailto:u05s022@abdn.ac.uk">u05s022@abdn.ac.uk</a></p>
+                        </div>
+                    </div>
+                    <div class="contact-method">
+                        <div class="contact-icon"></div>
+                        <div>
+                            <h3>GitHub</h3>
+                            <p><a href="https://github.com/chandy-bit/MATHSIM-PLATFORM" target="_blank">github.com/chandy-bit/MATHSIM-PLATFORM</a></p>
+                        </div>
+                    </div>
+                    <div class="contact-method">
+                        <div class="contact-icon"></div>
+                        <div>
+                            <h3>Discord</h3>
+                            <p><a href="#">Join our community</a></p>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="contact-form">
+                <h2>Send us a message</h2>
+                <form id="contactForm">
+                    <input type="text" placeholder="Your Name" required>
+                    <input type="email" placeholder="Your Email" required>
+                    <input type="text" placeholder="Subject">
+                    <textarea rows="5" placeholder="Your Message..." required></textarea>
+                    <button type="submit" class="btn btn-primary">Send Message →</button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer-modern">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>© 2026 MathSim.All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/theme.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for your message! We\'ll get back to you soon.');
+            this.reset();
+        });
+    </script>
+</body>
+</html>

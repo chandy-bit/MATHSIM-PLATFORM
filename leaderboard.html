@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MathSim | Leaderboard</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/upgrade.css">
+</head>
+<body>
+    <header class="header">...</header>
+    
+    <main class="container" style="padding: 2rem;">
+        <h1> Top Learners</h1>
+        <div class="leaderboard-filters">
+            <button class="filter-btn active" onclick="loadLeaderboard('all-time')">All Time</button>
+            <button class="filter-btn" onclick="loadLeaderboard('weekly')">This Week</button>
+            <button class="filter-btn" onclick="loadLeaderboard('monthly')">This Month</button>
+        </div>
+        
+        <div class="leaderboard-table" id="leaderboard">
+            <div class="leaderboard-header">
+                <div class="rank">Rank</div>
+                <div class="name">Learner</div>
+                <div class="score">Score</div>
+                <div class="games">Games Played</div>
+                <div class="accuracy">Accuracy</div>
+            </div>
+            <div id="leaderboardBody">
+                <!-- Dynamically populated -->
+            </div>
+        </div>
+    </main>
+    
+    <script src="js/leaderboard.js"></script>
+</body>
+</html>

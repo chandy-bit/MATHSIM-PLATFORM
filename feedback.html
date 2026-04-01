@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MathSim | Feedback</title>
+    <meta name="theme-color" content="#4CAF50">
+    <meta name="description" content="Share your thoughts, suggestions, and feedback about MathSim to help us improve.">
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/upgrade.css">
+    <style>
+        .feedback-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .feedback-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .feedback-header h1 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .feedback-header p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+        
+        .feedback-form {
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+        
+        .form-group label .required {
+            color: var(--error);
+            margin-left: 0.25rem;
+        }
+        
+        .form-group input, 
+        .form-group select, 
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 2px solid var(--border-light);
+            border-radius: var(--radius-md);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            font-size: 1rem;
+            transition: border-color 0.2s;
+        }
+        
+        .form-group input:focus, 
+        .form-group select:focus, 
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+        
+        .rating-group {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .rating-option {
+            flex: 1;
+            text-align: center;
+        }
+        
+        .rating-option input {
+            display: none;
+        }
+        
+        .rating-option label {
+            display: block;
+            padding: 0.5rem;
+            background: var(--bg-secondary);
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: center;
+        }
+        
+        .rating-option input:checked + label {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .rating-option label:hover {
+            background: var(--primary-light);
+            color: white;
+        }
+        
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .checkbox-group input {
+            width: auto;
+        }
+        
+        .form-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+        
+        .btn-submit {
+            background: var(--primary);
+            color: white;
+            padding: 0.8rem 2rem;
+            font-size: 1.1rem;
+        }
+        
+        .btn-submit:hover {
+            background: var(--primary-dark);
+        }
+        
+        .success-message {
+            background: var(--success-light);
+            color: var(--success-dark);
+            padding: 1rem;
+            border-radius: var(--radius-md);
+            text-align: center;
+            margin-bottom: 1.5rem;
+            display: none;
+        }
+        
+        .error-message {
+            background: var(--error-light);
+            color: var(--error-dark);
+            padding: 1rem;
+            border-radius: var(--radius-md);
+            text-align: center;
+            margin-bottom: 1.5rem;
+            display: none;
+        }
+        
+        .feedback-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-top: 2rem;
+            padding: 1rem;
+            background: var(--bg-secondary);
+            border-radius: var(--radius-md);
+        }
+        
+        .stat-card {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+        
+        @media (max-width: 768px) {
+            .feedback-form {
+                padding: 1.5rem;
+            }
+            
+            .rating-group {
+                gap: 0.5rem;
+            }
+            
+            .form-actions {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <a href="index.html" class="logo">
+                    <span class="logo-icon"></span>
+                    <span class="logo-text">MathSim</span>
+                </a>
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="nav-link">Subjects </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="algebra.html">Algebra</a></li>
+                            <li><a href="geometry.html">Geometry</a></li>
+                            <li><a href="precalculus.html">Pre-Calculus</a></li>
+                            <li><a href="calculus.html">Calculus</a></li>
+                            <li><a href="probability.html">Probability</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="simulation.html" class="nav-link">Simulations</a></li>
+                    <li><a href="game.html" class="nav-link">Games</a></li>
+                    <li><a href="tutorials.html" class="nav-link">Tutorials</a></li>
+                    <li><a href="progress.html" class="nav-link">Progress</a></li>
+                    <li><a href="accessibility.html" class="nav-link">Accessibility</a></li>
+                    <li><a href="faq.html" class="nav-link">FAQ</a></li>
+                    <li><a href="feedback.html" class="nav-link active">Feedback</a></li>
+                </ul>
+                <div class="nav-controls">
+                    <div class="language-selector">
+                        <select id="languageSelect" aria-label="Select Language">
+                            <option value="en">English</option>
+                            <option value="es">Español</option>
+                            <option value="fr">Français</option>
+                            <option value="de">Deutsch</option>
+                        </select>
+                    </div>
+                    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">🌓</button>
+                    <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu">
+                        <span class="hamburger"></span>
+                    </button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main id="main-content" class="container" style="padding: 2rem 0;">
+        <div class="feedback-container">
+            <div class="feedback-header">
+                <h1> Share Your Feedback</h1>
+                <p>Your feedback helps us improve MathSim for everyone. Tell us what you think!</p>
+            </div>
+
+            <div id="successMessage" class="success-message">
+                 Thank you for your feedback! Your input helps us improve MathSim.
+            </div>
+            
+            <div id="errorMessage" class="error-message">
+                 Please fill in all required fields before submitting.
+            </div>
+
+            <form id="feedbackForm" class="feedback-form" onsubmit="submitFeedback(event)">
+                <div class="form-group">
+                    <label>What type of feedback are you sharing? <span class="required">*</span></label>
+                    <select id="feedbackType" required>
+                        <option value="">Select an option</option>
+                        <option value="suggestion"> Suggestion / Feature Request</option>
+                        <option value="bug"> Bug Report</option>
+                        <option value="praise"> Praise / What I Like</option>
+                        <option value="question"> Question</option>
+                        <option value="other"> Other</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>How would you rate your overall experience? <span class="required">*</span></label>
+                    <div class="rating-group">
+                        <div class="rating-option">
+                            <input type="radio" name="rating" id="rating1" value="1">
+                            <label for="rating1">😞 Poor</label>
+                        </div>
+                        <div class="rating-option">
+                            <input type="radio" name="rating" id="rating2" value="2">
+                            <label for="rating2">🙁 Fair</label>
+                        </div>
+                        <div class="rating-option">
+                            <input type="radio" name="rating" id="rating3" value="3">
+                            <label for="rating3">😐 Good</label>
+                        </div>
+                        <div class="rating-option">
+                            <input type="radio" name="rating" id="rating4" value="4">
+                            <label for="rating4">🙂 Very Good</label>
+                        </div>
+                        <div class="rating-option">
+                            <input type="radio" name="rating" id="rating5" value="5">
+                            <label for="rating5">😊 Excellent</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>What part of MathSim are you giving feedback about? <span class="required">*</span></label>
+                    <select id="feedbackArea" required>
+                        <option value="">Select an area</option>
+                        <option value="simulations"> Simulations / Graph Plotter</option>
+                        <option value="games"> Slope Challenge Game</option>
+                        <option value="tutorials"> Tutorials & Videos</option>
+                        <option value="accessibility"> Accessibility Features</option>
+                        <option value="progress"> Progress Tracking</option>
+                        <option value="general"> General / Website</option>
+                        <option value="other"> Other</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Your Feedback <span class="required">*</span></label>
+                    <textarea id="feedbackMessage" rows="5" placeholder="Please share your thoughts, suggestions, or describe the issue you encountered..." required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Your Name (optional)</label>
+                    <input type="text" id="userName" placeholder="Enter your name (or leave blank to stay anonymous)">
+                </div>
+
+                <div class="form-group">
+                    <label>Your Email (optional - we'll use this to follow up)</label>
+                    <input type="email" id="userEmail" placeholder="Enter your email if you'd like a response">
+                </div>
+
+                <div class="form-group checkbox-group">
+                    <input type="checkbox" id="canContact">
+                    <label for="canContact">I'm happy to be contacted about my feedback</label>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary btn-submit"> Send Feedback</button>
+                    <button type="reset" class="btn btn-secondary" onclick="resetForm()">Clear Form</button>
+                </div>
+            </form>
+
+            <div class="feedback-stats">
+                <div class="stat-card">
+                    <div class="stat-number">100+</div>
+                    <div class="stat-label">Happy Users</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-label">Support</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">48h</div>
+                    <div class="stat-label">Response Time</div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h4>MathSim</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="tutorials.html">Tutorials</a></li>
+                        <li><a href="docs.html">Documentation</a></li>
+                        <li><a href="progress.html">Progress</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Support</h4>
+                    <ul>
+                        <li><a href="faq.html">FAQ</a></li>
+                        <li><a href="feedback.html">Feedback</a></li>
+                        <li><a href="accessibility.html">Accessibility</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms of Use</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 MathSim. All rights reserved.</p>
+                <p class="pwa-badge"> Install as app for offline use</p>
+                <p class="footer-links">
+                    <a href="privacy.html">Privacy</a> | 
+                    <a href="terms.html">Terms</a> | 
+                    <a href="accessibility.html">Accessibility</a> |
+                    <a href="faq.html">FAQ</a> |
+                    <a href="feedback.html">Feedback</a>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <div id="onlineStatus" class="online-badge">Online</div>
+
+    <script src="js/theme.js"></script>
+    <script src="js/language.js"></script>
+    <script src="js/accessibility.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/pwa.js"></script>
+
+    <script>
+        function submitFeedback(event) {
+            event.preventDefault();
+            
+            // Get form values
+            const feedbackType = document.getElementById('feedbackType').value;
+            const rating = document.querySelector('input[name="rating"]:checked');
+            const feedbackArea = document.getElementById('feedbackArea').value;
+            const message = document.getElementById('feedbackMessage').value.trim();
+            const userName = document.getElementById('userName').value.trim();
+            const userEmail = document.getElementById('userEmail').value.trim();
+            const canContact = document.getElementById('canContact').checked;
+            
+            // Validate required fields
+            if (!feedbackType || !rating || !feedbackArea || !message) {
+                const errorDiv = document.getElementById('errorMessage');
+                errorDiv.style.display = 'block';
+                setTimeout(() => {
+                    errorDiv.style.display = 'none';
+                }, 3000);
+                return;
+            }
+            
+            // Create feedback object
+            const feedback = {
+                id: Date.now(),
+                type: feedbackType,
+                rating: rating.value,
+                area: feedbackArea,
+                message: message,
+                userName: userName || 'Anonymous',
+                userEmail: userEmail,
+                canContact: canContact,
+                timestamp: new Date().toISOString(),
+                userAgent: navigator.userAgent
+            };
+            
+            // Save to localStorage
+            let feedbacks = localStorage.getItem('mathsim-feedback');
+            feedbacks = feedbacks ? JSON.parse(feedbacks) : [];
+            feedbacks.push(feedback);
+            localStorage.setItem('mathsim-feedback', JSON.stringify(feedbacks));
+            
+            // Track in analytics
+            if (typeof analytics !== 'undefined') {
+                analytics.trackEvent('Feedback', feedbackType, feedbackArea, parseInt(rating.value));
+            }
+            
+            // Show success message
+            const successDiv = document.getElementById('successMessage');
+            successDiv.style.display = 'block';
+            
+            // Reset form
+            document.getElementById('feedbackForm').reset();
+            
+            // Hide success message after 5 seconds
+            setTimeout(() => {
+                successDiv.style.display = 'none';
+            }, 5000);
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        
+        function resetForm() {
+            document.getElementById('feedbackForm').reset();
+        }
+        
+        // Make functions global
+        window.submitFeedback = submitFeedback;
+        window.resetForm = resetForm;
+    </script>
+</body>
+</html>
