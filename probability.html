@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>MathSim | Probability</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="manifest" href="manifest.json">
@@ -289,7 +289,6 @@
         </button>
     </div>
     
-    <div id="onlineStatus" class="online-badge">Online</div>
 
     <script src="js/theme.js"></script>
     <script src="js/language.js"></script>
@@ -304,7 +303,6 @@
         let chart = null;
         let simulationHistory = [];
         
-        // ===== COIN FLIP FUNCTIONS =====
         function flipCoin() {
             const result = Math.random() < 0.5 ? 'Heads' : 'Tails';
             const coinElement = document.getElementById('coin');

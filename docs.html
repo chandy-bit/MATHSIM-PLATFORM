@@ -2,11 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>MathSim | Documentation</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- CSS -->
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/upgrade.css">
+    <link rel="manifest" href="manifest.json">
     <style>
         .docs-sidebar {
             position: sticky;
@@ -188,16 +190,16 @@
                 <h2 id="api"> API Reference</h2>
                 <p>MathSim provides a simple JavaScript API for advanced users:</p>
                 <pre><code>// Change simulation parameters
-MathSim.setSimulation('quadratic', { a: 2, b: -3, c: 1 });
+                    MathSim.setSimulation('quadratic', { a: 2, b: -3, c: 1 });
 
-// Track analytics event
-analytics.trackEvent('custom', 'button_click', 'simulation');
+                    // Track analytics event
+                    analytics.trackEvent('custom', 'button_click', 'simulation');
 
-// Get current user progress
-const progress = analytics.getUserProgress();
+                    // Get current user progress
+                    const progress = analytics.getUserProgress();
 
-// Export simulation graph as image
-MathSim.exportGraph('png');</code></pre>
+                    // Export simulation graph as image
+                    MathSim.exportGraph('png');</code></pre>
             </div>
         </div>
     </main>

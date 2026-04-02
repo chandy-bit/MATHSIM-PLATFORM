@@ -1,11 +1,11 @@
 
 :root {
     /* Modern Blue Theme */
-    --primary: #2563EB;
+    --primary: #259debab;
     --primary-dark: #1D4ED8;
     --primary-light: #60A5FA;
     --secondary: #F59E0B;
-    --secondary-dark: #D97706;
+    --secondary-dark: #d97706f0;
     --accent: #8B5CF6;
     --dark-bg: #0F172A;
     --light-bg: #F8FAFC;
@@ -52,7 +52,7 @@
 
 .hero-title {
     font-size: 3.5rem;
-    font-weight: 800;
+    font-weight: 700;
     line-height: 1.2;
     margin-bottom: 1.5rem;
     color: white;
@@ -84,8 +84,8 @@
 }
 
 .btn-outline {
-    background: transparent;
-    border: 2px solid rgba(255,255,255,0.3);
+    background: #64b5f6;
+    border: 2px solid #64b5f6;
     color: white;
 }
 
