@@ -13,7 +13,7 @@
     <div class="survey-container" id="surveyContainer">
         <div class="survey-header">
             <h1>MathSim User Survey</h1>
-            <p>Thank you for participating in this study. Your feedback helps improve math education!</p>
+            <p>your feedback helps us improve! please complete this survey.</p>
         </div>
         
         <div class="consent-warning" id="consentWarning" style="display: none;">
@@ -23,101 +23,12 @@
         <div class="progress-bar">
             <div class="progress-fill" id="progressFill"></div>
         </div>
+
+         <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdigcGi9DvWbNehb8pe4nm5nqeNJHKCF6jGxKVQZwanWaCAzA/viewform?usp=header">
+                Loading survey...
+            </iframe>
         
-        <form id="surveyForm">
-            <div class="survey-question">
-                <h3>1. What is your age group?</h3>
-                <label><input type="radio" name="age" value="under-13" required> Under 13</label>
-                <label><input type="radio" name="age" value="13-18"> 13-18</label>
-                <label><input type="radio" name="age" value="19-25"> 19-25</label>
-                <label><input type="radio" name="age" value="26-40"> 26-40</label>
-                <label><input type="radio" name="age" value="over-40"> Over 40</label>
-            </div>
-            
-            <div class="survey-question">
-                <h3>2. How would you rate your overall experience with MathSim?</h3>
-                <div class="rating-scale">
-                    <label><input type="radio" name="experience" value="1" required> 1 - Poor</label>
-                    <label><input type="radio" name="experience" value="2"> 2 - Fair</label>
-                    <label><input type="radio" name="experience" value="3"> 3 - Good</label>
-                    <label><input type="radio" name="experience" value="4"> 4 - Very Good</label>
-                    <label><input type="radio" name="experience" value="5"> 5 - Excellent</label>
-                </div>
-            </div>
-            
-            <div class="survey-question">
-                <h3>3. How easy was it to navigate and use MathSim?</h3>
-                <div class="rating-scale">
-                    <label><input type="radio" name="ease" value="1" required> 1 - Difficult</label>
-                    <label><input type="radio" name="ease" value="2"> 2 - Somewhat Difficult</label>
-                    <label><input type="radio" name="ease" value="3"> 3 - Neutral</label>
-                    <label><input type="radio" name="ease" value="4"> 4 - Easy</label>
-                    <label><input type="radio" name="ease" value="5"> 5 - Very Easy</label>
-                </div>
-            </div>
-            
-            <div class="survey-question">
-                <h3>4. Did MathSim help you understand mathematical concepts better?</h3>
-                <div class="rating-scale">
-                    <label><input type="radio" name="learning" value="1" required> 1 - Not at all</label>
-                    <label><input type="radio" name="learning" value="2"> 2 - Slightly</label>
-                    <label><input type="radio" name="learning" value="3"> 3 - Moderately</label>
-                    <label><input type="radio" name="learning" value="4"> 4 - Very Much</label>
-                    <label><input type="radio" name="learning" value="5"> 5 - Extremely</label>
-                </div>
-            </div>
-            
-            <div class="survey-question">
-                <h3>5. How engaging did you find the Slope Challenge game?</h3>
-                <div class="rating-scale">
-                    <label><input type="radio" name="game" value="1" required> 1 - Not engaging</label>
-                    <label><input type="radio" name="game" value="2"> 2 - Slightly engaging</label>
-                    <label><input type="radio" name="game" value="3"> 3 - Moderately engaging</label>
-                    <label><input type="radio" name="game" value="4"> 4 - Very engaging</label>
-                    <label><input type="radio" name="game" value="5"> 5 - Extremely engaging</label>
-                </div>
-            </div>
-            
-            <div class="survey-question">
-                <h3>6. Did you use any accessibility features? (Select all that apply)</h3>
-                <label><input type="checkbox" name="accessibility" value="none"> None</label>
-                <label><input type="checkbox" name="accessibility" value="high-contrast"> High Contrast Mode</label>
-                <label><input type="checkbox" name="accessibility" value="large-text"> Large Text Mode</label>
-                <label><input type="checkbox" name="accessibility" value="reduced-motion"> Reduced Motion</label>
-                <label><input type="checkbox" name="accessibility" value="dyslexic-font"> Dyslexic Font</label>
-                <label><input type="checkbox" name="accessibility" value="screen-reader"> Screen Reader</label>
-            </div>
-            
-            <div class="survey-question">
-                <h3>7. How likely are you to recommend MathSim to others?</h3>
-                <div class="rating-scale">
-                    <label><input type="radio" name="recommend" value="1" required> 1 - Unlikely</label>
-                    <label><input type="radio" name="recommend" value="2"> 2 - Somewhat unlikely</label>
-                    <label><input type="radio" name="schedule" value="3"> 3 - Neutral</label>
-                    <label><input type="radio" name="schedule" value="4"> 4 - Likely</label>
-                    <label><input type="radio" name="recommend" value="5"> 5 - Very likely</label>
-                </div>
-            </div>
-            
-            <div class="survey-question">
-                <h3>8. What did you like most about MathSim? (Optional)</h3>
-                <textarea name="likes" rows="3" placeholder="I really enjoyed..."></textarea>
-            </div>
-            
-            <div class="survey-question">
-                <h3>9. What improvements would you suggest? (Optional)</h3>
-                <textarea name="improvements" rows="3" placeholder="It would be better if..."></textarea>
-            </div>
-            
-            <div class="survey-question">
-                <h3>10. Any other comments or feedback? (Optional)</h3>
-                <textarea name="comments" rows="3" placeholder="Your feedback is valuable to us..."></textarea>
-            </div>
-            
-            <button type="submit" class="btn-submit">✓ Submit Survey</button>
-        </form>
-    </div>
-    
+        </div>
     <script>
         // Check if consent was given
         const consentData = localStorage.getItem('mathsim-consent');
