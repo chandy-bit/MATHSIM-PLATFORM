@@ -1,37 +1,7 @@
-this.subjectData = this.loadSubjectData();
-
-loadSubjectData() 
-    const saved = localStorage.getItem("mathsimSubjects");
-    return saved ? JSON.parse(saved) : {
-        algebra: { visits: 0, timeSpent: 0, gamesPlayed: 0, accuracy: [] },
-        geometry: { visits: 0, timeSpent: 0, gamesPlayed: 0, accuracy: [] },
-        precalculus: { visits: 0, timeSpent: 0, gamesPlayed: 0, accuracy: [] },
-        calculus: { visits: 0, timeSpent: 0, gamesPlayed: 0, accuracy: [] },
-        probability: { visits: 0, timeSpent: 0, gamesPlayed: 0, accuracy: [] }
-    };
-
-
-// Track subject visit
-function trackSubjectVisit(subject) {
-    if (this.subjectData[subject]) {
-        this.subjectData[subject].visits++;
-        this.subjectData[subject].lastVisit = new Date().toISOString();
-        localStorage.setItem("mathsimSubjects", JSON.stringify(this.subjectData));
-    }
-}
-
-// Track subject game
-function trackSubjectGame(subject, score, correct, total) {
-    if (this.subjectData[subject]) {
-        this.subjectData[subject].gamesPlayed++;
-        this.subjectData[subject].accuracy.push(correct / total);
-        localStorage.setItem("mathsimSubjects", JSON.stringify(this.subjectData));
-    }
-}
-
 class MathSimAnalytics {
     constructor() {
         this.data = this.loadData();
+        this.subjectData = this.loadSubjectData();
         this.startTime = Date.now();
         this.sessionStart = new Date();
         this.dailyData = this.loadDailyData();
@@ -65,6 +35,35 @@ class MathSimAnalytics {
         return defaultData;
     }
 
+    loadSubjectData() {
+        const saved = localStorage.getItem("mathsimSubjects");
+        const defaultSubjectData = {
+            algebra: { visits: 0, timeSpent: 0, gamesPlayed: 0, accuracy: [], lastVisit: null },
+            geometry: { visits: 0, timeSpent: 0, gamesPlayed: 0, accuracy: [], lastVisit: null },
+            precalculus: { visits: 0, timeSpent: 0, gamesPlayed: 0, accuracy: [], lastVisit: null },
+            calculus: { visits: 0, timeSpent: 0, gamesPlayed: 0, accuracy: [], lastVisit: null },
+            probability: { visits: 0, timeSpent: 0, gamesPlayed: 0, accuracy: [], lastVisit: null }
+        };
+        
+        if (saved) {
+            try {
+                const parsed = JSON.parse(saved);
+                // Merge with default to ensure all properties exist
+                const merged = { ...defaultSubjectData };
+                for (const subject in parsed) {
+                    if (merged[subject]) {
+                        merged[subject] = { ...merged[subject], ...parsed[subject] };
+                    }
+                }
+                return merged;
+            } catch (e) {
+                console.error('Error loading subject data', e);
+                return defaultSubjectData;
+            }
+        }
+        return defaultSubjectData;
+    }
+
     loadDailyData() {
         const saved = localStorage.getItem("mathsimDaily");
         const today = new Date().toDateString();
@@ -75,7 +74,9 @@ class MathSimAnalytics {
                 if (daily.date === today) {
                     return daily;
                 }
-            } catch (e) {}
+            } catch (e) {
+                console.error('Error loading daily data', e);
+            }
         }
         
         return {
@@ -91,6 +92,10 @@ class MathSimAnalytics {
     saveData() {
         localStorage.setItem("mathsimAnalytics", JSON.stringify(this.data));
         localStorage.setItem("mathsimDaily", JSON.stringify(this.dailyData));
+    }
+
+    saveSubjectData() {
+        localStorage.setItem("mathsimSubjects", JSON.stringify(this.subjectData));
     }
 
     tutorialWatched(tutorialId, tutorialTitle) {
@@ -162,6 +167,65 @@ class MathSimAnalytics {
         this.saveData();
     }
 
+    // Subject tracking methods
+    trackSubjectVisit(subject) {
+        if (this.subjectData[subject]) {
+            this.subjectData[subject].visits++;
+            this.subjectData[subject].lastVisit = new Date().toISOString();
+            this.saveSubjectData();
+        } else {
+            console.warn(`Unknown subject: ${subject}`);
+        }
+    }
+
+    trackSubjectGame(subject, score, correct, total) {
+        if (this.subjectData[subject]) {
+            this.subjectData[subject].gamesPlayed++;
+            const accuracy = correct / total;
+            this.subjectData[subject].accuracy.push(accuracy);
+            
+            // Keep only last 50 accuracy records per subject
+            if (this.subjectData[subject].accuracy.length > 50) {
+                this.subjectData[subject].accuracy.shift();
+            }
+            
+            this.saveSubjectData();
+        } else {
+            console.warn(`Unknown subject: ${subject}`);
+        }
+    }
+
+    trackSubjectTime(subject, secondsSpent) {
+        if (this.subjectData[subject]) {
+            this.subjectData[subject].timeSpent += secondsSpent;
+            this.saveSubjectData();
+        } else {
+            console.warn(`Unknown subject: ${subject}`);
+        }
+    }
+
+    getSubjectAccuracy(subject) {
+        if (!this.subjectData[subject] || this.subjectData[subject].accuracy.length === 0) {
+            return 0;
+        }
+        const sum = this.subjectData[subject].accuracy.reduce((a, b) => a + b, 0);
+        return Math.round((sum / this.subjectData[subject].accuracy.length) * 100);
+    }
+
+    getAllSubjectsStats() {
+        const stats = {};
+        for (const [subject, data] of Object.entries(this.subjectData)) {
+            stats[subject] = {
+                visits: data.visits,
+                gamesPlayed: data.gamesPlayed,
+                timeSpent: data.timeSpent,
+                accuracy: this.getSubjectAccuracy(subject),
+                lastVisit: data.lastVisit
+            };
+        }
+        return stats;
+    }
+
     endSession() {
         const timeSpent = Math.floor((Date.now() - this.startTime) / 1000);
         this.data.totalTime += timeSpent;
@@ -197,7 +261,6 @@ class MathSimAnalytics {
         if (!this.data.sessions.length) return 0;
         
         let streak = 1;
-        const today = new Date().toDateString();
         const sessions = [...this.data.sessions].reverse();
         
         for (let i = 0; i < sessions.length - 1; i++) {
@@ -246,6 +309,14 @@ class MathSimAnalytics {
             achievements.push('Precision');
         }
         
+        // Subject mastery achievements
+        for (const [subject, data] of Object.entries(this.subjectData)) {
+            const subjectAccuracy = this.getSubjectAccuracy(subject);
+            if (data.gamesPlayed >= 10 && subjectAccuracy >= 85 && !this.hasAchievement(`${subject.charAt(0).toUpperCase() + subject.slice(1)} Master`)) {
+                achievements.push(`${subject.charAt(0).toUpperCase() + subject.slice(1)} Master`);
+            }
+        }
+        
         // Add new achievements
         achievements.forEach(ach => {
             if (!this.hasAchievement(ach)) {
@@ -269,22 +340,33 @@ class MathSimAnalytics {
         return {
             accuracy: this.data.accuracyHistory,
             scores: this.data.scoreHistory,
-            sessions: this.data.sessions.slice(-7) // Last 7 sessions
+            sessions: this.data.sessions.slice(-7), // Last 7 sessions
+            subjects: this.getAllSubjectsStats()
         };
+    }
+
+    resetAllData() {
+        if (confirm('Are you sure you want to reset all analytics data? This cannot be undone.')) {
+            localStorage.removeItem('mathsimAnalytics');
+            localStorage.removeItem('mathsimSubjects');
+            localStorage.removeItem('mathsimDaily');
+            localStorage.removeItem('sessionId');
+            
+            // Reset all properties
+            this.data = this.loadData();
+            this.subjectData = this.loadSubjectData();
+            this.dailyData = this.loadDailyData();
+            this.startTime = Date.now();
+            this.sessionStart = new Date();
+            
+            console.log('All analytics data has been reset');
+            return true;
+        }
+        return false;
     }
 }
 
-// Initialize analytics
-const analytics = new MathSimAnalytics();
-
-// Save time when user leaves
-window.addEventListener("beforeunload", () => {
-    analytics.endSession();
-});
-
-// Make available globally
-window.analytics = analytics;
-
+// Enhanced Analytics for additional tracking
 class EnhancedAnalytics {
     constructor() {
         this.sessionId = this.generateSessionId();
@@ -307,7 +389,7 @@ class EnhancedAnalytics {
     }
     
     trackEvent(category, action, label = null, value = null) {
-        console.log(` Event: ${category} - ${action} - ${label}`);
+        console.log(` Event: ${category} - ${action}${label ? ' - ' + label : ''}`);
         // Send to your analytics service if needed
     }
     
@@ -317,5 +399,31 @@ class EnhancedAnalytics {
     }
 }
 
+// Initialize analytics
+const analytics = new MathSimAnalytics();
 const enhancedAnalytics = new EnhancedAnalytics();
+
+// Save time when user leaves
+window.addEventListener("beforeunload", () => {
+    analytics.endSession();
+});
+
+// Make available globally
+window.analytics = analytics;
 window.enhancedAnalytics = enhancedAnalytics;
+
+// Example usage:
+// Track a subject visit
+// analytics.trackSubjectVisit('algebra');
+
+// Track a subject game
+// analytics.trackSubjectGame('calculus', 95, 19, 20);
+
+// Track time spent on a subject
+// analytics.trackSubjectTime('geometry', 120);
+
+// Get subject-specific accuracy
+// const algebraAccuracy = analytics.getSubjectAccuracy('algebra');
+
+// Get all subjects stats
+// const allStats = analytics.getAllSubjectsStats();
