@@ -2,7 +2,7 @@
 class SlopeGame {
     constructor() {
         this.canvas = document.getElementById('game-graph');
-        this.ctx = this.canvas.getContext('2d');
+        this.ctx = this.canvas ? this.canvas.getContext('2d') : null;
         
         // Game state
         this.score = 0;
@@ -12,6 +12,8 @@ class SlopeGame {
         this.currentIntercept = 0;
         this.answerSelected = false;
         this.questionCount = 0;
+        this.correctAnswers = 0;
+        this.totalAnswers = 0;
         
         // DOM elements
         this.scoreEl = document.getElementById('score');
@@ -25,10 +27,19 @@ class SlopeGame {
         this.newGameBtn = document.getElementById('new-game');
         this.hintBtn = document.getElementById('hint');
         
+        // Check if canvas exists
+        if (!this.canvas) {
+            console.error(' Game canvas not found!');
+            return;
+        }
+        
         this.init();
     }
     
     init() {
+        // Make canvas responsive
+        this.makeCanvasResponsive();
+        
         // Draw initial graph
         this.generateNewLine();
         this.drawGraph();
@@ -38,20 +49,57 @@ class SlopeGame {
             btn.addEventListener('click', (e) => this.checkAnswer(e));
         });
         
-        this.nextBtn.addEventListener('click', () => this.nextQuestion());
-        this.newGameBtn.addEventListener('click', () => this.resetGame());
-        this.hintBtn.addEventListener('click', () => this.showHint());
+        if (this.nextBtn) {
+            this.nextBtn.addEventListener('click', () => this.nextQuestion());
+        }
+        
+        if (this.newGameBtn) {
+            this.newGameBtn.addEventListener('click', () => this.resetGame());
+        }
+        
+        if (this.hintBtn) {
+            this.hintBtn.addEventListener('click', () => this.showHint());
+        }
         
         // Keyboard support
-        this.canvas.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                this.showHint();
-            }
+        if (this.canvas) {
+            this.canvas.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    this.showHint();
+                }
+            });
+        }
+        
+        // Window resize handler
+        window.addEventListener('resize', () => {
+            this.makeCanvasResponsive();
+            this.drawGraph();
         });
         
         // Update screen reader description
         this.updateDescription();
+        
+        console.log('🎮 Game initialized successfully');
+    }
+    
+    makeCanvasResponsive() {
+        if (!this.canvas) return;
+        
+        const container = this.canvas.parentElement;
+        if (!container) return;
+        
+        const containerWidth = container.clientWidth;
+        // Maintain aspect ratio (1:1 for game graph)
+        let newSize = Math.min(containerWidth, 400);
+        
+        this.canvas.width = newSize;
+        this.canvas.height = newSize;
+        
+        this.canvas.style.width = newSize + 'px';
+        this.canvas.style.height = newSize + 'px';
+        
+        console.log(`📐 Game canvas resized to ${newSize}x${newSize}`);
     }
     
     generateNewLine() {
@@ -76,7 +124,7 @@ class SlopeGame {
         this.currentIntercept = Math.floor(Math.random() * 7) - 3;
         
         this.answerSelected = false;
-        this.nextBtn.disabled = true;
+        if (this.nextBtn) this.nextBtn.disabled = true;
         
         // Reset button styles
         this.answerBtns.forEach(btn => {
@@ -85,14 +133,20 @@ class SlopeGame {
         });
         
         // Clear feedback
-        this.feedbackEl.textContent = '';
-        this.feedbackEl.className = 'feedback';
+        if (this.feedbackEl) {
+            this.feedbackEl.textContent = '';
+            this.feedbackEl.className = 'feedback';
+        }
         
         // Update question display
-        this.slopeQuestionEl.textContent = '?';
+        if (this.slopeQuestionEl) {
+            this.slopeQuestionEl.textContent = '?';
+        }
     }
     
     drawGraph() {
+        if (!this.ctx || !this.canvas) return;
+        
         const w = this.canvas.width;
         const h = this.canvas.height;
         
@@ -103,8 +157,11 @@ class SlopeGame {
         this.ctx.strokeStyle = '#ddd';
         this.ctx.lineWidth = 0.5;
         
+        // Calculate grid spacing based on canvas size
+        const gridSpacing = w / 8;
+        
         // Vertical grid lines
-        for (let x = 0; x <= w; x += 50) {
+        for (let x = gridSpacing; x < w; x += gridSpacing) {
             this.ctx.beginPath();
             this.ctx.moveTo(x, 0);
             this.ctx.lineTo(x, h);
@@ -112,7 +169,7 @@ class SlopeGame {
         }
         
         // Horizontal grid lines
-        for (let y = 0; y <= h; y += 50) {
+        for (let y = gridSpacing; y < h; y += gridSpacing) {
             this.ctx.beginPath();
             this.ctx.moveTo(0, y);
             this.ctx.lineTo(w, y);
@@ -143,29 +200,36 @@ class SlopeGame {
         // Calculate line points
         const centerX = w/2;
         const centerY = h/2;
+        const scale = w / 10; // Scale factor for coordinates
         
         // Handle undefined slope (vertical line)
         if (this.currentSlope === 'undefined') {
-            const x = centerX + (this.currentIntercept * 50);
+            const x = centerX + (this.currentIntercept * scale);
             this.ctx.beginPath();
             this.ctx.moveTo(x, 0);
             this.ctx.lineTo(x, h);
+            this.ctx.stroke();
         } else {
-            // Calculate two points far apart
-            for (let x = -250; x <= 250; x += 500) {
-                const screenX = centerX + x;
-                const y = this.currentSlope * (x/50) + this.currentIntercept;
-                const screenY = centerY - (y * 50);
+            // Draw line across the canvas
+            let first = true;
+            for (let screenX = 0; screenX <= w; screenX += 5) {
+                const x = (screenX - centerX) / scale;
+                const y = this.currentSlope * x + this.currentIntercept;
+                const screenY = centerY - (y * scale);
                 
-                if (x === -250) {
-                    this.ctx.moveTo(screenX, screenY);
+                if (screenY >= 0 && screenY <= h) {
+                    if (first) {
+                        this.ctx.moveTo(screenX, screenY);
+                        first = false;
+                    } else {
+                        this.ctx.lineTo(screenX, screenY);
+                    }
                 } else {
-                    this.ctx.lineTo(screenX, screenY);
+                    first = true;
                 }
             }
+            this.ctx.stroke();
         }
-        
-        this.ctx.stroke();
         
         // Add axis labels
         this.ctx.fillStyle = '#666';
@@ -175,39 +239,53 @@ class SlopeGame {
     }
     
     checkAnswer(event) {
-        this.answerBtns.forEach(btn => btn.disabled = true);
         if (this.answerSelected) return;
         
         const selectedBtn = event.currentTarget;
         const selectedSlope = selectedBtn.dataset.slope;
-        this.feedbackEl.setAttribute('aria-live', 'assertive');
+        
         // Handle "undefined" as string
         const isCorrect = (this.currentSlope === 'undefined' && selectedSlope === 'undefined') ||
                          (parseFloat(selectedSlope) === this.currentSlope);
         
         this.answerSelected = true;
-        this.nextBtn.disabled = false;
+        if (this.nextBtn) this.nextBtn.disabled = false;
         
         // Disable all buttons
         this.answerBtns.forEach(btn => btn.disabled = true);
         
+        // Track analytics
+        this.totalAnswers++;
+        
         if (isCorrect) {
             // Correct answer
             selectedBtn.classList.add('correct');
-            this.feedbackEl.textContent = ' Correct! Great job!';
-            this.feedbackEl.className = 'feedback correct';
+            if (this.feedbackEl) {
+                this.feedbackEl.textContent = ' Correct! Great job!';
+                this.feedbackEl.className = 'feedback correct';
+            }
+            
+            this.correctAnswers++;
             
             // Update score based on level
             const pointsEarned = this.level * 10;
             this.score += pointsEarned;
             
             // Show slope in question area
-            this.slopeQuestionEl.textContent = this.formatSlope(this.currentSlope);
+            if (this.slopeQuestionEl) {
+                this.slopeQuestionEl.textContent = this.formatSlope(this.currentSlope);
+            }
             
             // Level up every 3 correct answers
             this.questionCount++;
             if (this.questionCount % 3 === 0) {
                 this.level = Math.min(this.level + 1, 3);
+            }
+            
+            // Track correct answer in analytics
+            if (typeof analytics !== 'undefined') {
+                analytics.answer(true);
+                analytics.gamePlayed(this.score);
             }
         } else {
             // Wrong answer
@@ -220,11 +298,18 @@ class SlopeGame {
                 }
             });
             
-            this.feedbackEl.textContent = ' Try again! The correct answer is highlighted.';
-            this.feedbackEl.className = 'feedback incorrect';
+            if (this.feedbackEl) {
+                this.feedbackEl.textContent = ' Try again! The correct answer is highlighted.';
+                this.feedbackEl.className = 'feedback incorrect';
+            }
             
             // Lose a life
             this.lives--;
+            
+            // Track wrong answer in analytics
+            if (typeof analytics !== 'undefined') {
+                analytics.answer(false);
+            }
             
             if (this.lives === 0) {
                 this.gameOver();
@@ -258,22 +343,35 @@ class SlopeGame {
         this.level = 1;
         this.lives = 3;
         this.questionCount = 0;
+        this.correctAnswers = 0;
+        this.totalAnswers = 0;
         this.generateNewLine();
         this.drawGraph();
         this.updateStats();
         this.updateDescription();
-        this.nextBtn.disabled = true;
+        if (this.nextBtn) this.nextBtn.disabled = true;
+        
+        console.log(' Game reset');
     }
     
     gameOver() {
-        this.feedbackEl.textContent = ` Game Over! Final score: ${this.score}`;
-        this.feedbackEl.className = 'feedback incorrect';
+        if (this.feedbackEl) {
+            this.feedbackEl.textContent = ` Game Over! Final score: ${this.score}`;
+            this.feedbackEl.className = 'feedback incorrect';
+        }
         this.answerBtns.forEach(btn => btn.disabled = true);
-        this.nextBtn.disabled = true;
+        if (this.nextBtn) this.nextBtn.disabled = true;
         
         // Screen reader announcement
         const announcement = `Game over. You scored ${this.score} points. Press New Game to play again.`;
-        this.descriptionEl.textContent = announcement;
+        if (this.descriptionEl) {
+            this.descriptionEl.textContent = announcement;
+        }
+        
+        // Track final score in analytics
+        if (typeof analytics !== 'undefined') {
+            analytics.gamePlayed(this.score);
+        }
     }
     
     showHint() {
@@ -287,13 +385,14 @@ class SlopeGame {
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background: #333;
-            color: white;
+            background: var(--bg-tertiary, #333);
+            color: var(--text-primary, white);
             padding: 20px;
             border-radius: 8px;
             z-index: 10000;
             max-width: 300px;
             text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
         `;
         document.body.appendChild(hintEl);
         
@@ -301,7 +400,9 @@ class SlopeGame {
         setTimeout(() => hintEl.remove(), 3000);
         
         // Also provide for screen readers
-        this.descriptionEl.textContent = hint;
+        if (this.descriptionEl) {
+            this.descriptionEl.textContent = hint;
+        }
     }
     
     getDirectionHint() {
@@ -312,18 +413,20 @@ class SlopeGame {
     }
     
     updateStats() {
-        this.scoreEl.textContent = this.score;
-        this.levelEl.textContent = this.level;
+        if (this.scoreEl) this.scoreEl.textContent = this.score;
+        if (this.levelEl) this.levelEl.textContent = this.level;
         
-        // Update lives display
-        let livesDisplay = '';
-        for (let i = 0; i < this.lives; i++) {
-            livesDisplay += '';
+        // Update lives display with hearts
+        if (this.livesEl) {
+            let livesDisplay = '';
+            for (let i = 0; i < this.lives; i++) {
+                livesDisplay += '❤️';
+            }
+            for (let i = this.lives; i < 3; i++) {
+                livesDisplay += '🖤';
+            }
+            this.livesEl.textContent = livesDisplay;
         }
-        for (let i = this.lives; i < 3; i++) {
-            livesDisplay += '';
-        }
-        this.livesEl.textContent = livesDisplay;
     }
     
     updateDescription() {
@@ -343,9 +446,21 @@ class SlopeGame {
 
 // Initialize game when page loads
 document.addEventListener('DOMContentLoaded', () => {
-    new SlopeGame();
+    // Check if game canvas exists before initializing
+    if (document.getElementById('game-graph')) {
+        new SlopeGame();
+        console.log(' Slope Game initialized');
+    } else {
+        console.log(' Game page not detected');
+    }
 });
 
-analytics.answer(true);
-analytics.answer(false);
-analytics.gamePlayed(this.score);
+// Helper function to check analytics availability
+window.checkAnalytics = function() {
+    if (typeof analytics !== 'undefined') {
+        console.log(' Analytics available');
+        return true;
+    }
+    console.warn(' Analytics not available');
+    return false;
+};

@@ -1,5 +1,3 @@
-
-
 (function() {
     'use strict';
 
@@ -85,9 +83,272 @@
         }
     };
 
-    
+    // MOBILE MENU HANDLER
+    const MobileMenu = {
+        init() {
+            this.mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            this.navMenu = document.getElementById('navMenu');
+            
+            if (!this.mobileMenuBtn || !this.navMenu) return;
+            
+            this.setupEventListeners();
+            this.setupDropdowns();
+            this.setupResizeHandler();
+            
+            if (MathSim.config?.debug) console.log('📱 Mobile menu initialized');
+        },
+        
+        setupEventListeners() {
+            // Toggle menu
+            this.mobileMenuBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                this.toggleMenu();
+            });
+            
+            // Close menu when clicking on links
+            const navLinks = document.querySelectorAll('.nav-menu a');
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    this.closeMenu();
+                });
+            });
+            
+            // Close menu when clicking outside
+            document.addEventListener('click', (e) => {
+                if (window.innerWidth <= 768 && this.navMenu.classList.contains('active')) {
+                    if (!this.navMenu.contains(e.target) && !this.mobileMenuBtn.contains(e.target)) {
+                        this.closeMenu();
+                    }
+                }
+            });
+        },
+        
+        setupDropdowns() {
+            const dropdowns = document.querySelectorAll('.dropdown');
+            dropdowns.forEach(dropdown => {
+                const toggle = dropdown.querySelector('.dropdown-toggle');
+                if (toggle) {
+                    toggle.addEventListener('click', (e) => {
+                        if (window.innerWidth <= 768) {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            dropdown.classList.toggle('active');
+                        }
+                    });
+                }
+            });
+        },
+        
+        setupResizeHandler() {
+            window.addEventListener('resize', () => {
+                if (window.innerWidth > 768) {
+                    this.closeMenu();
+                    // Close all dropdowns
+                    document.querySelectorAll('.dropdown').forEach(dropdown => {
+                        dropdown.classList.remove('active');
+                    });
+                }
+            });
+        },
+        
+        toggleMenu() {
+            this.navMenu.classList.toggle('active');
+            this.mobileMenuBtn.classList.toggle('active');
+            document.body.style.overflow = this.navMenu.classList.contains('active') ? 'hidden' : '';
+            document.body.classList.toggle('menu-open', this.navMenu.classList.contains('active'));
+        },
+        
+        closeMenu() {
+            this.navMenu.classList.remove('active');
+            this.mobileMenuBtn.classList.remove('active');
+            document.body.style.overflow = '';
+            document.body.classList.remove('menu-open');
+        }
+    };
+
+    // HERO CANVAS ANIMATION
+    const HeroCanvas = {
+        init() {
+            this.canvas = document.getElementById('heroCanvas');
+            if (!this.canvas) return;
+            
+            this.ctx = this.canvas.getContext('2d');
+            this.a = 1;
+            this.b = 0;
+            this.c = 0;
+            this.direction = 0.01;
+            this.animationInterval = null;
+            
+            this.setupResize();
+            this.startAnimation();
+            
+            if (MathSim.config?.debug) console.log('🎨 Hero canvas initialized');
+        },
+        
+        setupResize() {
+            this.resizeCanvas();
+            window.addEventListener('resize', () => {
+                this.resizeCanvas();
+            });
+        },
+        
+        resizeCanvas() {
+            const container = this.canvas.parentElement;
+            const containerWidth = Math.min(container.clientWidth, 500);
+            this.canvas.width = containerWidth;
+            this.canvas.height = containerWidth * 0.8;
+            this.drawGraph();
+        },
+        
+        drawGraph() {
+            if (!this.ctx) return;
+            
+            const canvas = this.canvas;
+            const ctx = this.ctx;
+            
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Draw grid
+            const step = canvas.width / 10;
+            ctx.strokeStyle = '#334155';
+            ctx.lineWidth = 0.5;
+            for (let x = 0; x <= canvas.width; x += step) {
+                ctx.beginPath();
+                ctx.moveTo(x, 0);
+                ctx.lineTo(x, canvas.height);
+                ctx.stroke();
+            }
+            for (let y = 0; y <= canvas.height; y += step) {
+                ctx.beginPath();
+                ctx.moveTo(0, y);
+                ctx.lineTo(canvas.width, y);
+                ctx.stroke();
+            }
+            
+            // Draw axes
+            ctx.strokeStyle = '#94A3B8';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(0, canvas.height/2);
+            ctx.lineTo(canvas.width, canvas.height/2);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(canvas.width/2, 0);
+            ctx.lineTo(canvas.width/2, canvas.height);
+            ctx.stroke();
+            
+            // Draw parabola
+            ctx.strokeStyle = '#2563EB';
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            const scale = canvas.width / 10;
+            let firstPoint = true;
+            
+            for (let x = -canvas.width/2; x <= canvas.width/2; x += 5) {
+                const scaledX = x / scale;
+                const y = this.a * scaledX * scaledX + this.b * scaledX + this.c;
+                const canvasX = canvas.width/2 + x;
+                const canvasY = canvas.height/2 - y * scale;
+                
+                if (canvasY >= 0 && canvasY <= canvas.height) {
+                    if (firstPoint) {
+                        ctx.moveTo(canvasX, canvasY);
+                        firstPoint = false;
+                    } else {
+                        ctx.lineTo(canvasX, canvasY);
+                    }
+                } else {
+                    firstPoint = true;
+                }
+            }
+            ctx.stroke();
+        },
+        
+        startAnimation() {
+            if (this.animationInterval) clearInterval(this.animationInterval);
+            
+            this.animationInterval = setInterval(() => {
+                this.a += this.direction;
+                if (this.a > 1.5) this.direction = -0.01;
+                if (this.a < 0.5) this.direction = 0.01;
+                this.drawGraph();
+            }, 100);
+        },
+        
+        stopAnimation() {
+            if (this.animationInterval) {
+                clearInterval(this.animationInterval);
+                this.animationInterval = null;
+            }
+        }
+    };
+
+    // STATS COUNTER ANIMATION
+    const StatsCounter = {
+        init() {
+            this.statItems = document.querySelectorAll('.stat-item');
+            if (!this.statItems.length) return;
+            
+            this.observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        this.animateCounter(entry.target);
+                        this.observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.3, rootMargin: '0px' });
+            
+            this.statItems.forEach(item => this.observer.observe(item));
+            
+            if (MathSim.config?.debug) console.log('📊 Stats counter initialized');
+        },
+        
+        animateCounter(element) {
+            const count = parseInt(element.dataset.count);
+            let current = 0;
+            const increment = count / 50;
+            const isPercentage = count === 98;
+            
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= count) {
+                    current = count;
+                    clearInterval(timer);
+                }
+                
+                const numberSpan = element.querySelector('.stat-number');
+                if (numberSpan) {
+                    if (isPercentage) {
+                        numberSpan.textContent = Math.floor(current) + '%';
+                    } else {
+                        numberSpan.textContent = Math.floor(current).toLocaleString();
+                    }
+                }
+            }, 30);
+        }
+    };
+
+    // SMOOTH SCROLL
+    const SmoothScroll = {
+        init() {
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                const href = anchor.getAttribute('href');
+                if (href !== '#' && href !== '#main-content' && href !== '') {
+                    anchor.addEventListener('click', (e) => {
+                        const target = document.querySelector(href);
+                        if (target) {
+                            e.preventDefault();
+                            target.scrollIntoView({ behavior: 'smooth' });
+                        }
+                    });
+                }
+            });
+            
+            if (MathSim.config?.debug) console.log('🔗 Smooth scroll initialized');
+        }
+    };
+
     // MATH SIM CORE APPLICATION
-    
     const MathSim = {
         version: '2.0.0',
         
@@ -104,28 +365,26 @@
             }
         },
         
-        // Performance monitor instance
         perfMonitor: null,
         
         init() {
-            // Initialize performance monitor
             this.perfMonitor = new PerformanceMonitor();
             this.perfMonitor.markStart('init');
             
-            // Log initialization
             if (this.config.debug) {
                 console.log(`🚀 MathSim v${this.version} initializing...`);
             }
             
-            // Load saved preferences FIRST
+            // Load saved preferences
             this.loadUserPreferences();
             
-            // THEN initialize systems with loaded prefs
+            // Initialize systems
             this.initLanguage();
             this.initAccessibility();
-            
-            // Set up event listeners
             this.setupEventListeners();
+            
+            // Initialize UI components
+            this.initUIComponents();
             
             // Initialize page-specific features
             this.initPageFeatures();
@@ -138,6 +397,23 @@
             
             this.perfMonitor.markEnd('init');
             this.perfMonitor.pageLoadTime();
+            
+            // Dispatch ready event
+            document.dispatchEvent(new CustomEvent('mathsim-ready'));
+        },
+        
+        initUIComponents() {
+            // Initialize mobile menu
+            MobileMenu.init();
+            
+            // Initialize hero canvas
+            HeroCanvas.init();
+            
+            // Initialize stats counter
+            StatsCounter.init();
+            
+            // Initialize smooth scroll
+            SmoothScroll.init();
         },
         
         loadUserPreferences() {
@@ -145,11 +421,6 @@
                 const savedPrefs = Storage.get('mathsim-preferences');
                 if (savedPrefs) {
                     this.config = { ...this.config, ...savedPrefs };
-                    
-                    // Also update AppState if needed
-                    if (typeof AppState !== 'undefined') {
-                        AppState.user.preferences = this.config;
-                    }
                 }
             } catch (error) {
                 ErrorHandler.log(error, 'Loading user preferences');
@@ -172,20 +443,19 @@
             if (typeof Accessibility !== 'undefined' && Accessibility.applySettings) {
                 try {
                     Accessibility.applySettings(this.config.accessibility);
-                    
-                    // Apply CSS classes based on settings
-                    document.body.classList.toggle('high-contrast', this.config.accessibility.highContrast);
-                    document.body.classList.toggle('large-text', this.config.accessibility.largeText);
-                    document.body.classList.toggle('reduced-motion', this.config.accessibility.reducedMotion);
-                    document.body.classList.toggle('dyslexic-font', this.config.accessibility.dyslexicFont);
                 } catch (error) {
                     ErrorHandler.log(error, 'Accessibility initialization');
                 }
             }
+            
+            // Apply CSS classes
+            document.body.classList.toggle('high-contrast', this.config.accessibility.highContrast);
+            document.body.classList.toggle('large-text', this.config.accessibility.largeText);
+            document.body.classList.toggle('reduced-motion', this.config.accessibility.reducedMotion);
+            document.body.classList.toggle('dyslexic-font', this.config.accessibility.dyslexicFont);
         },
         
         setupEventListeners() {
-            // Global event listeners
             document.addEventListener('languageChanged', (e) => {
                 this.updateUILanguage(e.detail?.language || this.config.defaultLanguage);
             });
@@ -194,12 +464,10 @@
                 this.updateAccessibility(e.detail?.settings || this.config.accessibility);
             });
             
-            // Save preferences when user leaves
             window.addEventListener('beforeunload', () => {
                 this.saveUserPreferences();
             });
             
-            // Handle online/offline status
             window.addEventListener('online', () => {
                 if (this.config.debug) console.log('📶 App is online');
                 document.body.classList.remove('offline');
@@ -214,17 +482,9 @@
         updateUILanguage(lang) {
             if (lang && this.config.availableLanguages.includes(lang)) {
                 this.config.defaultLanguage = lang;
-                
-                // Update UI elements with new language
                 document.documentElement.lang = lang;
-                
-                // Trigger any language-dependent updates
-                const event = new CustomEvent('ui-language-updated', { detail: { language: lang } });
-                document.dispatchEvent(event);
-                
-                // Save preference
+                document.dispatchEvent(new CustomEvent('ui-language-updated', { detail: { language: lang } }));
                 this.saveUserPreferences();
-                
                 if (this.config.debug) console.log(`🌐 Language set to: ${lang}`);
             }
         },
@@ -232,21 +492,16 @@
         updateAccessibility(settings) {
             this.config.accessibility = { ...this.config.accessibility, ...settings };
             
-            // Apply to body classes
             document.body.classList.toggle('high-contrast', this.config.accessibility.highContrast);
             document.body.classList.toggle('large-text', this.config.accessibility.largeText);
             document.body.classList.toggle('reduced-motion', this.config.accessibility.reducedMotion);
             document.body.classList.toggle('dyslexic-font', this.config.accessibility.dyslexicFont);
             
-            // Trigger event for modules that need to react
-            const event = new CustomEvent('ui-accessibility-updated', { 
+            document.dispatchEvent(new CustomEvent('ui-accessibility-updated', { 
                 detail: { settings: this.config.accessibility } 
-            });
-            document.dispatchEvent(event);
+            }));
             
-            // Save preference
             this.saveUserPreferences();
-            
             if (this.config.debug) console.log('♿ Accessibility settings updated');
         },
         
@@ -255,16 +510,12 @@
         },
         
         initPageFeatures() {
-            // Detect current page
             const page = document.body.dataset.page || 
                          window.location.pathname.split('/').pop() || 
                          'index.html';
             
-            // Dispatch page loaded event
-            const event = new CustomEvent('page-loaded', { detail: { page } });
-            document.dispatchEvent(event);
+            document.dispatchEvent(new CustomEvent('page-loaded', { detail: { page } }));
             
-            // Initialize page-specific modules
             switch(page) {
                 case 'simulation.html':
                     this.loadPageModule('Simulation');
@@ -297,8 +548,7 @@
                 localStorage: typeof localStorage !== 'undefined',
                 serviceWorker: 'serviceWorker' in navigator,
                 canvas: !!document.createElement('canvas').getContext,
-                fetch: typeof fetch !== 'undefined',
-                localStorage: typeof Storage !== 'undefined'
+                fetch: typeof fetch !== 'undefined'
             };
             
             const missingFeatures = Object.entries(features)
@@ -315,7 +565,6 @@
                     <p>Please update your browser for the best experience.</p>
                 `;
                 document.body.insertBefore(warning, document.body.firstChild);
-                
                 ErrorHandler.warn(`Browser missing features: ${missingFeatures.join(', ')}`, 'Browser Support');
             }
             
@@ -343,7 +592,6 @@
     };
 
     // APP STATE MANAGEMENT
-
     const AppState = {
         user: {
             preferences: {},
@@ -417,7 +665,6 @@
             
             this.notifyListeners(path, value, oldValue);
             
-            // Auto-save after certain updates
             if (path.startsWith('user.progress') || path.startsWith('user.gameScores')) {
                 this.saveToStorage();
             }
@@ -461,12 +708,10 @@
             this.user.gameScores = [];
             this.user.achievements = [];
             this.saveToStorage();
-            
             if (MathSim.config.debug) console.log('🔄 Progress reset');
         }
     };
 
-    
     // ERROR HANDLER
     const ErrorHandler = {
         errors: [],
@@ -501,7 +746,6 @@
                 this.showErrorToast(error.message);
             }
             
-            // Send to analytics in production
             if (!MathSim.config?.debug && MathSim.config?.analyticsEnabled) {
                 this.sendToAnalytics(errorEntry);
             }
@@ -554,7 +798,6 @@
         },
         
         sendToAnalytics(errorEntry) {
-            // Send to analytics service if configured
             if (typeof gtag !== 'undefined') {
                 gtag('event', 'error', {
                     'error_message': errorEntry.message,
@@ -573,7 +816,7 @@
         }
     };
 
-    
+    // ADD ANIMATION STYLES
     const animationStyles = document.createElement('style');
     animationStyles.textContent = `
         @keyframes slideIn {
@@ -618,6 +861,10 @@
             color: yellow;
             border: 2px solid yellow;
         }
+        
+        body.menu-open {
+            overflow: hidden;
+        }
     `;
     document.head.appendChild(animationStyles);
 
@@ -647,7 +894,6 @@
             htmlElement.setAttribute('data-theme', theme);
             Storage.set('mathsim-theme', theme);
             updateThemeButton(theme);
-            
             if (MathSim.config?.debug) console.log(`🎨 Theme set to: ${theme}`);
         }
         
@@ -677,8 +923,11 @@
     window.ErrorHandler = ErrorHandler;
     window.Storage = Storage;
     window.PerformanceMonitor = PerformanceMonitor;
+    window.MobileMenu = MobileMenu;
+    window.HeroCanvas = HeroCanvas;
+    window.StatsCounter = StatsCounter;
     
-    
+    // INITIALIZE
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', () => {
             initThemeToggle();

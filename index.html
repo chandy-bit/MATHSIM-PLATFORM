@@ -5,30 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>MathSim | Interactive Math Learning Platform</title>
     
-    <!-- SEO Meta Tags -->
     <meta name="description" content="Interactive math simulations with real-time graphing, step-by-step solutions, and personalized learning. Master algebra, geometry, calculus and more.">
     <meta name="keywords" content="math, simulations, interactive, graphing, algebra, calculus, learning platform">
     <meta name="author" content="MathSim">
     
-    <!-- Google Fonts - Modern Typography -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
-    <!-- CSS -->
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/upgrade.css">
     <link rel="manifest" href="manifest.json">
     
-    <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg">
     <link rel="apple-touch-icon" href="assets/images/icons/icon-64x64.png">
     
     <meta name="theme-color" content="#2563EB">
 </head>
 <body>
-    <!-- Skip Link -->
     <a href="#main-content" class="skip-link">Skip to main content</a>
 
-    <!-- Navigation Bar - Modern Design -->
     <header class="header">
         <nav class="navbar">
             <div class="nav-container">
@@ -40,13 +34,13 @@
                 <ul class="nav-menu" id="navMenu">
                     <li><a href="index.html" class="nav-link active">Home</a></li>
                     <li class="dropdown">
-                        <a href="#" class="nav-link active">Subjects </a>
+                        <a href="#" class="nav-link dropdown-toggle">Subjects </a>
                         <ul class="dropdown-menu">
                             <li><a href="algebra.html">Algebra</a></li>
                             <li><a href="geometry.html">Geometry</a></li>
                             <li><a href="precalculus.html">Pre-Calculus</a></li>
                             <li><a href="calculus.html">Calculus</a></li>
-                            <li><a href="probability.html" class="active">Probability</a></li>
+                            <li><a href="probability.html">Probability</a></li>
                         </ul>
                     </li>
                     <li><a href="simulation.html" class="nav-link">Simulations</a></li>
@@ -58,8 +52,8 @@
                 </ul>
 
                 <div class="nav-controls">
-                    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"></button>
-                    <button class="mobile-menu-btn" id="mobileMenuBtn" title="Toggle navigation menu" aria-label="Toggle navigation menu">
+                    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">🌓</button>
+                    <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle navigation menu">
                         <span class="hamburger"></span>
                     </button>
                 </div>
@@ -68,7 +62,6 @@
     </header>
 
     <main id="main-content">
-        <!-- HERO SECTION - Professional Landing -->
         <section class="hero hero-modern">
             <div class="hero-bg-gradient"></div>
             <div class="container">
@@ -109,7 +102,7 @@
                 </div>
                 <div class="hero-visual">
                     <div class="demo-graph-animation">
-                        <canvas id="heroCanvas" width="500" height="400"></canvas>
+                        <canvas id="heroCanvas" width="500" height="400" style="max-width:100%; height:auto;"></canvas>
                         <div class="graph-controls-demo">
                             <div class="demo-slider">
                                 <span>a = 1</span>
@@ -125,7 +118,6 @@
             </div>
         </section>
 
-        <!-- FEATURES SECTION - Card Grid -->
         <section class="features-section">
             <div class="container">
                 <div class="section-header">
@@ -208,7 +200,6 @@
             </div>
         </section>
 
-        <!-- STATS SECTION -->
         <section class="stats-section">
             <div class="container">
                 <div class="stats-grid-large">
@@ -232,7 +223,6 @@
             </div>
         </section>
 
-        <!-- CALL TO ACTION SECTION -->
         <section class="cta-section">
             <div class="container">
                 <div class="cta-content">
@@ -246,16 +236,21 @@
             </div>
         </section>
     </main>
+    <div id="installContainer" style="display: none; text-align: center; margin: 1rem 0;">
+    <button class="btn btn-primary" id="installButton" style="font-size: 1.1rem; padding: 1rem 2rem;">
+         Install MathSim App
+    </button>
+    <p id="installMessage" style="font-size: 0.8rem; margin-top: 0.5rem; color: var(--text-secondary);"></p>
+    </div>
 
-    <!-- FOOTER - Professional -->
     <footer class="footer-modern">
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-brand">
-                    <div class="logo"> MathSim</div>
+                    <div class="logo">MathSim</div>
                     <p>Making mathematics intuitive, engaging, and accessible for everyone.</p>
                     <div class="social-links">
-                        <a href="https://github.com/chandy-bit/MATHSIM-PLATFORM" target="_blank" aria-label="GitHub"> GitHub</a>
+                        <a href="https://github.com/chandy-bit/MATHSIM-PLATFORM" target="_blank" aria-label="GitHub">GitHub</a>
                         <a href="#" aria-label="Discord"> Discord</a>
                     </div>
                 </div>
@@ -283,7 +278,6 @@
                     <ul>
                         <li><a href="faq.html">FAQ</a></li>
                         <li><a href="feedback.html">Feedback</a></li>
-                        <li><a href="survey-results.html" >Survey Results</a></li>
                         <li><a href="https://github.com/chandy-bit/MATHSIM-PLATFORM" target="_blank">GitHub</a></li>
                     </ul>
                 </div>
@@ -295,103 +289,259 @@
         </div>
     </footer>
 
-    
-
     <script src="js/theme.js"></script>
     <script src="js/upgrade.js"></script>
     <script src="js/analytics.js"></script>
     <script src="js/main.js"></script>
+<script>
+    // Register Service Worker
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('/service-worker.js')
+                .then(registration => {
+                    console.log('Service Worker registered successfully:', registration.scope);
+                    
+                    // Check for updates
+                    registration.addEventListener('updatefound', () => {
+                        const newWorker = registration.installing;
+                        console.log('New Service Worker found:', newWorker);
+                        
+                        newWorker.addEventListener('statechange', () => {
+                            console.log('Service Worker state changed:', newWorker.state);
+                            if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                                // New update available
+                                console.log('New content is available; please refresh.');
+                                // Show update notification to user
+                                showUpdateNotification();
+                            }
+                        });
+                    });
+                })
+                .catch(error => {
+                    console.log('Service Worker registration failed:', error);
+                });
+        });
+    }
     
-    <script>
-        // Hero Canvas Animation
-        const canvas = document.getElementById('heroCanvas');
-        if (canvas) {
-            const ctx = canvas.getContext('2d');
-            let a = 1, b = 0, c = 0;
+    function showUpdateNotification() {
+        // Optional: Show a toast notification
+        const toast = document.createElement('div');
+        toast.textContent = ' New version available! Refresh to update.';
+        toast.style.cssText = `
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #4CAF50;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            z-index: 10000;
+            animation: slideIn 0.3s ease;
+            cursor: pointer;
+        `;
+        toast.onclick = () => location.reload();
+        document.body.appendChild(toast);
+        setTimeout(() => toast.remove(), 5000);
+    }
+</script>
+<script>
+        (function() {
+            'use strict';
             
-            function drawDemoGraph() {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                
-                // Draw grid
-                ctx.strokeStyle = '#334155';
-                ctx.lineWidth = 0.5;
-                for (let x = 0; x <= canvas.width; x += 50) {
-                    ctx.beginPath();
-                    ctx.moveTo(x, 0);
-                    ctx.lineTo(x, canvas.height);
-                    ctx.stroke();
+            let deferredPrompt;
+            const installContainer = document.getElementById('installContainer');
+            const installButton = document.getElementById('installButton');
+            const installMessage = document.getElementById('installMessage');
+            
+            // Function to show install message
+            function showMessage(msg, isError = false) {
+                if (installMessage) {
+                    installMessage.textContent = msg;
+                    installMessage.style.color = isError ? '#f44336' : 'var(--text-secondary, #666)';
+                    setTimeout(() => {
+                        if (installMessage && installMessage.textContent === msg) {
+                            installMessage.textContent = '';
+                        }
+                    }, 5000);
                 }
-                for (let y = 0; y <= canvas.height; y += 50) {
-                    ctx.beginPath();
-                    ctx.moveTo(0, y);
-                    ctx.lineTo(canvas.width, y);
-                    ctx.stroke();
-                }
-                
-                // Draw axes
-                ctx.strokeStyle = '#94A3B8';
-                ctx.lineWidth = 2;
-                ctx.beginPath();
-                ctx.moveTo(0, canvas.height/2);
-                ctx.lineTo(canvas.width, canvas.height/2);
-                ctx.stroke();
-                ctx.beginPath();
-                ctx.moveTo(canvas.width/2, 0);
-                ctx.lineTo(canvas.width/2, canvas.height);
-                ctx.stroke();
-                
-                // Draw parabola
-                ctx.strokeStyle = '#2563EB';
-                ctx.lineWidth = 3;
-                ctx.beginPath();
-                for (let x = -250; x <= 250; x += 5) {
-                    const scaledX = x / 50;
-                    const y = a * scaledX * scaledX + b * scaledX + c;
-                    const canvasX = canvas.width/2 + x;
-                    const canvasY = canvas.height/2 - y * 50;
-                    if (x === -250) ctx.moveTo(canvasX, canvasY);
-                    else ctx.lineTo(canvasX, canvasY);
-                }
-                ctx.stroke();
             }
             
-            drawDemoGraph();
+            // Check if already installed/running as PWA
+            function isRunningAsPWA() {
+                return window.matchMedia('(display-mode: standalone)').matches || 
+                       window.navigator.standalone === true ||
+                       window.matchMedia('(display-mode: fullscreen)').matches;
+            }
             
-            // Animate slowly
-            let direction = 0.01;
-            setInterval(() => {
-                a += direction;
-                if (a > 1.5) direction = -0.01;
-                if (a < 0.5) direction = 0.01;
-                drawDemoGraph();
-            }, 100);
-        }
-        
-        // Animate stats counters
-        const statItems = document.querySelectorAll('.stat-item');
-        const observerOptions = { threshold: 0.5 };
-        
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const target = entry.target;
-                    const count = parseInt(target.dataset.count);
-                    let current = 0;
-                    const increment = count / 50;
-                    const timer = setInterval(() => {
-                        current += increment;
-                        if (current >= count) {
-                            current = count;
-                            clearInterval(timer);
-                        }
-                        target.querySelector('.stat-number').textContent = Math.floor(current);
-                    }, 30);
-                    observer.unobserve(target);
+            if (isRunningAsPWA()) {
+                console.log('Already running as PWA');
+                if (installContainer) {
+                    installContainer.style.display = 'none';
+                }
+            }
+            
+            // Listen for install prompt
+            window.addEventListener('beforeinstallprompt', (e) => {
+                console.log('beforeinstallprompt event fired');
+                e.preventDefault();
+                deferredPrompt = e;
+                
+                // Show the install button
+                if (installContainer) {
+                    installContainer.style.display = 'block';
+                    console.log('Install button shown');
+                }
+                
+                showMessage('Click the button to install MathSim on your device!');
+            });
+            
+            // Handle install button click
+            if (installButton) {
+                installButton.addEventListener('click', async (e) => {
+                    e.preventDefault();
+                    console.log('Install button clicked');
+                    
+                    if (!deferredPrompt) {
+                        console.log('No deferredPrompt available');
+                        showMessage('To install: Tap the share icon (⋮) and select "Add to Home Screen"', true);
+                        return;
+                    }
+                    
+                    // Show the install prompt
+                    deferredPrompt.prompt();
+                    console.log('Install prompt shown');
+                    
+                    // Wait for user response
+                    const { outcome } = await deferredPrompt.userChoice;
+                    console.log(`User install choice: ${outcome}`);
+                    
+                    // Clear the deferred prompt
+                    deferredPrompt = null;
+                    
+                    // Hide the install button after use
+                    if (installContainer) {
+                        installContainer.style.display = 'none';
+                    }
+                    
+                    if (outcome === 'accepted') {
+                        showMessage(' MathSim installed successfully! Thank you!');
+                    } else {
+                        showMessage('You can install later from the browser menu');
+                    }
+                });
+            }
+            
+            // App installed successfully
+            window.addEventListener('appinstalled', (evt) => {
+                console.log('MathSim PWA was installed');
+                if (installContainer) {
+                    installContainer.style.display = 'none';
+                }
+                showMessage(' Thank you for installing MathSim!');
+            });
+            
+            // Also check if running in standalone mode after load
+            window.addEventListener('load', () => {
+                if (isRunningAsPWA()) {
+                    console.log('Running as installed app');
+                    if (installContainer) {
+                        installContainer.style.display = 'none';
+                    }
+                }
+                
+                // Register service worker
+                if ('serviceWorker' in navigator) {
+                    navigator.serviceWorker.register('/sw.js')
+                        .then(reg => {
+                            console.log('Service Worker registered:', reg);
+                        })
+                        .catch(err => {
+                            console.log('Service Worker registration failed:', err);
+                        });
                 }
             });
-        }, observerOptions);
-        
-        statItems.forEach(item => observer.observe(item));
+            
+            // Debug: Show message if browser supports PWA but event didn't fire
+            setTimeout(() => {
+                if (deferredPrompt === undefined && !isRunningAsPWA()) {
+                    console.log('No PWA prompt event received - browser may not support PWA or already installed');
+                    // Optional: Show alternative install instructions
+                    if (installContainer && installContainer.style.display !== 'block') {
+                        // Uncomment if you want to show manual install instructions
+                        // installContainer.style.display = 'block';
+                        // installButton.textContent = ' Install Instructions';
+                        // showMessage('Click for instructions to add MathSim to your home screen');
+                    }
+                }
+            }, 3000);
+        })();
     </script>
+<script>
+    // Make sure DOM is loaded
+        (function() {
+            'use strict';
+            
+            // Wait for DOM to be ready
+            function init() {
+                const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+                const navMenu = document.getElementById('navMenu');
+                
+                console.log('Mobile button found:', mobileMenuBtn);
+                console.log('Nav menu found:', navMenu);
+                console.log('Window width:', window.innerWidth);
+                
+                if (!mobileMenuBtn || !navMenu) {
+                    console.error('Could not find menu elements!');
+                    return;
+                }
+                
+                // Toggle menu function
+                function toggleMenu() {
+                    console.log('Menu toggled');
+                    navMenu.classList.toggle('active');
+                    mobileMenuBtn.classList.toggle('active');
+                    
+                    // Prevent body scroll when menu is open
+                    if (navMenu.classList.contains('active')) {
+                        document.body.style.overflow = 'hidden';
+                    } else {
+                        document.body.style.overflow = '';
+                    }
+                }
+                
+                // Add click event
+                mobileMenuBtn.addEventListener('click', toggleMenu);
+                
+                // Close menu when clicking on links
+                const navLinks = document.querySelectorAll('.nav-link');
+                navLinks.forEach(link => {
+                    link.addEventListener('click', () => {
+                        if (window.innerWidth <= 768) {
+                            navMenu.classList.remove('active');
+                            mobileMenuBtn.classList.remove('active');
+                            document.body.style.overflow = '';
+                        }
+                    });
+                });
+                
+                // Close menu when resizing above mobile breakpoint
+                window.addEventListener('resize', function() {
+                    if (window.innerWidth > 768) {
+                        navMenu.classList.remove('active');
+                        mobileMenuBtn.classList.remove('active');
+                        document.body.style.overflow = '';
+                    }
+                });
+            }
+            
+            // Run when DOM is ready
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', init);
+            } else {
+                init();
+            }
+        })();
+</script>
+
 </body>
 </html>

@@ -4,62 +4,154 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>MathSim | Documentation</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- CSS -->
+    
+    <meta name="description" content="Complete documentation for MathSim - learn how to use simulations, games, and track your progress.">
+    <meta name="keywords" content="documentation, help, guide, tutorials, math simulations">
+    <meta name="author" content="MathSim">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/upgrade.css">
     <link rel="manifest" href="manifest.json">
+    
+    <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg">
+    <link rel="apple-touch-icon" href="assets/images/icons/icon-64x64.png">
+    
+    <meta name="theme-color" content="#2563EB">
+    
     <style>
-        .docs-sidebar {
-            position: sticky;
-            top: 100px;
-            background: var(--bg-card);
-            border-radius: var(--radius-lg);
-            padding: 1.5rem;
-        }
-        .docs-sidebar ul {
-            list-style: none;
-            padding: 0;
-        }
-        .docs-sidebar li {
-            margin-bottom: 0.75rem;
-        }
-        .docs-sidebar a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            transition: color 0.2s;
-        }
-        .docs-sidebar a:hover,
-        .docs-sidebar a.active {
-            color: var(--primary);
-        }
-        .docs-content {
-            background: var(--bg-card);
-            border-radius: var(--radius-lg);
-            padding: 2rem;
-        }
-        .docs-content h2 {
-            color: var(--primary);
-            margin-top: 2rem;
-            margin-bottom: 1rem;
-        }
-        .docs-content h2:first-child {
-            margin-top: 0;
-        }
-        .docs-content pre {
-            background: var(--bg-secondary);
-            padding: 1rem;
-            border-radius: var(--radius-md);
-            overflow-x: auto;
-        }
         .docs-grid {
             display: grid;
             grid-template-columns: 280px 1fr;
             gap: 2rem;
+            margin: 2rem 0;
         }
+        
+        .docs-sidebar {
+            position: sticky;
+            top: 90px;
+            align-self: start;
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-light);
+        }
+        
+        .docs-sidebar h3 {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--primary);
+        }
+        
+        .docs-sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .docs-sidebar li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .docs-sidebar a {
+            color: var(--text-primary);
+            text-decoration: none;
+            display: block;
+            padding: 0.5rem 0.75rem;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+        
+        .docs-sidebar a:hover {
+            background: var(--bg-secondary);
+            color: var(--primary);
+            padding-left: 1rem;
+        }
+        
+        .docs-sidebar a.active {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .docs-content {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-light);
+        }
+        
+        .docs-content h1 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+        
+        .docs-content h2 {
+            font-size: 1.5rem;
+            margin: 1.5rem 0 1rem;
+            color: var(--text-primary);
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--border-light);
+        }
+        
+        .docs-content h3 {
+            font-size: 1.25rem;
+            margin: 1rem 0 0.5rem;
+            color: var(--primary);
+        }
+        
+        .docs-content p {
+            margin-bottom: 1rem;
+            line-height: 1.6;
+            color: var(--text-secondary);
+        }
+        
+        .docs-content ul, .docs-content ol {
+            margin: 1rem 0;
+            padding-left: 1.5rem;
+            color: var(--text-secondary);
+        }
+        
+        .docs-content li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .tip-box {
+            background: var(--info-light);
+            border-left: 4px solid var(--info);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 8px;
+            color: var(--text-primary);
+        }
+        
+        pre {
+            background: var(--bg-secondary);
+            padding: 1rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-size: 0.9rem;
+            margin: 1rem 0;
+            border: 1px solid var(--border-light);
+        }
+        
+        code {
+            font-family: 'Courier New', monospace;
+            color: var(--primary);
+        }
+        
         @media (max-width: 768px) {
             .docs-grid {
                 grid-template-columns: 1fr;
+            }
+            
+            .docs-sidebar {
+                position: static;
+                margin-bottom: 1rem;
             }
         }
     </style>
@@ -70,19 +162,48 @@
     <header class="header">
         <nav class="navbar">
             <div class="nav-container">
-                <a href="index.html" class="logo"> MathSim</a>
-                <ul class="nav-menu">
+                <a href="index.html" class="logo">
+                    <span class="logo-icon"></span>
+                    <span class="logo-text">Math<span>Sim</span></span>
+                </a>
+
+                <ul class="nav-menu" id="navMenu">
                     <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="nav-link dropdown-toggle">Subjects ▼</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="algebra.html">Algebra</a></li>
+                            <li><a href="geometry.html">Geometry</a></li>
+                            <li><a href="precalculus.html">Pre-Calculus</a></li>
+                            <li><a href="calculus.html">Calculus</a></li>
+                            <li><a href="probability.html">Probability</a></li>
+                        </ul>
+                    </li>
                     <li><a href="simulation.html" class="nav-link">Simulations</a></li>
                     <li><a href="game.html" class="nav-link">Games</a></li>
                     <li><a href="tutorial.html" class="nav-link">Tutorials</a></li>
+                    <li><a href="progress.html" class="nav-link">Progress</a></li>
                     <li><a href="docs.html" class="nav-link active">Docs</a></li>
                     <li><a href="about.html" class="nav-link">About</a></li>
-                    <li><a href="contact.html" class="nav-link">Contact</a></li>
+                    <li><a href="consent.html" class="nav-link" data-i18n="consent">Consent</a></li>
                 </ul>
+
                 <div class="nav-controls">
-                    <button class="theme-toggle" id="themeToggle"></button>
-                    <button class="mobile-menu-btn" id="mobileMenuBtn" title="Toggle navigation menu" aria-label="Toggle navigation menu">
+                    <div class="language-selector">
+                        <label for="lang-select" class="sr-only">Choose language</label>
+                        <select id="lang-select" aria-label="Language">
+                            <option value="en">🇬🇧 English</option>
+                            <option value="es">🇪🇸 Español</option>
+                            <option value="fr">🇫🇷 Français</option>
+                            <option value="de">🇩🇪 Deutsch</option>
+                            <option value="ar">العربية</option>
+                            <option value="zh">中文</option>
+                            <option value="hi">हिन्दी</option>
+                            <option value="pt">Português</option>
+                        </select>
+                    </div>
+                    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">🌓</button>
+                    <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle navigation menu">
                         <span class="hamburger"></span>
                     </button>
                 </div>
@@ -93,16 +214,16 @@
     <main id="main-content" class="container" style="padding: 2rem 0;">
         <div class="docs-grid">
             <aside class="docs-sidebar">
-                <h3>Documentation</h3>
+                <h3> Documentation</h3>
                 <ul>
-                    <li><a href="#introduction" class="active">Introduction</a></li>
-                    <li><a href="#getting-started">Getting Started</a></li>
-                    <li><a href="#simulations">Using Simulations</a></li>
-                    <li><a href="#games">Playing Games</a></li>
-                    <li><a href="#progress">Tracking Progress</a></li>
-                    <li><a href="#accessibility">Accessibility Features</a></li>
-                    <li><a href="#faq">FAQ</a></li>
-                    <li><a href="#api">API Reference</a></li>
+                    <li><a href="#introduction" class="active"> Introduction</a></li>
+                    <li><a href="#getting-started"> Getting Started</a></li>
+                    <li><a href="#simulations"> Using Simulations</a></li>
+                    <li><a href="#games"> Playing Games</a></li>
+                    <li><a href="#progress"> Tracking Progress</a></li>
+                    <li><a href="#accessibility"> Accessibility Features</a></li>
+                    <li><a href="#faq"> FAQ</a></li>
+                    <li><a href="#api"> API Reference</a></li>
                 </ul>
             </aside>
 
@@ -122,7 +243,8 @@
 
                 <h2 id="simulations"> Using Simulations</h2>
                 <p>Our interactive simulations allow you to explore mathematical concepts visually. Here's how to use them:</p>
-                <h3>Quadratic Function Simulator</h3>
+                
+                <h3> Quadratic Function Simulator</h3>
                 <p>The quadratic simulator lets you explore the function f(x) = ax² + bx + c:</p>
                 <ul>
                     <li><strong>a coefficient</strong> - Controls the width and direction (upward/downward) of the parabola</li>
@@ -133,7 +255,7 @@
                     <strong> Pro Tip:</strong> Try the preset buttons (U-Shape, ∩-Shape, Wide) to see common configurations.
                 </div>
 
-                <h3>Linear Function Simulator</h3>
+                <h3> Linear Function Simulator</h3>
                 <p>The linear simulator explores y = mx + b:</p>
                 <ul>
                     <li><strong>m (slope)</strong> - Controls steepness and direction</li>
@@ -172,6 +294,7 @@
                 </ul>
 
                 <h2 id="faq"> Frequently Asked Questions</h2>
+                
                 <h3>Is MathSim free?</h3>
                 <p>Yes! MathSim is completely free and open source. No subscription, no hidden fees.</p>
                 
@@ -190,22 +313,66 @@
                 <h2 id="api"> API Reference</h2>
                 <p>MathSim provides a simple JavaScript API for advanced users:</p>
                 <pre><code>// Change simulation parameters
-                    MathSim.setSimulation('quadratic', { a: 2, b: -3, c: 1 });
+MathSim.setSimulation('quadratic', { a: 2, b: -3, c: 1 });
 
-                    // Track analytics event
-                    analytics.trackEvent('custom', 'button_click', 'simulation');
+// Track analytics event
+analytics.trackEvent('custom', 'button_click', 'simulation');
 
-                    // Get current user progress
-                    const progress = analytics.getUserProgress();
+// Get current user progress
+const progress = analytics.getUserProgress();
 
-                    // Export simulation graph as image
-                    MathSim.exportGraph('png');</code></pre>
+// Export simulation graph as image
+MathSim.exportGraph('png');</code></pre>
             </div>
         </div>
     </main>
 
+    <div id="installContainer" style="display: none; text-align: center; margin: 1rem 0; padding: 1rem; background:  #f8f9fa0d; border-radius: 12px;">
+        <button class="btn btn-primary" id="installButton" style="font-size: 1.1rem; padding: 1rem 2rem;">
+             Install MathSim App
+        </button>
+        <p id="installMessage" style="font-size: 0.8rem; margin-top: 0.5rem; color: var(--text-secondary);"></p>
+    </div>
+
     <footer class="footer-modern">
         <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="logo"> MathSim</div>
+                    <p>Making mathematics intuitive, engaging, and accessible for everyone.</p>
+                    <div class="social-links">
+                        <a href="https://github.com/chandy-bit/MATHSIM-PLATFORM" target="_blank" aria-label="GitHub"> GitHub</a>
+                        <a href="#" aria-label="Discord"> Discord</a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h4>Platform</h4>
+                    <ul>
+                        <li><a href="simulation.html">Simulations</a></li>
+                        <li><a href="game.html">Games</a></li>
+                        <li><a href="tutorial.html">Tutorials</a></li>
+                        <li><a href="progress.html">Progress</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="docs.html">Documentation</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="accessibility.html">Accessibility</a></li>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Support</h4>
+                    <ul>
+                        <li><a href="faq.html">FAQ</a></li>
+                        <li><a href="feedback.html">Feedback</a></li>
+                        <li><a href="https://github.com/chandy-bit/MATHSIM-PLATFORM" target="_blank">GitHub</a></li>
+                    </ul>
+                </div>
+            </div>
             <div class="footer-bottom">
                 <p>© 2026 MathSim. All rights reserved.</p>
             </div>
@@ -213,6 +380,106 @@
     </footer>
 
     <script src="js/theme.js"></script>
+    <script src="js/language.js"></script>
+    <script src="js/accessibility.js"></script>
     <script src="js/main.js"></script>
+    <script src="js/pwa.js"></script>
+    <script src="js/upgrade.js"></script>
+
+    <script>
+        // Mobile menu initialization
+        (function() {
+            'use strict';
+            
+            function init() {
+                const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+                const navMenu = document.getElementById('navMenu');
+                
+                console.log('Mobile button found:', mobileMenuBtn);
+                console.log('Nav menu found:', navMenu);
+                console.log('Window width:', window.innerWidth);
+                
+                if (!mobileMenuBtn || !navMenu) {
+                    console.error('Could not find menu elements!');
+                    return;
+                }
+                
+                function toggleMenu() {
+                    console.log('Menu toggled');
+                    navMenu.classList.toggle('active');
+                    mobileMenuBtn.classList.toggle('active');
+                    
+                    if (navMenu.classList.contains('active')) {
+                        document.body.style.overflow = 'hidden';
+                        document.body.classList.add('menu-open');
+                    } else {
+                        document.body.style.overflow = '';
+                        document.body.classList.remove('menu-open');
+                    }
+                }
+                
+                mobileMenuBtn.addEventListener('click', toggleMenu);
+                
+                const navLinks = document.querySelectorAll('.nav-menu a');
+                navLinks.forEach(link => {
+                    link.addEventListener('click', () => {
+                        if (window.innerWidth <= 768) {
+                            navMenu.classList.remove('active');
+                            mobileMenuBtn.classList.remove('active');
+                            document.body.style.overflow = '';
+                            document.body.classList.remove('menu-open');
+                        }
+                    });
+                });
+                
+                window.addEventListener('resize', function() {
+                    if (window.innerWidth > 768) {
+                        navMenu.classList.remove('active');
+                        mobileMenuBtn.classList.remove('active');
+                        document.body.style.overflow = '';
+                        document.body.classList.remove('menu-open');
+                    }
+                });
+                
+                // Close menu when clicking outside
+                document.addEventListener('click', function(e) {
+                    if (window.innerWidth <= 768 && navMenu.classList.contains('active')) {
+                        if (!navMenu.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+                            navMenu.classList.remove('active');
+                            mobileMenuBtn.classList.remove('active');
+                            document.body.style.overflow = '';
+                            document.body.classList.remove('menu-open');
+                        }
+                    }
+                });
+            }
+            
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', init);
+            } else {
+                init();
+            }
+        })();
+        
+        // Smooth scroll for anchor links
+        document.querySelectorAll('.docs-sidebar a, .docs-content a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+                if (href && href !== '#') {
+                    const target = document.querySelector(href);
+                    if (target) {
+                        e.preventDefault();
+                        target.scrollIntoView({ behavior: 'smooth' });
+                        
+                        // Update active state in sidebar
+                        document.querySelectorAll('.docs-sidebar a').forEach(a => {
+                            a.classList.remove('active');
+                        });
+                        this.classList.add('active');
+                    }
+                }
+            });
+        });
+    </script>
 </body>
 </html>

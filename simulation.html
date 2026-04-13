@@ -149,7 +149,7 @@
                     <ul>
                         <li><a href="index.html">Home</a></li>
                         <li><a href="game.html">Games</a></li>
-                        <li><a href="tutorials.html">Tutorials</a></li>
+                        <li><a href="tutorial.html">Tutorials</a></li>
                         <li><a href="progress.html">Progress</a></li>
                     </ul>
                 </div>
@@ -193,9 +193,7 @@
         </button>
     </div>
 
-    <div id="onlineStatus" class="online-badge" style="position: fixed; bottom: 10px; left: 10px; padding: 8px 12px; border-radius: 4px; color: white; font-size: 14px; font-weight: bold; background: #4CAF50; z-index: 9999; box-shadow: 0 2px 10px rgba(0,0,0,0.2);">
-        Online
-    </div>
+
 
     <script src="js/theme.js"></script>
     <script src="js/language.js"></script>
@@ -207,5 +205,72 @@
     <script src="js/pwa.js"></script>
     <script src="js/plotter.js"></script>
     <script src="js/upgrade.js"></script>
+
+<script>
+        // Make sure DOM is loaded
+        (function() {
+            'use strict';
+            
+            // Wait for DOM to be ready
+            function init() {
+                const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+                const navMenu = document.getElementById('navMenu');
+                
+                console.log('Mobile button found:', mobileMenuBtn);
+                console.log('Nav menu found:', navMenu);
+                console.log('Window width:', window.innerWidth);
+                
+                if (!mobileMenuBtn || !navMenu) {
+                    console.error('Could not find menu elements!');
+                    return;
+                }
+                
+                // Toggle menu function
+                function toggleMenu() {
+                    console.log('Menu toggled');
+                    navMenu.classList.toggle('active');
+                    mobileMenuBtn.classList.toggle('active');
+                    
+                    // Prevent body scroll when menu is open
+                    if (navMenu.classList.contains('active')) {
+                        document.body.style.overflow = 'hidden';
+                    } else {
+                        document.body.style.overflow = '';
+                    }
+                }
+                
+                // Add click event
+                mobileMenuBtn.addEventListener('click', toggleMenu);
+                
+                // Close menu when clicking on links
+                const navLinks = document.querySelectorAll('.nav-link');
+                navLinks.forEach(link => {
+                    link.addEventListener('click', () => {
+                        if (window.innerWidth <= 768) {
+                            navMenu.classList.remove('active');
+                            mobileMenuBtn.classList.remove('active');
+                            document.body.style.overflow = '';
+                        }
+                    });
+                });
+                
+                // Close menu when resizing above mobile breakpoint
+                window.addEventListener('resize', function() {
+                    if (window.innerWidth > 768) {
+                        navMenu.classList.remove('active');
+                        mobileMenuBtn.classList.remove('active');
+                        document.body.style.overflow = '';
+                    }
+                });
+            }
+            
+            // Run when DOM is ready
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', init);
+            } else {
+                init();
+            }
+        })();
+    </script>
 </body>
 </html>

@@ -369,5 +369,80 @@
     <script src="js/main.js"></script>
     <script src="js/pwa.js"></script>
     <script src="js/upgrade.js"></script>
+<script>
+        // Mobile menu initialization
+        (function() {
+            'use strict';
+            
+            function init() {
+                const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+                const navMenu = document.getElementById('navMenu');
+                
+                console.log('Mobile button found:', mobileMenuBtn);
+                console.log('Nav menu found:', navMenu);
+                console.log('Window width:', window.innerWidth);
+                
+                if (!mobileMenuBtn || !navMenu) {
+                    console.error('Could not find menu elements!');
+                    return;
+                }
+                
+                function toggleMenu() {
+                    console.log('Menu toggled');
+                    navMenu.classList.toggle('active');
+                    mobileMenuBtn.classList.toggle('active');
+                    
+                    if (navMenu.classList.contains('active')) {
+                        document.body.style.overflow = 'hidden';
+                        document.body.classList.add('menu-open');
+                    } else {
+                        document.body.style.overflow = '';
+                        document.body.classList.remove('menu-open');
+                    }
+                }
+                
+                mobileMenuBtn.addEventListener('click', toggleMenu);
+                
+                const navLinks = document.querySelectorAll('.nav-menu a');
+                navLinks.forEach(link => {
+                    link.addEventListener('click', () => {
+                        if (window.innerWidth <= 768) {
+                            navMenu.classList.remove('active');
+                            mobileMenuBtn.classList.remove('active');
+                            document.body.style.overflow = '';
+                            document.body.classList.remove('menu-open');
+                        }
+                    });
+                });
+                
+                window.addEventListener('resize', function() {
+                    if (window.innerWidth > 768) {
+                        navMenu.classList.remove('active');
+                        mobileMenuBtn.classList.remove('active');
+                        document.body.style.overflow = '';
+                        document.body.classList.remove('menu-open');
+                    }
+                });
+                
+                // Close menu when clicking outside
+                document.addEventListener('click', function(e) {
+                    if (window.innerWidth <= 768 && navMenu.classList.contains('active')) {
+                        if (!navMenu.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+                            navMenu.classList.remove('active');
+                            mobileMenuBtn.classList.remove('active');
+                            document.body.style.overflow = '';
+                            document.body.classList.remove('menu-open');
+                        }
+                    }
+                });
+            }
+            
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', init);
+            } else {
+                init();
+            }
+        })();
+    </script>
 </body>
 </html>

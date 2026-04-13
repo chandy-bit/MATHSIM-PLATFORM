@@ -1,6 +1,43 @@
 
+console.log(' plotterter.js loaded - Browser environment detected');
 
-console.log(' plotter.js loaded - Browser environment detected');
+// ===== RESPONSIVE CANVAS FUNCTION =====
+function makeGraphResponsive(canvasId, updateCallback) {
+    const canvas = document.getElementById(canvasId);
+    if (!canvas) return;
+    
+    const container = canvas.parentElement;
+    if (!container) return;
+    
+    function resizeCanvas() {
+        const containerWidth = container.clientWidth;
+        // Maintain aspect ratio (4:3 for graphs) but respect max width
+        let newWidth = Math.min(containerWidth, 600);
+        let newHeight = newWidth * 0.75;
+        
+        // Set canvas dimensions
+        canvas.width = newWidth;
+        canvas.height = newHeight;
+        
+        // Update CSS dimensions
+        canvas.style.width = newWidth + 'px';
+        canvas.style.height = newHeight + 'px';
+        
+        console.log(` Canvas resized to ${newWidth}x${newHeight}`);
+        
+        // Redraw the graph
+        if (typeof updateCallback === 'function') {
+            updateCallback();
+        } else if (typeof update === 'function') {
+            update();
+        }
+    }
+    
+    window.addEventListener('resize', () => {
+        setTimeout(resizeCanvas, 100);
+    });
+    resizeCanvas();
+}
 
 // Get DOM elements
 const canvas = document.getElementById('graph');
@@ -26,9 +63,9 @@ console.log('Slider c found:', sliders.c ? '' : '');
 
 // If canvas is missing, stop
 if (!canvas) {
-    console.error(' Canvas element not found! Check ID "graph" in HTML');
+    console.error('❌ Canvas element not found! Check ID "graph" in HTML');
 } else {
-    console.log(' Canvas dimensions:', canvas.width, 'x', canvas.height);
+    console.log('📐 Canvas initial dimensions:', canvas.width, 'x', canvas.height);
 }
 
 function drawGrid() {
@@ -96,15 +133,18 @@ function plotFunction(a, b, c) {
     let points = 0;
     let first = true;
     
+    // Calculate scale factors based on canvas size
+    const xScale = canvas.width / 600;  // Adjust for responsive canvas
+    const yScale = canvas.height / 400;
+    
     // Plot from left to right
     for (let x = -300; x <= 300; x += 2) {
         const scaledX = x / 30;
         const y = a * scaledX * scaledX + b * scaledX + c;
         
-        const canvasX = canvas.width / 2 + x;
-        const canvasY = canvas.height / 2 - y * 30;
+        const canvasX = canvas.width / 2 + (x * xScale);
+        const canvasY = canvas.height / 2 - (y * 30 * yScale);
         
-        // Count points for debugging
         points++;
         
         // Only draw if within canvas bounds
@@ -121,7 +161,7 @@ function plotFunction(a, b, c) {
     }
     
     ctx.stroke();
-    console.log(` Plotted function with ${points} points, a=${a}, b=${b}, c=${c}`);
+    console.log(`📈 Plotted function with ${points} points, a=${a}, b=${b}, c=${c}`);
 }
 
 function updateEquation(a, b, c) {
@@ -172,7 +212,7 @@ function describeGraph(a, b, c) {
 // Main update function
 function update() {
     if (!sliders.a || !sliders.b || !sliders.c) {
-        console.error('Could not find sliders!');
+        console.error('❌ Could not find sliders!');
         return;
     }
     
@@ -195,9 +235,9 @@ if (sliders.a && sliders.b && sliders.c) {
     sliders.a.addEventListener('input', update);
     sliders.b.addEventListener('input', update);
     sliders.c.addEventListener('input', update);
-    console.log(' Event listeners added');
+    console.log('✅ Event listeners added');
 } else {
-    console.error('Could not add listeners - sliders missing');
+    console.error('❌ Could not add listeners - sliders missing');
 }
 
 // Preset buttons
@@ -241,28 +281,26 @@ if (preset3Btn) {
     });
 }
 
-// Initialize on page load
 window.addEventListener('load', function() {
-    console.log(' Page loaded, drawing initial graph...');
+    console.log(' Page loaded, initializing responsive canvas...');
+    
+    // Make graph responsive
+    makeGraphResponsive('graph', update);
+    
+    // Draw initial graph
     update();
 });
 
-// Also run when DOM is ready (in case load event already fired)
+// Also run when DOM is ready
 if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', update);
+    document.addEventListener('DOMContentLoaded', function() {
+        makeGraphResponsive('graph', update);
+        update();
+    });
 } else {
-    // DOM already loaded, run now
-    setTimeout(update, 100);
+    // DOM already loaded
+    setTimeout(function() {
+        makeGraphResponsive('graph', update);
+        update();
+    }, 100);
 }
-
-// Add a test rectangle to verify canvas works
-setTimeout(function() {
-    if (canvas && ctx) {
-        // Draw a small test dot
-        ctx.fillStyle = 'red';
-        ctx.beginPath();
-        ctx.arc(300, 200, 5, 0, 2 * Math.PI);
-        ctx.fill();
-        console.log('Test dot drawn at (300,200)');
-    }
-}, 500);

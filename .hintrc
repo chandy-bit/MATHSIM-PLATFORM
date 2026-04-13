@@ -5,14 +5,7 @@
   "hints": {
     "apple-touch-icons": "off",
     "no-inline-styles": "off",
-    "compat-api/css": [
-      "default",
-      {
-        "ignore": [
-          "backdrop-filter"
-        ]
-      }
-    ],
+    "compat-api/css": "off",
     "compat-api/html": [
       "default",
       {
