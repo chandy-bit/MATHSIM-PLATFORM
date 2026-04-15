@@ -4,7 +4,7 @@
   "description": "Interactive math simulations with accessibility features for all learners",
   "start_url": "/index.html",
   "display": "standalone",
-  "background_color": "#4CAF50",
+  "background_color": "#FFFFF",
   "theme_color": "#4CAF50",
   "orientation": "any",
   "scope": "/",
