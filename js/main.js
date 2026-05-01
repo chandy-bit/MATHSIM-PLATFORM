@@ -459,7 +459,6 @@
             });
         },
         
-        // ===== OFFLINE SUPPORT METHODS =====
         registerServiceWorker() {
             if ('serviceWorker' in navigator) {
                 window.addEventListener('load', () => {
@@ -895,7 +894,7 @@
             const toast = document.createElement('div');
             toast.className = 'error-toast';
             toast.setAttribute('role', 'alert');
-            toast.textContent = `⚠️ ${message}`;
+            toast.textContent = ` ${message}`;
             
             Object.assign(toast.style, {
                 position: 'fixed',
@@ -1044,7 +1043,7 @@
         
         function updateThemeButton(theme) {
             if (themeToggle) {
-                themeToggle.textContent = theme === 'dark' ? '' : '';
+                themeToggle.textContent = theme === 'dark' ? '☀️' : '🌓';
                 themeToggle.setAttribute('aria-label', 
                     theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
             }
