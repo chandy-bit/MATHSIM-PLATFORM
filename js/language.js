@@ -1,4 +1,3 @@
-
 const translations = {
     en: {
         // Navigation
@@ -12,6 +11,12 @@ const translations = {
         tools: "Tools",
         planner: "Study Planner",
         all_subjects: "View All",
+        consent: "Consent",
+        faq: "FAQ",
+        feedback: "Feedback",
+        about: "About",
+        contact: "Contact",
+        docs: "Documentation",
         
         // Subjects
         subject_algebra: "Algebra",
@@ -228,7 +233,6 @@ const translations = {
         planner_complete: "Complete",
         
         // Footer
-        about: "About MathSim",
         about_text: "Making math accessible and fun through interactive simulations and games.",
         quick_links: "Quick Links",
         accessibility_features: "Accessibility Features",
@@ -253,6 +257,9 @@ const translations = {
         btn_save: "Save",
         btn_delete: "Delete",
         btn_edit: "Edit",
+        btn_reset: "Reset",
+        btn_export: "Export",
+        btn_import: "Import",
         
         // Time
         time_minutes: "min",
@@ -267,11 +274,15 @@ const translations = {
         error_offline: "You are offline",
         error_try_again: "Please try again",
         error_not_found: "Page not found",
+        error_save_failed: "Failed to save",
+        error_load_failed: "Failed to load",
         
         // Success messages
         success_saved: "Progress saved",
         success_achievement: "Achievement unlocked!",
         success_level_up: "Level up!",
+        success_exported: "Data exported successfully",
+        success_imported: "Data imported successfully",
         
         // Tooltips
         tooltip_theme: "Toggle dark/light mode",
@@ -291,8 +302,14 @@ const translations = {
         progress: "Progreso",
         subjects: "Materias",
         tools: "Herramientas",
-        planner: "Planificador",
+        planner: "Planificador de Estudio",
         all_subjects: "Ver Todo",
+        consent: "Consentimiento",
+        faq: "Preguntas Frecuentes",
+        feedback: "Comentarios",
+        about: "Acerca de",
+        contact: "Contacto",
+        docs: "Documentación",
         
         // Subjects
         subject_algebra: "Álgebra",
@@ -320,57 +337,205 @@ const translations = {
         geometry_transformations: "Transformaciones",
         geometry_pythagorean: "Teorema de Pitágoras",
         
+        // Pre-Calculus topics
+        precalc_functions: "Funciones",
+        precalc_trig: "Trigonometría",
+        precalc_limits: "Límites",
+        precalc_sequences: "Sucesiones y Series",
+        precalc_vectors: "Vectores",
+        precalc_polar: "Coordenadas Polares",
+        precalc_complex: "Números Complejos",
+        
+        // Calculus topics
+        calculus_limits: "Revisión de Límites",
+        calculus_derivatives: "Derivadas",
+        calculus_integrals: "Integrales",
+        calculus_applications: "Aplicaciones",
+        calculus_differential: "Ecuaciones Diferenciales",
+        calculus_series: "Series",
+        calculus_multivariable: "Cálculo Multivariable",
+        
+        // Probability topics
+        probability_basic: "Probabilidad Básica",
+        probability_conditional: "Probabilidad Condicional",
+        probability_distributions: "Distribuciones",
+        probability_combinations: "Combinaciones y Permutaciones",
+        probability_statistics: "Estadística",
+        probability_bayes: "Teorema de Bayes",
+        probability_random: "Variables Aleatorias",
+        
+        // Games
+        game_slope: "Desafío de Pendiente",
+        game_algebra: "Desafío de Álgebra",
+        game_geometry: "Geometría Dash",
+        game_probability: "Rompecabezas de Probabilidad",
+        game_calculus: "Corredor de Cálculo",
+        game_equation: "Juego de Solución de Ecuaciones",
+        
         // Game UI
         game_score: "Puntuación",
         game_level: "Nivel",
         game_lives: "Vidas",
         game_streak: "Racha",
         game_correct: "¡Correcto!",
-        game_incorrect: "Intenta de Nuevo",
+        game_incorrect: "Inténtalo de Nuevo",
         game_hint: "Pista",
         game_next: "Siguiente Pregunta",
         game_new: "Nuevo Juego",
         game_game_over: "Juego Terminado",
         
+        // Simulations
+        simulation_title: "Trazador de Funciones Interactivo",
+        simulation_linear: "Funciones Lineales",
+        simulation_quadratic: "Funciones Cuadráticas",
+        simulation_cubic: "Funciones Cúbicas",
+        simulation_trig: "Funciones Trigonométricas",
+        simulation_exponential: "Funciones Exponenciales",
+        simulation_calculus: "Explorador de Derivadas",
+        
+        simulation_param_a: "a:",
+        simulation_param_b: "b:",
+        simulation_param_c: "c:",
+        simulation_param_m: "Pendiente (m):",
+        simulation_param_b_intercept: "Intersección (b):",
+        simulation_param_amplitude: "Amplitud:",
+        simulation_param_frequency: "Frecuencia:",
+        simulation_param_phase: "Fase:",
+        simulation_param_point: "Punto:",
+        simulation_param_delta: "Δx:",
+        
+        simulation_preset_reset: "Reiniciar",
+        simulation_preset_ushape: "Forma de U",
+        simulation_preset_nshape: "Forma de ∩",
+        simulation_preset_wide: "Ancho",
+        simulation_preset_basic: "Básico",
+        simulation_preset_shifted: "Desplazado",
+        
+        simulation_equation: "f(x) =",
+        simulation_save: "Guardar Gráfico",
+        simulation_load: "Cargar Gráfico",
+        simulation_tip: "Presiona Ctrl+G para guardar, Ctrl+C para cargar",
+        
         // Homepage
         welcome: "Aprende Matemáticas Jugando",
-        tagline: "Simulaciones interactivas y juegos que hacen las matemáticas divertidas para todos",
+        tagline: "Simulaciones interactivas y juegos que hacen las matemáticas divertidas y accesibles para todos",
         explore_simulations: "Explorar Simulaciones",
-        play_games: "Jugar Ahora",
+        play_games: "Jugar",
         how_it_works: "Cómo Funciona MathSim",
         feature_simulations_title: "Simulaciones Interactivas",
         feature_simulations_desc: "Ajusta parámetros y ve las matemáticas cobrar vida",
         feature_games_title: "Juegos Divertidos",
-        feature_games_desc: "Practica matemáticas con juegos interactivos",
+        feature_games_desc: "Practica matemáticas con juegos interactivos de dificultad adaptativa",
         feature_accessibility_title: "Accesible para Todos",
-        feature_accessibility_desc: "Múltiples idiomas y opciones personalizables",
-        feature_offline_title: "Aprende Donde Sea",
-        feature_offline_desc: "Funciona sin internet",
+        feature_accessibility_desc: "Múltiples idiomas, soporte para lectores de pantalla y opciones personalizables",
+        feature_offline_title: "Aprende en Cualquier Lugar",
+        feature_offline_desc: "¡Funciona sin conexión! Descarga y aprende sin internet",
         try_it_now: "Pruébalo Ahora",
-        graph_plotter: "Graficador de Funciones",
-        quick_game: "Juego Rápido",
+        graph_plotter: "Trazador de Funciones",
+        quick_game: "Juego Rápido de Matemáticas",
         open_simulator: "Abrir Simulador",
-        play_now: "Jugar",
+        play_now: "Jugar Ahora",
         accessibility_ready: "Listo para Accesibilidad",
-        accessibility_text: "Soporte para lectores de pantalla y múltiples idiomas",
+        accessibility_text: "Este sitio es compatible con lectores de pantalla, navegación por teclado y múltiples idiomas.",
         customize: "Personalizar Configuración",
         
         // Dashboard
         dashboard_welcome: "Bienvenido de nuevo",
         dashboard_learner: "Aprendiz de Matemáticas",
         dashboard_resume: "Continuar Aprendiendo",
+        dashboard_last: "Tu última actividad",
         dashboard_continue: "Continuar",
         dashboard_daily: "Meta de Hoy",
         dashboard_quick: "Acceso Rápido",
         dashboard_recent: "Actividad Reciente",
+        dashboard_recommended: "Recomendado para Ti",
         dashboard_progress: "Tu Progreso",
+        dashboard_achievements: "Logros",
+        dashboard_streak: "Racha Actual",
         
-        // Progress
+        // Progress page
         progress_title: "Tu Progreso de Aprendizaje",
+        progress_tutorials: "Tutoriales Vistos",
+        progress_games: "Juegos Jugados",
         progress_accuracy: "Precisión",
         progress_best: "Mejor Puntuación",
         progress_time: "Tiempo de Estudio",
+        progress_correct: "Respuestas Correctas",
+        progress_weekly: "Actividad Semanal",
+        progress_skills: "Evaluación de Habilidades",
+        progress_timeline: "Línea de Tiempo de Aprendizaje",
         progress_reset: "Reiniciar Progreso",
+        progress_export: "Exportar Datos",
+        
+        // Achievements
+        achievement_first: "Primeros Pasos",
+        achievement_first_desc: "Mira tu primer tutorial",
+        achievement_scholar: "Estudioso",
+        achievement_scholar_desc: "Mira 10 tutoriales",
+        achievement_player: "Jugador",
+        achievement_player_desc: "Juega tu primer juego",
+        achievement_master: "Maestro de Matemáticas",
+        achievement_master_desc: "Obtén 100 respuestas correctas",
+        achievement_precision: "Precisión",
+        achievement_precision_desc: "Alcanza 90% de precisión",
+        achievement_champion: "Campeón",
+        achievement_champion_desc: "Puntúa 100 puntos",
+        achievement_dedicated: "Dedicado",
+        achievement_dedicated_desc: "Estudia por 1 hora",
+        achievement_streak: "Maestro de la Racha",
+        achievement_streak_desc: "Racha de 7 días",
+        
+        // Tutorials
+        tutorials_title: "Tutoriales y Ejemplos",
+        tutorials_all: "Todos",
+        tutorials_basics: "Básicos",
+        tutorials_intermediate: "Intermedio",
+        tutorials_advanced: "Avanzado",
+        tutorials_watch: "Ver Tutorial",
+        tutorials_guide: "Leer Guía",
+        tutorials_points: "Puntos Clave",
+        
+        // Accessibility page
+        accessibility_title: "Configuración de Accesibilidad",
+        accessibility_visual: "Configuración Visual",
+        accessibility_audio: "Configuración de Audio",
+        accessibility_language: "Idioma y Regional",
+        accessibility_learning: "Apoyo al Aprendizaje",
+        accessibility_keyboard: "Teclado y Navegación",
+        accessibility_color: "Color y Tema",
+        
+        accessibility_high_contrast: "Modo de Alto Contraste",
+        accessibility_large_text: "Modo de Texto Grande",
+        accessibility_reduced_motion: "Movimiento Reducido",
+        accessibility_dyslexic: "Fuente Amigable para Disléxicos",
+        accessibility_screen_reader: "Optimizado para Lectores de Pantalla",
+        accessibility_sound: "Efectos de Sonido",
+        accessibility_verbal: "Instrucciones Verbales",
+        
+        accessibility_save: "Guardar Configuración",
+        accessibility_reset: "Restablecer a Valores Predeterminados",
+        accessibility_test: "Probar Configuración",
+        
+        // Planner
+        planner_title: "Planificador de Estudio",
+        planner_goals: "Metas de Aprendizaje",
+        planner_schedule: "Horario Semanal",
+        planner_reminders: "Recordatorios de Estudio",
+        planner_add_goal: "Agregar Meta",
+        planner_set_reminder: "Establecer Recordatorio",
+        planner_complete: "Completar",
+        
+        // Footer
+        about_text: "Haciendo las matemáticas accesibles y divertidas a través de simulaciones y juegos interactivos.",
+        quick_links: "Enlaces Rápidos",
+        accessibility_features: "Características de Accesibilidad",
+        rights: "Todos los derechos reservados.",
+        works_offline: "Funciona sin conexión",
+        learn_more: "Aprende más →",
+        footer_install: "Instalar como aplicación para uso sin conexión",
+        footer_privacy: "Política de Privacidad",
+        footer_terms: "Términos de Uso",
+        footer_contact: "Contáctenos",
         
         // Buttons
         btn_start: "Comenzar",
@@ -378,30 +543,50 @@ const translations = {
         btn_play: "Jugar",
         btn_learn: "Aprender",
         btn_continue: "Continuar",
-        btn_save: "Guardar",
+        btn_back: "Atrás",
+        btn_next: "Siguiente",
+        btn_submit: "Enviar",
         btn_cancel: "Cancelar",
-        
-        // Footer
-        about: "Acerca de MathSim",
-        about_text: "Haciendo las matemáticas accesibles para todos",
-        quick_links: "Enlaces Rápidos",
-        accessibility_features: "Características de Accesibilidad",
-        rights: "Todos los derechos reservados",
-        works_offline: "Funciona sin internet",
-        learn_more: "Saber más →",
-        footer_install: "Instalar como app para uso sin conexión",
+        btn_save: "Guardar",
+        btn_delete: "Eliminar",
+        btn_edit: "Editar",
+        btn_reset: "Reiniciar",
+        btn_export: "Exportar",
+        btn_import: "Importar",
         
         // Time
+        time_minutes: "min",
+        time_hours: "horas",
+        time_days: "días",
         time_today: "Hoy",
         time_yesterday: "Ayer",
+        time_ago: "atrás",
         
         // Errors
+        error_loading: "Error al cargar contenido",
         error_offline: "Estás sin conexión",
-        error_try_again: "Por favor intenta de nuevo"
+        error_try_again: "Por favor intenta de nuevo",
+        error_not_found: "Página no encontrada",
+        error_save_failed: "Error al guardar",
+        error_load_failed: "Error al cargar",
+        
+        // Success messages
+        success_saved: "Progreso guardado",
+        success_achievement: "¡Logro desbloqueado!",
+        success_level_up: "¡Subiste de nivel!",
+        success_exported: "Datos exportados exitosamente",
+        success_imported: "Datos importados exitosamente",
+        
+        // Tooltips
+        tooltip_theme: "Cambiar modo oscuro/claro",
+        tooltip_language: "Cambiar idioma",
+        tooltip_menu: "Abrir menú",
+        tooltip_install: "Instalar aplicación",
+        tooltip_fullscreen: "Pantalla completa"
     },
 
     fr: {
-        // Navigation
+        // Navigation (Core only for French)
         home: "Accueil",
         simulations: "Simulations",
         games: "Jeux",
@@ -417,34 +602,45 @@ const translations = {
         subject_probability: "Probabilité",
         
         // Homepage
-        welcome: "Apprenez les Mathématiques en Jouant",
-        tagline: "Des simulations et jeux interactifs qui rendent les mathématiques amusantes et accessibles pour tous",
+        welcome: "Apprenez les Maths en Jouant",
+        tagline: "Des simulations interactives et des jeux qui rendent les mathématiques amusantes et accessibles à tous",
         explore_simulations: "Explorer les Simulations",
         play_games: "Jouer",
+        
+        // Feature cards
         feature_simulations_title: "Simulations Interactives",
-        feature_games_title: "Jeux Mathématiques Amusants",
-        feature_accessibility_title: "Accessible pour Tous",
-        feature_offline_title: "Apprenez N'importe Où",
-        try_it_now: "Essayez Maintenant",
+        feature_games_title: "Jeux Mathématiques",
+        feature_accessibility_title: "Accessible à Tous",
+        feature_offline_title: "Apprenez Partout",
         
         // Game UI
         game_score: "Score",
         game_level: "Niveau",
         game_correct: "Correct!",
         game_incorrect: "Essaie encore",
+        game_hint: "Indice",
+        game_new: "Nouvelle Partie",
         
         // Buttons
         btn_start: "Commencer",
         btn_play: "Jouer",
         btn_save: "Sauvegarder",
+        btn_cancel: "Annuler",
         
         // Footer
         rights: "Tous droits réservés",
-        works_offline: "Fonctionne hors ligne"
+        works_offline: "Fonctionne hors ligne",
+        learn_more: "En savoir plus →",
+        
+        // Time
+        time_today: "Aujourd'hui",
+        
+        // Errors
+        error_offline: "Vous êtes hors ligne"
     },
 
     de: {
-        // Navigation
+        // Navigation (Core only for German)
         home: "Startseite",
         simulations: "Simulationen",
         games: "Spiele",
@@ -461,33 +657,44 @@ const translations = {
         
         // Homepage
         welcome: "Lerne Mathe durch Spielen",
-        tagline: "Interaktive Simulationen und Spiele, die Mathe für alle zugänglich und spaßig machen",
+        tagline: "Interaktive Simulationen und Spiele, die Mathematik für alle zugänglich und unterhaltsam machen",
         explore_simulations: "Simulationen Erkunden",
-        play_games: "Spiele Jetzt",
+        play_games: "Spielen",
+        
+        // Feature cards
         feature_simulations_title: "Interaktive Simulationen",
-        feature_games_title: "Spaßige Mathe-Spiele",
-        feature_accessibility_title: "Für Alle Zugänglich",
-        feature_offline_title: "Lerne Überall",
-        try_it_now: "Jetzt Ausprobieren",
+        feature_games_title: "Mathe-Spiele",
+        feature_accessibility_title: "Zugänglich für Alle",
+        feature_offline_title: "Überall Lernen",
         
         // Game UI
         game_score: "Punktzahl",
         game_level: "Level",
         game_correct: "Richtig!",
-        game_incorrect: "Versuche es noch einmal",
+        game_incorrect: "Nochmal versuchen",
+        game_hint: "Hinweis",
+        game_new: "Neues Spiel",
         
         // Buttons
         btn_start: "Starten",
         btn_play: "Spielen",
         btn_save: "Speichern",
+        btn_cancel: "Abbrechen",
         
         // Footer
         rights: "Alle Rechte vorbehalten",
-        works_offline: "Funktioniert offline"
+        works_offline: "Funktioniert offline",
+        learn_more: "Mehr erfahren →",
+        
+        // Time
+        time_today: "Heute",
+        
+        // Errors
+        error_offline: "Sie sind offline"
     },
 
     ar: {
-        // Navigation
+        // Navigation (RTL support)
         home: "الرئيسية",
         simulations: "المحاكيات",
         games: "الألعاب",
@@ -499,7 +706,7 @@ const translations = {
         // Subjects
         subject_algebra: "الجبر",
         subject_geometry: "الهندسة",
-        subject_calculus: "التفاضل",
+        subject_calculus: "التفاضل والتكامل",
         subject_probability: "الاحتمالات",
         
         // Homepage
@@ -507,21 +714,23 @@ const translations = {
         tagline: "محاكيات وألعاب تفاعلية تجعل الرياضيات ممتعة ومتاحة للجميع",
         explore_simulations: "استكشاف المحاكيات",
         play_games: "العب الآن",
-        try_it_now: "جربه الآن",
         
         // Game UI
         game_score: "النقاط",
         game_level: "المستوى",
         game_correct: "صحيح!",
         game_incorrect: "حاول مرة أخرى",
+        game_hint: "تلميح",
+        game_new: "لعبة جديدة",
         
         // Buttons
         btn_start: "ابدأ",
         btn_play: "العب",
+        btn_save: "حفظ",
         
         // Footer
         rights: "جميع الحقوق محفوظة",
-        works_offline: "يعمل بدون اتصال بالإنترنت"
+        works_offline: "يعمل بدون إنترنت"
     },
 
     zh: {
@@ -545,7 +754,6 @@ const translations = {
         tagline: "互动模拟和游戏，让数学变得有趣且易于访问",
         explore_simulations: "探索模拟",
         play_games: "玩游戏",
-        try_it_now: "立即试用",
         
         // Game UI
         game_score: "得分",
@@ -583,7 +791,6 @@ const translations = {
         tagline: "इंटरैक्टिव सिमुलेशन और गेम जो गणित को सभी के लिए मजेदार बनाते हैं",
         explore_simulations: "सिमुलेशन एक्सप्लोर करें",
         play_games: "खेलें",
-        try_it_now: "अभी कोशिश करें",
         
         // Game UI
         game_score: "स्कोर",
@@ -617,11 +824,10 @@ const translations = {
         subject_probability: "Probabilidade",
         
         // Homepage
-        welcome: "Aprenda matemática jogando",
-        tagline: "Simulações interativas e jogos que tornam a matemática divertida e acessível",
-        explore_simulations: "Explorar simulações",
+        welcome: "Aprenda Matemática Jogando",
+        tagline: "Simulações interativas e jogos que tornam a matemática divertida e acessível para todos",
+        explore_simulations: "Explorar Simulações",
         play_games: "Jogar",
-        try_it_now: "Experimente agora",
         
         // Game UI
         game_score: "Pontuação",
@@ -643,15 +849,25 @@ const translations = {
 // Set active language
 function changeLanguage(lang) {
     if (!translations[lang]) {
-        console.warn(`Language ${lang} not found, falling back to English`);
+        console.warn(` Language ${lang} not found, falling back to English`);
         lang = 'en';
     }
     
+    // Save to localStorage (both keys for compatibility)
     localStorage.setItem('mathsim-language', lang);
-    localStorage.setItem('preferred-language', lang); // For backward compatibility
+    localStorage.setItem('preferred-language', lang);
     
     // Update HTML lang attribute
     document.documentElement.lang = lang;
+    
+    // Update RTL direction for Arabic
+    if (lang === 'ar') {
+        document.documentElement.dir = 'rtl';
+        document.body.classList.add('rtl');
+    } else {
+        document.documentElement.dir = 'ltr';
+        document.body.classList.remove('rtl');
+    }
     
     // Update all elements with data-i18n attribute
     document.querySelectorAll('[data-i18n]').forEach(element => {
@@ -659,7 +875,6 @@ function changeLanguage(lang) {
         if (translations[lang] && translations[lang][key]) {
             element.textContent = translations[lang][key];
         } else if (translations.en[key]) {
-            // Fallback to English
             element.textContent = translations.en[key];
         }
     });
@@ -695,12 +910,18 @@ function changeLanguage(lang) {
         }
     }
     
+    // Update language selector if it exists
+    const langSelect = document.getElementById('languageSelect') || document.getElementById('lang-select');
+    if (langSelect && langSelect.value !== lang) {
+        langSelect.value = lang;
+    }
+    
     // Dispatch event for other components
     window.dispatchEvent(new CustomEvent('languageChanged', { 
         detail: { language: lang } 
     }));
     
-    console.log(`Language changed to: ${lang}`);
+    console.log(` Language changed to: ${lang} (${translations[lang]?.home || 'Translation loaded'})`);
 }
 
 // Get translated text by key
@@ -709,18 +930,55 @@ function t(key, lang = null) {
     return translations[currentLang]?.[key] || translations.en[key] || key;
 }
 
-// Initialize language on page load
+// Get current language
+function getCurrentLanguage() {
+    return localStorage.getItem('mathsim-language') || 'en';
+}
+
+// Get all available languages
+function getAvailableLanguages() {
+    return Object.keys(translations).map(code => ({
+        code: code,
+        name: getLanguageName(code)
+    }));
+}
+
+// Get language name in native form
+function getLanguageName(code) {
+    const names = {
+        en: 'English',
+        es: 'Español',
+        fr: 'Français',
+        de: 'Deutsch',
+        ar: 'العربية',
+        zh: '中文',
+        hi: 'हिन्दी',
+        pt: 'Português'
+    };
+    return names[code] || code;
+}
+
 document.addEventListener('DOMContentLoaded', () => {
-    // Check both localStorage keys for compatibility
+    // Check both localStorage keys for compatibility with older versions
     const savedLang = localStorage.getItem('mathsim-language') || 
                       localStorage.getItem('preferred-language') || 
                       'en';
     
     // Update language selector if it exists
-    const langSelect = document.getElementById('languageSelect') || 
-                       document.getElementById('lang-select');
+    const langSelect = document.getElementById('languageSelect') || document.getElementById('lang-select');
     
     if (langSelect) {
+        // Populate options if empty
+        if (langSelect.options.length <= 1) {
+            const languages = getAvailableLanguages();
+            languages.forEach(lang => {
+                const option = document.createElement('option');
+                option.value = lang.code;
+                option.textContent = lang.name;
+                langSelect.appendChild(option);
+            });
+        }
+        
         langSelect.value = savedLang;
         langSelect.addEventListener('change', (e) => changeLanguage(e.target.value));
     }
@@ -729,9 +987,10 @@ document.addEventListener('DOMContentLoaded', () => {
     changeLanguage(savedLang);
 });
 
-// Make functions globally available
 window.changeLanguage = changeLanguage;
 window.t = t;
+window.getCurrentLanguage = getCurrentLanguage;
+window.getAvailableLanguages = getAvailableLanguages;
 
-// For backward compatibility
+// For backward compatibility with older code
 window.setLanguage = changeLanguage;
