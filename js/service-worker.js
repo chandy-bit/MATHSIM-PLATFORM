@@ -3,7 +3,7 @@
 const CACHE_NAME = 'mathsim-v3';
 const OFFLINE_URL = '/offline.html';
 
-// Assets to cache immediately on install - CORRECTED PATHS
+// Assets to cache immediately on install
 const PRECACHE_ASSETS = [
   '/',
   '/index.html',
@@ -54,7 +54,6 @@ const PRECACHE_ASSETS = [
   '/js/algebra-topics.js'
 ];
 
-// Install event - cache core assets
 self.addEventListener('install', event => {
   console.log('Service Worker: Installing version', CACHE_NAME);
   
@@ -74,7 +73,6 @@ self.addEventListener('install', event => {
   );
 });
 
-// Activate event - clean up old caches
 self.addEventListener('activate', event => {
   console.log('Service Worker: Activating...');
   
@@ -95,12 +93,12 @@ self.addEventListener('activate', event => {
   );
 });
 
-// Fetch event - network first for HTML, cache first for assets
+
 self.addEventListener('fetch', event => {
   const request = event.request;
   const url = new URL(request.url);
   
-  // Skip non-GET requests and cross-origin requests
+  // Skip non-GET requests
   if (request.method !== 'GET') {
     return;
   }
@@ -110,7 +108,7 @@ self.addEventListener('fetch', event => {
     return;
   }
   
-  // Skip analytics and tracking
+  // Skip analytics and tracking requests
   if (url.pathname.includes('analytics') || url.pathname.includes('gtag')) {
     return;
   }
@@ -129,7 +127,7 @@ self.addEventListener('fetch', event => {
           return response;
         })
         .catch(async () => {
-          // Try cache
+          // Try to get from cache
           const cachedResponse = await caches.match(request);
           if (cachedResponse) {
             console.log('Service Worker: Serving from cache', request.url);
@@ -168,7 +166,7 @@ self.addEventListener('fetch', event => {
           return networkResponse;
         }).catch(() => {
           // Return placeholder for images
-          if (request.url.match(/\.(jpg|jpeg|png|gif|svg)$/i)) {
+          if (request.url.match(/\.(jpg|jpeg|png|gif|svg|webp)$/i)) {
             return new Response(
               '<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="#ccc"/><text x="50" y="55" text-anchor="middle" fill="#666" font-size="14">Image</text></svg>',
               { headers: { 'Content-Type': 'image/svg+xml' } }
@@ -180,21 +178,70 @@ self.addEventListener('fetch', event => {
   );
 });
 
-// Handle messages from clients
+
 self.addEventListener('message', event => {
   if (event.data && event.data.type === 'SKIP_WAITING') {
     self.skipWaiting();
   }
+  
+  if (event.data && event.data.type === 'GET_VERSION') {
+    event.ports[0].postMessage({ 
+      version: '3.0.0', 
+      cacheName: CACHE_NAME 
+    });
+  }
 });
 
-// Push notifications (optional)
+
+self.addEventListener('sync', event => {
+  console.log('Service Worker: Background sync', event.tag);
+  
+  if (event.tag === 'sync-game-progress') {
+    event.waitUntil(syncGameProgress());
+  }
+});
+
+async function syncGameProgress() {
+  try {
+    const cache = await caches.open(CACHE_NAME);
+    const requests = await cache.keys();
+    
+    for (const request of requests) {
+      if (request.url.includes('/api/progress')) {
+        const response = await cache.match(request);
+        if (response) {
+          const data = await response.json();
+          // Attempt to send to server
+          await fetch('/api/progress', {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: { 'Content-Type': 'application/json' }
+          });
+          // Remove from cache after successful sync
+          await cache.delete(request);
+        }
+      }
+    }
+    
+    console.log('Service Worker: Game progress synced');
+  } catch (error) {
+    console.log('Service Worker: Sync failed', error);
+  }
+}
+
 self.addEventListener('push', event => {
   const options = {
-    body: event.data ? event.data.text() : 'New update available!',
+    body: event.data ? event.data.text() : 'New update available',
     icon: '/assets/icons/icon-192x192.png',
     badge: '/assets/icons/icon-72x72.png',
     vibrate: [200, 100, 200],
-    data: { url: '/' }
+    data: {
+      url: '/'
+    },
+    actions: [
+      { action: 'explore', title: 'Explore Now' },
+      { action: 'close', title: 'Close' }
+    ]
   };
   
   event.waitUntil(
@@ -202,10 +249,48 @@ self.addEventListener('push', event => {
   );
 });
 
-// Notification click
+
 self.addEventListener('notificationclick', event => {
   event.notification.close();
+  
+  if (event.action === 'explore') {
+    event.waitUntil(
+      clients.openWindow('/')
+    );
+  }
+  
   event.waitUntil(
-    clients.openWindow(event.notification.data.url || '/')
+    clients.matchAll({ type: 'window', includeUncontrolled: true })
+      .then(windowClients => {
+        if (windowClients.length > 0) {
+          windowClients[0].focus();
+        } else {
+          clients.openWindow('/');
+        }
+      })
   );
 });
+
+self.addEventListener('periodicsync', event => {
+  console.log('Service Worker: Periodic sync', event.tag);
+  
+  if (event.tag === 'update-cache') {
+    event.waitUntil(updateCache());
+  }
+});
+
+async function updateCache() {
+  try {
+    const cache = await caches.open(CACHE_NAME);
+    const offlineResponse = await cache.match(OFFLINE_URL);
+    
+    // Fetch fresh offline page
+    const freshResponse = await fetch(OFFLINE_URL);
+    if (freshResponse && freshResponse.status === 200) {
+      await cache.put(OFFLINE_URL, freshResponse.clone());
+      console.log('Service Worker: Offline page updated');
+    }
+  } catch (error) {
+    console.log('Service Worker: Cache update failed', error);
+  }
+}

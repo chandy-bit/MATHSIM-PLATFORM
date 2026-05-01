@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    // PERFORMANCE MONITORING
+
     class PerformanceMonitor {
         constructor() {
             this.metrics = {};
@@ -17,7 +17,7 @@
             if (this.metrics[name]) {
                 const duration = performance.now() - this.metrics[name];
                 if (MathSim.config?.debug) {
-                    console.log(`⏱️ ${name}: ${duration.toFixed(2)}ms`);
+                    console.log(` ${name}: ${duration.toFixed(2)}ms`);
                 }
                 return duration;
             }
@@ -27,7 +27,7 @@
         pageLoadTime() {
             const loadTime = performance.now() - this.startTime;
             if (MathSim.config?.debug) {
-                console.log(`📊 Page Load Time: ${loadTime.toFixed(2)}ms`);
+                console.log(` Page Load Time: ${loadTime.toFixed(2)}ms`);
             }
             return loadTime;
         }
@@ -35,12 +35,12 @@
         logMetric(name, value) {
             this.metrics[name] = value;
             if (MathSim.config?.debug) {
-                console.log(`📈 Metric: ${name} = ${value}`);
+                console.log(` Metric: ${name} = ${value}`);
             }
         }
     }
 
-    // SAFE STORAGE WRAPPER
+  
     const Storage = {
         set(key, value) {
             try {
@@ -83,7 +83,7 @@
         }
     };
 
-    // MOBILE MENU HANDLER
+
     const MobileMenu = {
         init() {
             this.mobileMenuBtn = document.getElementById('mobileMenuBtn');
@@ -95,17 +95,15 @@
             this.setupDropdowns();
             this.setupResizeHandler();
             
-            if (MathSim.config?.debug) console.log('📱 Mobile menu initialized');
+            if (MathSim.config?.debug) console.log(' Mobile menu initialized');
         },
         
         setupEventListeners() {
-            // Toggle menu
             this.mobileMenuBtn.addEventListener('click', (e) => {
                 e.stopPropagation();
                 this.toggleMenu();
             });
             
-            // Close menu when clicking on links
             const navLinks = document.querySelectorAll('.nav-menu a');
             navLinks.forEach(link => {
                 link.addEventListener('click', () => {
@@ -113,7 +111,6 @@
                 });
             });
             
-            // Close menu when clicking outside
             document.addEventListener('click', (e) => {
                 if (window.innerWidth <= 768 && this.navMenu.classList.contains('active')) {
                     if (!this.navMenu.contains(e.target) && !this.mobileMenuBtn.contains(e.target)) {
@@ -143,7 +140,6 @@
             window.addEventListener('resize', () => {
                 if (window.innerWidth > 768) {
                     this.closeMenu();
-                    // Close all dropdowns
                     document.querySelectorAll('.dropdown').forEach(dropdown => {
                         dropdown.classList.remove('active');
                     });
@@ -166,7 +162,7 @@
         }
     };
 
-    // HERO CANVAS ANIMATION
+  
     const HeroCanvas = {
         init() {
             this.canvas = document.getElementById('heroCanvas');
@@ -182,7 +178,7 @@
             this.setupResize();
             this.startAnimation();
             
-            if (MathSim.config?.debug) console.log('🎨 Hero canvas initialized');
+            if (MathSim.config?.debug) console.log(' Hero canvas initialized');
         },
         
         setupResize() {
@@ -208,7 +204,6 @@
             
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             
-            // Draw grid
             const step = canvas.width / 10;
             ctx.strokeStyle = '#334155';
             ctx.lineWidth = 0.5;
@@ -225,7 +220,6 @@
                 ctx.stroke();
             }
             
-            // Draw axes
             ctx.strokeStyle = '#94A3B8';
             ctx.lineWidth = 2;
             ctx.beginPath();
@@ -237,7 +231,6 @@
             ctx.lineTo(canvas.width/2, canvas.height);
             ctx.stroke();
             
-            // Draw parabola
             ctx.strokeStyle = '#2563EB';
             ctx.lineWidth = 3;
             ctx.beginPath();
@@ -283,7 +276,7 @@
         }
     };
 
-    // STATS COUNTER ANIMATION
+
     const StatsCounter = {
         init() {
             this.statItems = document.querySelectorAll('.stat-item');
@@ -300,7 +293,7 @@
             
             this.statItems.forEach(item => this.observer.observe(item));
             
-            if (MathSim.config?.debug) console.log('📊 Stats counter initialized');
+            if (MathSim.config?.debug) console.log(' Stats counter initialized');
         },
         
         animateCounter(element) {
@@ -328,7 +321,7 @@
         }
     };
 
-    // SMOOTH SCROLL
+  
     const SmoothScroll = {
         init() {
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -348,9 +341,9 @@
         }
     };
 
-    // MATH SIM CORE APPLICATION
+    
     const MathSim = {
-        version: '2.0.0',
+        version: '3.0.0',
         
         config: {
             defaultLanguage: 'en',
@@ -372,47 +365,33 @@
             this.perfMonitor.markStart('init');
             
             if (this.config.debug) {
-                console.log(`🚀 MathSim v${this.version} initializing...`);
+                console.log(` MathSim v${this.version} initializing...`);
             }
             
-            // Load saved preferences
             this.loadUserPreferences();
-            
-            // Initialize systems
             this.initLanguage();
             this.initAccessibility();
             this.setupEventListeners();
-            
-            // Initialize UI components
             this.initUIComponents();
-            
-            // Initialize page-specific features
             this.initPageFeatures();
-            
-            // Check browser support
             this.checkBrowserSupport();
             
-            // Track page view
+            this.registerServiceWorker();
+            this.checkOfflineCache();
+            this.setupOfflineDetection();
+            
             this.trackPageView();
             
             this.perfMonitor.markEnd('init');
             this.perfMonitor.pageLoadTime();
             
-            // Dispatch ready event
             document.dispatchEvent(new CustomEvent('mathsim-ready'));
         },
         
         initUIComponents() {
-            // Initialize mobile menu
             MobileMenu.init();
-            
-            // Initialize hero canvas
             HeroCanvas.init();
-            
-            // Initialize stats counter
             StatsCounter.init();
-            
-            // Initialize smooth scroll
             SmoothScroll.init();
         },
         
@@ -448,7 +427,6 @@
                 }
             }
             
-            // Apply CSS classes
             document.body.classList.toggle('high-contrast', this.config.accessibility.highContrast);
             document.body.classList.toggle('large-text', this.config.accessibility.largeText);
             document.body.classList.toggle('reduced-motion', this.config.accessibility.reducedMotion);
@@ -469,14 +447,163 @@
             });
             
             window.addEventListener('online', () => {
-                if (this.config.debug) console.log('📶 App is online');
+                if (this.config.debug) console.log(' App is online');
                 document.body.classList.remove('offline');
+                this.showNotification(' You are back online!', 'success');
             });
             
             window.addEventListener('offline', () => {
-                if (this.config.debug) console.log('📴 App is offline');
+                if (this.config.debug) console.log(' App is offline');
                 document.body.classList.add('offline');
+                this.showNotification(' You are offline. Using cached content.', 'warning');
             });
+        },
+        
+        // ===== OFFLINE SUPPORT METHODS =====
+        registerServiceWorker() {
+            if ('serviceWorker' in navigator) {
+                window.addEventListener('load', () => {
+                    navigator.serviceWorker.register('/service-worker.js')
+                        .then(registration => {
+                            console.log(' Service Worker registered successfully:', registration.scope);
+                            
+                            registration.addEventListener('updatefound', () => {
+                                const newWorker = registration.installing;
+                                console.log(' Service Worker update found');
+                                
+                                newWorker.addEventListener('statechange', () => {
+                                    if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                                        console.log(' New version available! Refresh to update.');
+                                        this.showUpdateNotification();
+                                    }
+                                });
+                            });
+                        })
+                        .catch(error => {
+                            console.error(' Service Worker registration failed:', error);
+                            ErrorHandler.log(error, 'Service Worker Registration');
+                        });
+                });
+            } else {
+                console.log(' Service Worker not supported in this browser');
+                if (this.config.debug) {
+                    console.warn('Service workers are not supported. Offline functionality will not work.');
+                }
+            }
+        },
+        
+        checkOfflineCache() {
+            if ('caches' in window) {
+                caches.keys().then(keys => {
+                    console.log(' Available caches:', keys);
+                    if (keys.includes('mathsim-v3')) {
+                        console.log(' Offline cache is ready');
+                        if (this.config.debug) {
+                            caches.open('mathsim-v3').then(cache => {
+                                cache.keys().then(requests => {
+                                    console.log(` Cache contains ${requests.length} items`);
+                                });
+                            });
+                        }
+                    } else {
+                        console.log(' Offline cache not found. Visit the site online first.');
+                    }
+                });
+            }
+        },
+        
+        setupOfflineDetection() {
+            // Check if we're already offline
+            if (!navigator.onLine) {
+                document.body.classList.add('offline');
+                this.showNotification(' You are offline. Using cached content.', 'warning');
+            }
+            
+            // Update status badge if exists
+            const statusElement = document.getElementById('onlineStatus');
+            if (statusElement) {
+                const updateStatus = () => {
+                    if (navigator.onLine) {
+                        statusElement.textContent = ' Online';
+                        statusElement.style.background = '#4CAF50';
+                    } else {
+                        statusElement.textContent = ' Offline';
+                        statusElement.style.background = '#f44336';
+                    }
+                };
+                updateStatus();
+                window.addEventListener('online', updateStatus);
+                window.addEventListener('offline', updateStatus);
+            }
+        },
+        
+        showNotification(message, type = 'info') {
+            // Don't show if reduced motion is enabled
+            if (this.config.accessibility?.reducedMotion) return;
+            
+            const notification = document.createElement('div');
+            notification.className = `notification notification-${type}`;
+            notification.textContent = message;
+            notification.style.cssText = `
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                padding: 12px 20px;
+                background: ${type === 'success' ? '#4CAF50' : type === 'warning' ? '#ff9800' : '#2196F3'};
+                color: white;
+                border-radius: 8px;
+                z-index: 10000;
+                animation: slideIn 0.3s ease;
+                box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            `;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                if (notification.parentNode) {
+                    notification.style.animation = 'slideOut 0.3s ease';
+                    setTimeout(() => notification.remove(), 300);
+                }
+            }, 3000);
+        },
+        
+        showUpdateNotification() {
+            const updateBar = document.createElement('div');
+            updateBar.className = 'update-bar';
+            updateBar.style.cssText = `
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                background: #2196F3;
+                color: white;
+                text-align: center;
+                padding: 12px;
+                z-index: 10001;
+                cursor: pointer;
+                animation: slideUp 0.3s ease;
+            `;
+            updateBar.innerHTML = `
+                 New version available! 
+                <button style="margin-left: 10px; padding: 5px 15px; background: white; color: #2196F3; border: none; border-radius: 4px; cursor: pointer;">
+                    Update Now
+                </button>
+            `;
+            
+            updateBar.querySelector('button').addEventListener('click', () => {
+                if (navigator.serviceWorker && navigator.serviceWorker.controller) {
+                    navigator.serviceWorker.controller.postMessage({ type: 'SKIP_WAITING' });
+                    window.location.reload();
+                }
+            });
+            
+            document.body.appendChild(updateBar);
+            
+            setTimeout(() => {
+                if (updateBar.parentNode) {
+                    updateBar.style.animation = 'slideDown 0.3s ease';
+                    setTimeout(() => updateBar.remove(), 300);
+                }
+            }, 10000);
         },
         
         updateUILanguage(lang) {
@@ -485,7 +612,7 @@
                 document.documentElement.lang = lang;
                 document.dispatchEvent(new CustomEvent('ui-language-updated', { detail: { language: lang } }));
                 this.saveUserPreferences();
-                if (this.config.debug) console.log(`🌐 Language set to: ${lang}`);
+                if (this.config.debug) console.log(` Language set to: ${lang}`);
             }
         },
         
@@ -502,7 +629,7 @@
             }));
             
             this.saveUserPreferences();
-            if (this.config.debug) console.log('♿ Accessibility settings updated');
+            if (this.config.debug) console.log(' Accessibility settings updated');
         },
         
         saveUserPreferences() {
@@ -536,7 +663,7 @@
             if (typeof window[moduleName] !== 'undefined' && window[moduleName].init) {
                 try {
                     window[moduleName].init(this.config);
-                    if (this.config.debug) console.log(`✅ Loaded module: ${moduleName}`);
+                    if (this.config.debug) console.log(` Loaded module: ${moduleName}`);
                 } catch (error) {
                     ErrorHandler.log(error, `Loading ${moduleName} module`);
                 }
@@ -560,7 +687,7 @@
                 warning.className = 'browser-warning';
                 warning.setAttribute('role', 'alert');
                 warning.innerHTML = `
-                    <p>⚠️ Your browser doesn't support all MathSim features.</p>
+                    <p> Your browser doesn't support all MathSim features.</p>
                     <p>Missing: ${missingFeatures.join(', ')}</p>
                     <p>Please update your browser for the best experience.</p>
                 `;
@@ -576,14 +703,14 @@
             if (this.config.analyticsEnabled && typeof enhancedAnalytics !== 'undefined') {
                 enhancedAnalytics.trackPageView(page);
             }
-            if (this.config.debug) console.log(`📊 Page View: ${page}`);
+            if (this.config.debug) console.log(` Page View: ${page}`);
         },
         
         trackEvent(category, action, label = null, value = null) {
             if (this.config.analyticsEnabled && typeof enhancedAnalytics !== 'undefined') {
                 enhancedAnalytics.trackEvent(category, action, label, value);
             }
-            if (this.config.debug) console.log(`📊 Event: ${category} - ${action} - ${label}`);
+            if (this.config.debug) console.log(` Event: ${category} - ${action} - ${label}`);
         },
         
         getVersion() {
@@ -591,7 +718,7 @@
         }
     };
 
-    // APP STATE MANAGEMENT
+ 
     const AppState = {
         user: {
             preferences: {},
@@ -708,11 +835,11 @@
             this.user.gameScores = [];
             this.user.achievements = [];
             this.saveToStorage();
-            if (MathSim.config.debug) console.log('🔄 Progress reset');
+            if (MathSim.config.debug) console.log(' Progress reset');
         }
     };
 
-    // ERROR HANDLER
+   
     const ErrorHandler = {
         errors: [],
         maxErrors: 50,
@@ -816,7 +943,7 @@
         }
     };
 
-    // ADD ANIMATION STYLES
+ 
     const animationStyles = document.createElement('style');
     animationStyles.textContent = `
         @keyframes slideIn {
@@ -827,6 +954,16 @@
         @keyframes slideOut {
             from { transform: translateX(0); opacity: 1; }
             to { transform: translateX(100%); opacity: 0; }
+        }
+        
+        @keyframes slideUp {
+            from { transform: translateY(100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        @keyframes slideDown {
+            from { transform: translateY(0); opacity: 1; }
+            to { transform: translateY(100%); opacity: 0; }
         }
         
         @keyframes fadeIn {
@@ -865,10 +1002,33 @@
         body.menu-open {
             overflow: hidden;
         }
+        
+        body.offline {
+            opacity: 0.95;
+        }
+        
+        body.offline .game-controls,
+        body.offline .answer-btn {
+            opacity: 0.7;
+            pointer-events: none;
+        }
+        
+        .online-badge {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            z-index: 9999;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            transition: background 0.3s ease;
+        }
     `;
     document.head.appendChild(animationStyles);
 
-    // GLOBAL ERROR HANDLERS
+   
     window.addEventListener('error', function(e) {
         ErrorHandler.log(e.error || e.message, 'Global Error', 'error');
     });
@@ -877,14 +1037,14 @@
         ErrorHandler.log(e.reason, 'Unhandled Promise Rejection', 'error');
     });
 
-    // THEME TOGGLE FUNCTIONALITY
+   
     function initThemeToggle() {
         const themeToggle = document.getElementById('themeToggle');
         const htmlElement = document.documentElement;
         
         function updateThemeButton(theme) {
             if (themeToggle) {
-                themeToggle.textContent = theme === 'dark' ? '☀️' : '🌓';
+                themeToggle.textContent = theme === 'dark' ? '' : '';
                 themeToggle.setAttribute('aria-label', 
                     theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
             }
@@ -894,7 +1054,7 @@
             htmlElement.setAttribute('data-theme', theme);
             Storage.set('mathsim-theme', theme);
             updateThemeButton(theme);
-            if (MathSim.config?.debug) console.log(`🎨 Theme set to: ${theme}`);
+            if (MathSim.config?.debug) console.log(` Theme set to: ${theme}`);
         }
         
         const savedTheme = Storage.get('mathsim-theme');
@@ -917,7 +1077,7 @@
         });
     }
 
-    // EXPOSE GLOBALLY
+  
     window.MathSim = MathSim;
     window.AppState = AppState;
     window.ErrorHandler = ErrorHandler;
@@ -926,8 +1086,8 @@
     window.MobileMenu = MobileMenu;
     window.HeroCanvas = HeroCanvas;
     window.StatsCounter = StatsCounter;
+
     
-    // INITIALIZE
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', () => {
             initThemeToggle();
