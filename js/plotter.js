@@ -1,13 +1,24 @@
 
-console.log(' plotterter.js loaded - Browser environment detected');
+console.log(' plotter.js loaded - Browser environment detected');
 
-// ===== RESPONSIVE CANVAS FUNCTION =====
+let updateTimeout;
+function throttledUpdate() {
+    clearTimeout(updateTimeout);
+    updateTimeout = setTimeout(() => update(), 16); // ~60fps for smooth performance
+}
+
 function makeGraphResponsive(canvasId, updateCallback) {
     const canvas = document.getElementById(canvasId);
-    if (!canvas) return;
+    if (!canvas) {
+        console.error(` Canvas with id "${canvasId}" not found`);
+        return;
+    }
     
     const container = canvas.parentElement;
-    if (!container) return;
+    if (!container) {
+        console.error(` Container for canvas "${canvasId}" not found`);
+        return;
+    }
     
     function resizeCanvas() {
         const containerWidth = container.clientWidth;
@@ -33,13 +44,15 @@ function makeGraphResponsive(canvasId, updateCallback) {
         }
     }
     
+    // Use requestAnimationFrame for smoother resize
+    let resizeTimer;
     window.addEventListener('resize', () => {
-        setTimeout(resizeCanvas, 100);
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(resizeCanvas, 150);
     });
     resizeCanvas();
 }
 
-// Get DOM elements
 const canvas = document.getElementById('graph');
 const ctx = canvas ? canvas.getContext('2d') : null;
 
@@ -55,7 +68,7 @@ const labels = {
     c: document.getElementById('c-value')
 };
 
-// Verify elements
+// ===== VERIFY ELEMENTS =====
 console.log('Canvas found:', canvas ? '' : '');
 console.log('Slider a found:', sliders.a ? '' : '');
 console.log('Slider b found:', sliders.b ? '' : '');
@@ -63,9 +76,9 @@ console.log('Slider c found:', sliders.c ? '' : '');
 
 // If canvas is missing, stop
 if (!canvas) {
-    console.error('❌ Canvas element not found! Check ID "graph" in HTML');
+    console.error(' Canvas element not found! Check ID "graph" in HTML');
 } else {
-    console.log('📐 Canvas initial dimensions:', canvas.width, 'x', canvas.height);
+    console.log(' Canvas initial dimensions:', canvas.width, 'x', canvas.height);
 }
 
 function drawGrid() {
@@ -77,8 +90,12 @@ function drawGrid() {
     ctx.strokeStyle = '#e0e0e0';
     ctx.lineWidth = 0.5;
     
+    // Calculate grid spacing based on canvas size
+    const gridSpacingX = canvas.width / 20;
+    const gridSpacingY = canvas.height / 20;
+    
     // Vertical grid lines
-    for (let x = 0; x <= canvas.width; x += 30) {
+    for (let x = gridSpacingX; x < canvas.width; x += gridSpacingX) {
         ctx.beginPath();
         ctx.moveTo(x, 0);
         ctx.lineTo(x, canvas.height);
@@ -86,7 +103,7 @@ function drawGrid() {
     }
     
     // Horizontal grid lines
-    for (let y = 0; y <= canvas.height; y += 30) {
+    for (let y = gridSpacingY; y < canvas.height; y += gridSpacingY) {
         ctx.beginPath();
         ctx.moveTo(0, y);
         ctx.lineTo(canvas.width, y);
@@ -116,8 +133,8 @@ function drawAxes() {
     // Axis labels
     ctx.fillStyle = '#666';
     ctx.font = '12px Arial';
-    ctx.fillText('x', canvas.width - 20, canvas.height/2 - 10);
-    ctx.fillText('y', canvas.width/2 + 10, 20);
+    ctx.fillText('x', canvas.width - 20, canvas.height / 2 - 10);
+    ctx.fillText('y', canvas.width / 2 + 10, 20);
 }
 
 function plotFunction(a, b, c) {
@@ -134,7 +151,7 @@ function plotFunction(a, b, c) {
     let first = true;
     
     // Calculate scale factors based on canvas size
-    const xScale = canvas.width / 600;  // Adjust for responsive canvas
+    const xScale = canvas.width / 600;
     const yScale = canvas.height / 400;
     
     // Plot from left to right
@@ -161,7 +178,7 @@ function plotFunction(a, b, c) {
     }
     
     ctx.stroke();
-    console.log(`📈 Plotted function with ${points} points, a=${a}, b=${b}, c=${c}`);
+    console.log(` Plotted function with ${points} points, a=${a.toFixed(2)}, b=${b.toFixed(2)}, c=${c.toFixed(2)}`);
 }
 
 function updateEquation(a, b, c) {
@@ -200,19 +217,38 @@ function describeGraph(a, b, c) {
     if (!descEl) return;
     
     let description = 'Quadratic function: ';
-    description += 'a = ' + a + ', b = ' + b + ', c = ' + c + '. ';
+    description += 'a = ' + a.toFixed(2) + ', b = ' + b.toFixed(2) + ', c = ' + c.toFixed(2) + '. ';
     
     if (a > 0) description += 'Opens upward. ';
     else if (a < 0) description += 'Opens downward. ';
     else description += 'Linear function (a=0). ';
     
+    // Calculate vertex
+    if (a !== 0) {
+        const vertexX = -b / (2 * a);
+        const vertexY = a * vertexX * vertexX + b * vertexX + c;
+        description += `Vertex at (${vertexX.toFixed(2)}, ${vertexY.toFixed(2)}). `;
+    }
+    
+    // Calculate discriminant
+    const discriminant = b * b - 4 * a * c;
+    if (discriminant > 0) {
+        const root1 = (-b + Math.sqrt(discriminant)) / (2 * a);
+        const root2 = (-b - Math.sqrt(discriminant)) / (2 * a);
+        description += `Roots at x = ${root1.toFixed(2)} and x = ${root2.toFixed(2)}.`;
+    } else if (discriminant === 0) {
+        const root = -b / (2 * a);
+        description += `One root at x = ${root.toFixed(2)}.`;
+    } else {
+        description += 'No real roots.';
+    }
+    
     descEl.textContent = description;
 }
 
-// Main update function
 function update() {
     if (!sliders.a || !sliders.b || !sliders.c) {
-        console.error('❌ Could not find sliders!');
+        console.error(' Could not find sliders!');
         return;
     }
     
@@ -221,26 +257,25 @@ function update() {
     const c = parseFloat(sliders.c.value) || 0;
     
     // Update labels
-    if (labels.a) labels.a.textContent = a.toFixed(1);
-    if (labels.b) labels.b.textContent = b;
-    if (labels.c) labels.c.textContent = c;
+    if (labels.a) labels.a.textContent = a.toFixed(2);
+    if (labels.b) labels.b.textContent = b.toFixed(2);
+    if (labels.c) labels.c.textContent = c.toFixed(2);
     
     updateEquation(a, b, c);
     describeGraph(a, b, c);
     plotFunction(a, b, c);
 }
 
-// Add event listeners
 if (sliders.a && sliders.b && sliders.c) {
-    sliders.a.addEventListener('input', update);
-    sliders.b.addEventListener('input', update);
-    sliders.c.addEventListener('input', update);
-    console.log('✅ Event listeners added');
+    sliders.a.addEventListener('input', throttledUpdate);
+    sliders.b.addEventListener('input', throttledUpdate);
+    sliders.c.addEventListener('input', throttledUpdate);
+    console.log(' Event listeners added (throttled for performance)');
 } else {
-    console.error('❌ Could not add listeners - sliders missing');
+    console.error(' Could not add listeners - sliders missing');
 }
 
-// Preset buttons
+
 const resetBtn = document.getElementById('reset');
 if (resetBtn) {
     resetBtn.addEventListener('click', () => {
@@ -281,26 +316,133 @@ if (preset3Btn) {
     });
 }
 
+// ===== KEYBOARD SHORTCUTS =====
+document.addEventListener('keydown', (e) => {
+    // Ctrl+S to save graph state
+    if (e.ctrlKey && e.key === 's') {
+        e.preventDefault();
+        if (!navigator.onLine) {
+            alert(' You are offline. Graph will be saved when you reconnect.');
+            localStorage.setItem('pending-graph-save', JSON.stringify({
+                a: sliders.a.value,
+                b: sliders.b.value,
+                c: sliders.c.value,
+                timestamp: Date.now()
+            }));
+            return;
+        }
+        
+        const state = {
+            a: sliders.a.value,
+            b: sliders.b.value,
+            c: sliders.c.value
+        };
+        localStorage.setItem('mathsim-last-graph', JSON.stringify(state));
+        
+        // Visual feedback
+        const saveMsg = document.createElement('div');
+        saveMsg.textContent = '✓ Graph saved';
+        saveMsg.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            z-index: 10000;
+            animation: fadeOut 2s forwards;
+        `;
+        document.body.appendChild(saveMsg);
+        setTimeout(() => saveMsg.remove(), 2000);
+    }
+    
+    // Ctrl+L to load graph state
+    if (e.ctrlKey && e.key === 'l') {
+        e.preventDefault();
+        const saved = localStorage.getItem('mathsim-last-graph');
+        if (saved) {
+            const state = JSON.parse(saved);
+            sliders.a.value = state.a;
+            sliders.b.value = state.b;
+            sliders.c.value = state.c;
+            update();
+            
+            const loadMsg = document.createElement('div');
+            loadMsg.textContent = ' Graph loaded';
+            loadMsg.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: #2196F3;
+                color: white;
+                padding: 10px 20px;
+                border-radius: 8px;
+                z-index: 10000;
+                animation: fadeOut 2s forwards;
+            `;
+            document.body.appendChild(loadMsg);
+            setTimeout(() => loadMsg.remove(), 2000);
+        } else {
+            alert('No saved graph found. Use Ctrl+S to save first.');
+        }
+    }
+});
+
+window.addEventListener('online', () => {
+    const pendingSave = localStorage.getItem('pending-graph-save');
+    if (pendingSave) {
+        const state = JSON.parse(pendingSave);
+        sliders.a.value = state.a;
+        sliders.b.value = state.b;
+        sliders.c.value = state.c;
+        update();
+        localStorage.removeItem('pending-graph-save');
+        
+        const syncMsg = document.createElement('div');
+        syncMsg.textContent = '✓ Offline graph changes synced!';
+        syncMsg.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            z-index: 10000;
+            animation: fadeOut 3s forwards;
+        `;
+        document.body.appendChild(syncMsg);
+        setTimeout(() => syncMsg.remove(), 3000);
+    }
+});
+
 window.addEventListener('load', function() {
-    console.log(' Page loaded, initializing responsive canvas...');
-    
-    // Make graph responsive
+    console.log('Page loaded, initialising responsive canvas...');
     makeGraphResponsive('graph', update);
-    
-    // Draw initial graph
     update();
 });
 
-// Also run when DOM is ready
+// Fallback for DOMContentLoaded
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', function() {
+        console.log('DOM ready, ensuring canvas is responsive...');
         makeGraphResponsive('graph', update);
         update();
     });
 } else {
-    // DOM already loaded
     setTimeout(function() {
         makeGraphResponsive('graph', update);
         update();
     }, 100);
 }
+
+const animationStyle = document.createElement('style');
+animationStyle.textContent = `
+    @keyframes fadeOut {
+        0% { opacity: 1; transform: translateX(0); }
+        70% { opacity: 1; transform: translateX(0); }
+        100% { opacity: 0; transform: translateX(20px); }
+    }
+`;
+document.head.appendChild(animationStyle);
