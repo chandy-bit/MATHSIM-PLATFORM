@@ -2,4 +2,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://YOURUSERNAME.github.io/mathsim/sitemap.xml
+Sitemap: https://chandy-bit.github.io/MATHSIM-PLATFORM/sitemap.xml
