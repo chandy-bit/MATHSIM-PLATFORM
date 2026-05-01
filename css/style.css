@@ -3102,8 +3102,8 @@ body.offline {
 }
 
 body.offline .game-controls {
-    display: none;
-}
+    opacity: 0.6;
+    pointer-events: none;
 
 body.offline .offline-message,
 body.offline .offline-notice {
@@ -3117,6 +3117,19 @@ body.offline .offline-notice {
     border-radius: var(--radius-md);
     margin-bottom: var(--spacing-md);
     display: none;
+}
+
+.offline-warning {
+    position: fixed;
+    top: 70px;
+    left: 0;
+    right: 0;
+    background: var(--error);
+    color: white;
+    text-align: center;
+    padding: 8px;
+    z-index: 1000;
+    font-size: 14px;
 }
 
 .online-badge {
